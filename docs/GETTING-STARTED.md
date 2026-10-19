@@ -43,7 +43,8 @@ The installer copies the toolkit in and generates each tool's config. It never o
    | Supabase or Prisma backend | add `supabase` or `prisma` |
 
    `docs/SKILLS-CATALOG.md` lists every skill and its cautions. The `core` profile installs Superpowers for every tool at once, so you don't need the per-tool Superpowers plugin; don't add a second workflow pack.
-4. **Commit everything**, including generated files:
+4. **For apps with a UI, add a `DESIGN.md`** in the project root; every tool follows it. Start from a template in [awesome-design-md](https://github.com/VoltAgent/awesome-design-md) or [designmd.app](https://designmd.app/) and replace the brand's colors, type and voice with your own. For Tailwind projects, add `@shadcn/lint` in Phase 1 so agents get design-system errors in lint and CI (see the toolkit's `docs/SKILLS-CATALOG.md`, "Design resources and guardrails").
+5. **Commit everything**, including generated files:
    ```bash
    git add -A
    git commit -m "Add engineering toolkit"

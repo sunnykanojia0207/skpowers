@@ -89,6 +89,21 @@ class SyncToolkitTests(unittest.TestCase):
         codex = tomllib.loads((self.root / ".codex/config.toml").read_text(encoding="utf-8"))
         self.assertEqual(codex["mcp_servers"]["mobile-mcp"]["env"][name], value)
 
+    def test_every_configured_server_renders_for_every_tool(self) -> None:
+        def enable_all(config: dict) -> None:
+            for server in config["mcpServers"].values():
+                if "YOUR_" not in json.dumps(server):
+                    server["enabled"] = True
+        self.edit_config(enable_all)
+        self.assertEqual(run(self.sync, cwd=self.root).returncode, 0)
+        expected = {n for n, s in json.loads((self.root / "toolkit.config.json").read_text(encoding="utf-8"))["mcpServers"].items() if s["enabled"]}
+        codex = tomllib.loads((self.root / ".codex/config.toml").read_text(encoding="utf-8"))
+        self.assertEqual(set(codex["mcp_servers"]), expected)
+        for rel, key in [(".mcp.json", "mcpServers"), (".cursor/mcp.json", "mcpServers"), ("opencode.json", "mcp"),
+                         (".gemini/settings.json", "mcpServers"), (".agents/mcp_config.json", "mcpServers")]:
+            self.assertEqual(set(self.read_json(rel)[key]), expected, rel)
+        self.assertEqual(codex["mcp_servers"]["21st"]["env_vars"], ["API_KEY_21ST"])
+
     def test_keeps_user_servers_and_settings_and_removes_disabled(self) -> None:
         (self.root / "opencode.json").write_text(json.dumps({
             "model": "my-model",

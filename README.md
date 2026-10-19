@@ -1,10 +1,10 @@
 # Universal Vibe-Coding Engineering Toolkit
 
-**One engineering setup for every AI coding tool.** Rules, 60+ vetted skills and 18 MCP servers that behave the same in **Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Antigravity and GitHub Copilot**. You edit three sources; a script generates each tool's own configuration.
+**One engineering setup for every AI coding tool.** Rules, 80 vetted skills and 19 MCP servers that behave the same in **Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Antigravity and GitHub Copilot**. You edit three sources; a script generates each tool's own configuration.
 
 - **Superpowers workflow built in:** brainstorm → plan → test-first → debug → review → verify, on by default for every tool.
 - **80 vetted skills in 16 profiles:** web, UI polish and animation, React Native/Expo, native iOS and Android, Postgres, Supabase, Prisma, API, DevOps, security, testing, AI apps. Each is pinned to an upstream commit, licensed and reviewed by hand.
-- **18 MCP servers, written in each tool's own format:** documentation, browser, GitHub, databases, errors, issues and observability. Free ones are marked, and anything that can write is off by default.
+- **19 MCP servers, written in each tool's own format:** documentation, browser, GitHub, databases, errors, issues and observability. Free ones are marked, and anything that can write is off by default.
 - **Safety by default:** human approval for production, no secrets in config, read-only MCP modes, and CI that checks generated files stay in sync.
 
 **New here? Start with [docs/GETTING-STARTED.md](docs/GETTING-STARTED.md):** build a full-stack app step by step, with copy-paste prompts for every phase.
@@ -84,6 +84,7 @@ On by default: **Context7** (library docs) and **Playwright** (browser), both fr
 | `chrome-devtools` | Free, needs Chrome | Local browser only |
 | `next-devtools` | Free, Next.js 16+ (telemetry disabled) | No |
 | `shadcn` | Free | Adds component files |
+| `21st` | Free key; retrieval and generation paid | Returns component code |
 | `git` | Free, needs `uv` | Can commit and switch branches |
 | `mobile-mcp` | Free, needs Xcode/ADB (telemetry disabled) | Drives devices |
 | `semgrep` | Free CLI | No |

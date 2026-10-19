@@ -4,6 +4,9 @@
 
 ### Added
 - `ui-polish` profile with 15 MIT skills from Emil Kowalski (`emilkowalski/skills`): animation craft, performance and reviews, Apple-style interaction, worst-case data testing, mobile-web polish; `animate-expo` added to `react-native`, `write-swift` to `ios`, `ask-sonner` available individually.
+- `21st` MCP server (off by default) via the pinned `@21st-dev/magic` proxy with `API_KEY_21ST`.
+- "Design resources and guardrails" in `docs/SKILLS-CATALOG.md`: awesome-design-md and designmd.app templates, `@shadcn/lint`, Beautiful UI; `DESIGN.md` step in the getting-started guide.
+- Reviewed and not vendored: `find-skills` (global `-y` installs), Beautiful UI (no official skill), Claude Code Templates (aggregator writing hooks/settings).
 
 ## 0.2.0
 

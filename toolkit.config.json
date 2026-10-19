@@ -96,6 +96,14 @@
       "command": "npx",
       "args": ["-y", "shadcn@4.22.1", "mcp"]
     },
+    "21st": {
+      "description": "21st.dev component catalog and UI generation. Needs a free API key in API_KEY_21ST; search is free, component retrieval and generation are paid; prompts are sent to 21st.dev.",
+      "enabled": false,
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "@21st-dev/magic@0.2.3"],
+      "envPassthrough": ["API_KEY_21ST"]
+    },
     "git": {
       "description": "Free: read, search and modify the local Git repository (can commit and switch branches). Needs uv.",
       "enabled": false,

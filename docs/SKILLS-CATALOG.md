@@ -63,6 +63,7 @@ From the manual review. None of these instruct an agent to bypass the user, hide
 | Trail of Bits skills | CC-BY-SA-4.0 (share-alike) and packaged as plugins. | `/plugin marketplace add trailofbits/skills` (Claude Code), `codex plugin marketplace add trailofbits/skills` |
 | Taste Skill, UI/UX Pro Max | Design-style skills overlap `frontend-design`; pick one per project. | See [TOOLKIT-GUIDE.md](TOOLKIT-GUIDE.md) §3.4 |
 | `apple-design` (dickwu) | No license; bundles Apple's guideline text. | Install for personal use only |
+| `find-skills` (`vercel-labs/skills`) | Its final step installs skills globally with `npx skills add … -g -y` (no confirmation prompt, every project affected) and ranks candidates by install count, which reposted copies inflate. The toolkit's `marketplace-skill-review` skill and `vendor_skills.py` cover discovery with review. | Use the CLI directly: `npx skills find <query>`, then review and add to `skills-library/library.json` |
 | Beautiful UI ([beautifului.dev](https://www.beautifului.dev/)) | A copy-paste component library (MIT) for AI-native interfaces: streaming text, thinking states, approval cards, tool traces, diff tables. Not a skill; the only GitHub skills and registries for it are unofficial ports with 2–21 stars. | When building chat or agent UIs, copy components from the site and record them in `DESIGN.md` |
 | mattpocock/skills (`tdd`, `diagnosing-bugs`, `code-review`, `grill-with-docs`) | Very popular, but a competing workflow to `core`; running both produces conflicting instructions. | Use instead of `core`, not alongside it |
 | Reposted Superpowers copies (`101-skills/superpowers`, `magentosh/superpowers`, `qu-skills/superpowers`, `skills-shell/superpowers`) | Copies of the original with inflated install counts. | Use `obra/superpowers` |
@@ -70,6 +71,18 @@ From the manual review. None of these instruct an agent to bypass the user, hide
 | `android-cli`, `play-policy-insights` (android/skills) | Pipe a remote installer to the shell and install other skills; ship a scraper. | — |
 | Claude Code Templates ([aitmpl.com](https://www.aitmpl.com/), `davila7/claude-code-templates`) | MIT and active, but an aggregator: ~900 skills largely collected from other repositories, plus ~590 hook and settings files; its `npx claude-code-templates` installer writes agents, hooks and settings into Claude Code only. | Browse it for ideas; install a skill from its original repository instead, and read any hook before adding it by hand |
 | gstack, everything-claude-code, ruflo, moai-adk | All-in-one packs with self-update, binaries or overlapping methodologies. | — |
+
+## Design resources and guardrails
+
+Not skills, but they work with the `AGENTS.md` rule that every tool follows a root `DESIGN.md`.
+
+| Resource | What it gives you | How to use it safely |
+|---|---|---|
+| [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) (MIT) | 85 `DESIGN.md` files analysing well-known brands' design systems | Use one as a structural starting point, then replace colors, type and voice with your own. Shipping a UI that imitates a real brand risks trademark and trade-dress problems. |
+| [designmd.app](https://designmd.app/) | Library of DESIGN.md templates in Google's format | Same: adapt, don't clone. No license is named. |
+| [shadcn-ui/lint](https://github.com/shadcn-ui/lint) (`@shadcn/lint`, MIT) | ESLint/Oxlint rules for Tailwind v4 design systems (React, Svelte, Vue). Errors tell the agent the allowed fix, e.g. "use a Button size, not padding". | Add it as a pinned dev dependency during Phase 1 and run it in CI. Read its `SETUP.md` yourself instead of telling an agent to fetch and follow it from `main`. |
+| [Beautiful UI](https://www.beautifului.dev/) (MIT) | Copy-paste components for AI chat/agent interfaces | Copy components directly; record them in `DESIGN.md`. |
+| 21st MCP (`21st` in `toolkit.config.json`, off) | Search 21st.dev's React/Tailwind component catalog; paid retrieval and generation | Enable with a key in `API_KEY_21ST`. Generated components are third-party code: review before committing. |
 
 ## Updating
 
