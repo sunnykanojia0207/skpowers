@@ -26,19 +26,23 @@ The installer copies the toolkit in and generates each tool's config. It never o
 
 1. **Choose tools and MCP servers** in `toolkit.config.json`:
    - Keep only the tools you use in `tools`.
-   - Set `"enabled": true` on the servers you need. Context7 (library docs) and Playwright (browser testing) are on by default. Supabase, GitHub, Linear, Grafana, Sentry, Chrome DevTools, Mobile MCP and Semgrep are ready but off.
+   - Set `"enabled": true` on the servers you need. Context7 (library docs) and Playwright (browser testing) are on by default. Free extras (DeepWiki, Microsoft Learn, AWS Knowledge, Cloudflare docs, Exa search, Next.js devtools, shadcn, Git, Chrome DevTools, Mobile MCP, Semgrep) and account-based ones (GitHub, Supabase, Linear, Grafana, Sentry) are ready but off.
    - Then generate the configs:
      ```bash
      python scripts/sync_toolkit.py
      ```
 2. **Write the brief** in `docs/PROJECT_BRIEF.md`: product, users, platforms (web, iOS, Android, API, admin), the three most important user journeys, budget, deadline and data sensitivity. This is the most important input: agents build what the brief says.
-3. **Install skills** (choose *project* scope when asked, then run `python scripts/sync_toolkit.py` again):
-   - **One workflow pack**, installed in each tool you use. For example, Superpowers in Claude Code: `/plugin install superpowers@claude-plugins-official`; in Gemini CLI: `gemini extensions install https://github.com/obra/superpowers`. Do not install two workflow packs.
-   - **Stack skills** for what this app needs only. The toolkit repository's `docs/MARKETPLACE-DECISION-SUMMARY.md` lists the best reviewed skill per need (iOS, Android, React Native, Playwright, security, API, Postgres, Docker, LLM evals, performance and accessibility). Example:
-     ```bash
-     npx skills add vercel-labs/agent-skills --skill react-best-practices
-     ```
-   - Read each new skill's `SKILL.md` before using it.
+3. **Choose skill profiles** in `toolkit.config.json` under `skillProfiles`, then run `python scripts/sync_toolkit.py`. The vetted skills are already in `skills-library/`; nothing is downloaded. `core` (the Superpowers workflow) and `docs` are on by default. Add only what this app needs:
+
+   | App | Profiles |
+   |---|---|
+   | Next.js / React SaaS or dashboard | `core docs web testing postgres api security devops` |
+   | Expo / React Native app | `core docs react-native testing api` |
+   | Native iOS / Android | `core docs ios` / `core docs android` |
+   | Any app with LLM features | add `ai-apps` |
+   | Supabase or Prisma backend | add `supabase` or `prisma` |
+
+   `docs/SKILLS-CATALOG.md` lists every skill and its cautions. The `core` profile installs Superpowers for every tool at once, so you don't need the per-tool Superpowers plugin; don't add a second workflow pack.
 4. **Commit everything**, including generated files:
    ```bash
    git add -A

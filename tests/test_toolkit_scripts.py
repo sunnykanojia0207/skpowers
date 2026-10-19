@@ -14,7 +14,7 @@ import unittest
 from pathlib import Path
 
 TOOLKIT = Path(__file__).resolve().parents[1]
-COPY = ["AGENTS.md", "CLAUDE.md", "GEMINI.md", "toolkit.config.json", ".agents/skills", "scripts",
+COPY = ["AGENTS.md", "CLAUDE.md", "GEMINI.md", "toolkit.config.json", ".agents/skills", "scripts", "skills-library",
         "docs/GETTING-STARTED.md", "docs/PROJECT_BRIEF.md", "docs/QUALITY-GATES.md", ".github/workflows/ci-node.example.yml"]
 
 
@@ -30,7 +30,10 @@ class SyncToolkitTests(unittest.TestCase):
             src, dst = TOOLKIT / rel, self.root / rel
             dst.parent.mkdir(parents=True, exist_ok=True)
             if src.is_dir():
-                shutil.copytree(src, dst, ignore=shutil.ignore_patterns("__pycache__"))
+                # Generated library copies in .agents/skills are left out so each test starts from sources.
+                shutil.copytree(src, dst, ignore=lambda d, names: [
+                    n for n in names if n == "__pycache__" or (Path(d, n) / ".toolkit-generated").exists()
+                ])
             else:
                 shutil.copy2(src, dst)
         self.sync = self.root / "scripts" / "sync_toolkit.py"
@@ -132,6 +135,52 @@ class SyncToolkitTests(unittest.TestCase):
         self.edit_config(lambda c: c.update(tools=["codex"]))
         self.assertEqual(run(self.sync, cwd=self.root).returncode, 0)
         self.assertEqual(list((self.root / ".claude/skills").iterdir()), [])
+
+    def test_profiles_install_library_skills_for_every_tool(self) -> None:
+        self.edit_config(lambda c: c.update(skillProfiles=["core", "ios"], skills=["mcp-builder"]))
+        self.assertEqual(run(self.sync, cwd=self.root).returncode, 0)
+        for name in ("systematic-debugging", "swiftui-pro", "mcp-builder"):
+            self.assertTrue((self.root / ".agents/skills" / name / "SKILL.md").is_file(), name)
+            self.assertTrue((self.root / ".claude/skills" / name / "SKILL.md").is_file(), name)
+        self.assertFalse((self.root / ".agents/skills/security-review").exists())  # profile not enabled
+        self.assertTrue((self.root / ".agents/skills/production-engineering").is_dir())  # own skill kept
+
+    def test_disabling_a_profile_removes_only_generated_skills(self) -> None:
+        self.edit_config(lambda c: c.update(skillProfiles=["ios"]))
+        run(self.sync, cwd=self.root)
+        self.edit_config(lambda c: c.update(skillProfiles=[]))
+        self.assertEqual(run(self.sync, cwd=self.root).returncode, 0)
+        self.assertFalse((self.root / ".agents/skills/swiftui-pro").exists())
+        self.assertFalse((self.root / ".claude/skills/swiftui-pro").exists())
+        self.assertTrue((self.root / ".agents/skills/production-engineering/SKILL.md").is_file())
+
+    def test_rejects_unknown_profile_and_skill(self) -> None:
+        self.edit_config(lambda c: c.update(skillProfiles=["nope"]))
+        result = run(self.sync, cwd=self.root)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("unknown skill profile", result.stderr)
+        self.edit_config(lambda c: c.update(skillProfiles=[], skills=["nope"]))
+        self.assertIn("not in skills-library", run(self.sync, cwd=self.root).stderr)
+
+    def test_library_skill_never_overwrites_a_hand_written_skill(self) -> None:
+        own = self.root / ".agents/skills/swiftui-pro"
+        own.mkdir(parents=True)
+        (own / "SKILL.md").write_text("mine", encoding="utf-8")
+        self.edit_config(lambda c: c.update(skillProfiles=["ios"]))
+        self.assertEqual(run(self.sync, cwd=self.root).returncode, 2)
+        self.assertEqual((own / "SKILL.md").read_text(encoding="utf-8"), "mine")
+
+    def test_every_library_skill_is_vendored_with_license(self) -> None:
+        catalog = json.loads((self.root / "skills-library/library.json").read_text(encoding="utf-8"))
+        notices = (self.root / "skills-library/THIRD_PARTY_NOTICES.md").read_text(encoding="utf-8")
+        for source_name, source in catalog["sources"].items():
+            self.assertRegex(source["commit"] or "", r"^[0-9a-f]{40}$", source_name)
+            for skill in source["skills"]:
+                self.assertTrue((self.root / "skills-library" / source_name / skill / "SKILL.md").is_file(), skill)
+                self.assertIn(f"`{skill}`", notices)
+        for profile in catalog["profiles"].values():
+            for skill in profile["skills"]:
+                self.assertTrue(any(skill in s["skills"] for s in catalog["sources"].values()), skill)
 
 
 class InstallToolkitTests(unittest.TestCase):

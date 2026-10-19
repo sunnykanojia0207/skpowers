@@ -24,7 +24,9 @@ MANIFEST = [
     "GEMINI.md",
     "toolkit.config.json",
     ".agents/skills",
+    "skills-library",
     "scripts/sync_toolkit.py",
+    "scripts/vendor_skills.py",
     "docs/GETTING-STARTED.md",
     "docs/PROJECT_BRIEF.md",
     "docs/QUALITY-GATES.md",
@@ -37,7 +39,12 @@ def source_files() -> list[Path]:
     for rel in MANIFEST:
         path = ROOT / rel
         if path.is_dir():
-            files += sorted(p for p in path.rglob("*") if p.is_file())
+            # Generated skill copies are rebuilt by the target's own sync from skills-library/.
+            files += sorted(
+                p for p in path.rglob("*")
+                if p.is_file() and "__pycache__" not in p.parts
+                and not any((parent / ".toolkit-generated").exists() for parent in p.parents)
+            )
         elif path.is_file():
             files.append(path)
         else:

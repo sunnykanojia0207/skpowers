@@ -1,118 +1,117 @@
 # Universal Vibe-Coding Engineering Toolkit
 
-One set of engineering rules, skills and MCP servers that works the same in **Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Antigravity and GitHub Copilot**. You edit three sources; a script generates every tool's own config files.
+**One engineering setup for every AI coding tool.** Rules, 60+ vetted skills and 18 MCP servers that behave the same in **Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Antigravity and GitHub Copilot**. You edit three sources; a script generates each tool's own configuration.
 
-**New here? Read [docs/GETTING-STARTED.md](docs/GETTING-STARTED.md)**: a step-by-step walkthrough for building a full-stack app with any of these tools, with copy-paste prompts for each phase.
+- **Superpowers workflow built in:** brainstorm → plan → test-first → debug → review → verify, on by default for every tool.
+- **65 vetted skills in 15 profiles:** web, React Native/Expo, native iOS and Android, Postgres, Supabase, Prisma, API, DevOps, security, testing, AI apps. Each is pinned to an upstream commit, licensed and reviewed by hand.
+- **18 MCP servers, written in each tool's own format:** documentation, browser, GitHub, databases, errors, issues and observability. Free ones are marked, and anything that can write is off by default.
+- **Safety by default:** human approval for production, no secrets in config, read-only MCP modes, and CI that checks generated files stay in sync.
 
-It contains no third-party skill code. External skills are installed from their own repositories after review (see [docs/TOOLKIT-GUIDE.md](docs/TOOLKIT-GUIDE.md)).
+**New here? Start with [docs/GETTING-STARTED.md](docs/GETTING-STARTED.md):** build a full-stack app step by step, with copy-paste prompts for every phase.
 
 ## How it works
 
 | You edit | What it is | How each tool gets it |
 |---|---|---|
-| `AGENTS.md` | Engineering rules | Read natively by Codex, Cursor, OpenCode, Antigravity and Copilot. Claude Code imports it via `CLAUDE.md` (`@AGENTS.md`); Gemini CLI via `GEMINI.md` (`@./AGENTS.md`). |
-| `.agents/skills/` | Skills (`SKILL.md` folders) | Read natively by Codex, Cursor, OpenCode, Gemini CLI, Antigravity and Copilot. Claude Code gets a generated mirror in `.claude/skills/`. |
-| `toolkit.config.json` | Which tools you use, which MCP servers are on | `scripts/sync_toolkit.py` writes each tool's MCP file in its own format (table below). |
+| `AGENTS.md` | Engineering rules | Read natively by Codex, Cursor, OpenCode, Antigravity and Copilot. Claude Code imports it via `CLAUDE.md`, Gemini CLI via `GEMINI.md`. |
+| `toolkit.config.json` | Tools in use, skill profiles, MCP servers | `scripts/sync_toolkit.py` copies enabled skills into `.agents/skills/` and writes every tool's MCP file. |
+| `.agents/skills/` | Your own skills | Read natively by Codex, Cursor, OpenCode, Gemini CLI, Antigravity and Copilot; mirrored to `.claude/skills/` for Claude Code. |
 
-Generated MCP files (do not edit by hand; edit `toolkit.config.json` and re-run the sync):
+```json
+{
+  "tools": ["claude-code", "codex", "cursor", "opencode", "gemini-cli", "antigravity", "copilot"],
+  "skillProfiles": ["core", "docs", "web", "testing", "postgres"],
+  "skills": [],
+  "mcpServers": { "context7": { "enabled": true, "...": "..." } }
+}
+```
 
-| Tool | File | Notes |
-|---|---|---|
-| Claude Code, Copilot (VS Code) | `.mcp.json` | Claude Code asks you to approve project servers on first use. |
-| Cursor | `.cursor/mcp.json` | |
-| OpenCode | `opencode.json` (`mcp` key) | Your other OpenCode settings in the file are kept. |
-| Codex | `.codex/config.toml` | Codex reads it only after you trust the project. Your other settings are kept. |
-| Gemini CLI | `.gemini/settings.json` | Your other settings in the file are kept. |
-| Antigravity | `.agents/mcp_config.json` | Secrets for stdio servers are inherited from your shell, since Antigravity documents no `${VAR}` expansion. |
+```bash
+python scripts/sync_toolkit.py          # apply
+python scripts/sync_toolkit.py --check  # CI: fail if generated files are stale
+```
 
-The sync only replaces servers whose names appear in `toolkit.config.json`; servers you added to a tool's file yourself are left alone. Disabling a server in `toolkit.config.json` removes it from every tool.
+Generated files (committed; never edit by hand): `.mcp.json` (Claude Code, Copilot), `.cursor/mcp.json`, `opencode.json`, `.codex/config.toml` (read after you trust the project), `.gemini/settings.json`, `.agents/mcp_config.json` (Antigravity), `.claude/skills/`, and library skills in `.agents/skills/` (marked with `.toolkit-generated`). The sync merges: your own servers, settings and hand-written skills are never overwritten.
 
 ## Quick start
 
-Requires Python 3.11+ (standard library only) and, for the default MCP servers, Node.js.
-
-**Add the toolkit to an existing project:**
+Requires Python 3.11+ and Git (standard library only; no packages), plus Node.js for the default MCP servers.
 
 ```bash
-python scripts/install_toolkit.py /path/to/your-project --dry-run   # preview
-python scripts/install_toolkit.py /path/to/your-project
+mkdir my-app && cd my-app && git init
+python <path-to-toolkit>/scripts/install_toolkit.py .
 ```
 
-It never overwrites: any file that already exists (for example your own `AGENTS.md`) is skipped and listed so you can merge it.
-
-**Or start a new project from this repository** (use it as a template), then:
-
-1. Fill in `docs/PROJECT_BRIEF.md` and the `Project commands` section of `AGENTS.md`.
-2. Edit `toolkit.config.json`: list the tools you use in `tools`, set `enabled: true` on the MCP servers you need.
-3. Run `python scripts/sync_toolkit.py`.
-4. Optional: add a `DESIGN.md` for UI work (see below), and install one workflow skill pack (see below).
-5. Commit everything, including the generated files, so every teammate and tool sees the same setup.
-
-**Keep it in sync:** after changing `.agents/skills/` or `toolkit.config.json`, run `python scripts/sync_toolkit.py`. In CI, `python scripts/sync_toolkit.py --check` fails if someone forgot.
-
-## MCP servers in `toolkit.config.json`
-
-On by default (no account or key needed): **Context7** (current library docs) and **Playwright** (browser automation).
-
-Off by default, enable when the project needs them:
-
-| Server | Needs | Safety default |
-|---|---|---|
-| `chrome-devtools` | Chrome | Local only |
-| `github` | Docker, `GITHUB_PERSONAL_ACCESS_TOKEN` env var | Read-only mode, limited toolsets; use a fine-grained token for one repo |
-| `supabase` | Supabase account; replace `YOUR_PROJECT_REF` first (the sync refuses to enable it otherwise) | `read_only=true`, scoped to one dev project |
-| `mobile-mcp` | Xcode (iOS) or ADB (Android) | Local devices/simulators |
-| `semgrep` | Semgrep CLI installed | Local scan |
-| `sentry` | Sentry account (OAuth) | No read-only mode exists; approve each tool call |
-| `linear` | Linear account (OAuth) | Read-only endpoint |
-| `grafana` | `uv`, `GRAFANA_URL`, `GRAFANA_SERVICE_ACCOUNT_TOKEN` | `--disable-write` |
-
-`mobile-mcp` also sets `MOBILEMCP_DISABLE_TELEMETRY=1`. Non-secret fixed values like this go in a server's `env`; secrets go in `envPassthrough`.
-
-Secrets never go in the config: stdio servers list the variable names in `envPassthrough`, and the sync writes each tool's own reference syntax (`${VAR}`, `${env:VAR}`, `{env:VAR}`, or Codex `env_vars`). Package versions are pinned; bump them deliberately after reading release notes.
+Then choose your tools, skill profiles and MCP servers in `toolkit.config.json`, run `python scripts/sync_toolkit.py`, and follow [GETTING-STARTED.md](docs/GETTING-STARTED.md). The installer never overwrites existing files; it lists them so you can merge.
 
 ## Skills
 
-Built in (`.agents/skills/`):
+**Toolkit skills** (always on): `production-engineering`, `architecture-planning`, `release-verification`, `marketplace-skill-review`, `ai-application-engineering`.
 
-- `production-engineering`: lifecycle and quality gates
-- `architecture-planning`: requirements, stack choice, boundaries, decision records
-- `release-verification`: CI/CD, staging, rollback, monitoring
-- `marketplace-skill-review`: source/license/permission review of third-party skills and MCP servers
-- `ai-application-engineering`: LLM features, RAG, tool safety, evals
+**Library profiles** (`skillProfiles`). `core` and `docs` are on by default:
 
-To add a third-party skill for every tool at once, install it project-locally into `.agents/skills/` with the Skills CLI (`npx skills add <repo> --list` first, then install), review its `SKILL.md` and scripts, and re-run the sync so Claude Code gets it too.
+| Profile | What it adds |
+|---|---|
+| `core` | Superpowers workflow (13 skills): brainstorming, plans, subagent-driven development, TDD, systematic debugging, code review, worktrees, verification |
+| `docs` | Architecture decision records |
+| `security` | Sentry's security review, bug finding, GitHub Actions security |
+| `web` | Vercel React/Next.js rules, composition patterns, Anthropic frontend-design, Core Web Vitals, accessibility |
+| `testing` | Playwright best practices, web-app testing |
+| `react-native` | Vercel, Callstack and Expo skills |
+| `ios` / `android` | SwiftUI Pro (Paul Hudson) / Google's official Android skills |
+| `postgres` / `supabase` / `prisma` | Database skills from Supabase and Prisma |
+| `api` | REST/OpenAPI design, endpoint documentation |
+| `devops` | Docker (official), GitHub Actions, Kubernetes |
+| `ai-apps` | LLM evals (Hamel Husain & Shreya Shankar), MCP server builder |
+| `authoring` | Anthropic skill-creator |
 
-**Best third-party skill for each need** (iOS, Android, testing, security, API, Postgres, Docker, LLM evals, performance/accessibility), reviewed across SkillsMP, MCP Market, AI Skill Market and SkillsMK: [decision summary](docs/MARKETPLACE-DECISION-SUMMARY.md), with full evidence in [docs/MARKETPLACE-RESEARCH.md](docs/MARKETPLACE-RESEARCH.md).
+Full list, sources, cautions and what was rejected: **[docs/SKILLS-CATALOG.md](docs/SKILLS-CATALOG.md)**. Commits and licenses: [skills-library/THIRD_PARTY_NOTICES.md](skills-library/THIRD_PARTY_NOTICES.md).
 
-**Pick one primary workflow pack**, not both: [Superpowers](https://github.com/obra/superpowers) (native installs for Claude Code, Codex, Cursor, Gemini CLI, Copilot CLI and OpenCode) or [Addy Osmani Agent Skills](https://github.com/addyosmani/agent-skills). Workflow packs are installed per tool as plugins; see [docs/TOOLKIT-GUIDE.md](docs/TOOLKIT-GUIDE.md) §3 for each tool's command.
+Update the library with `python scripts/vendor_skills.py --update`, review `git diff skills-library/`, then sync.
 
-## Design
+## MCP servers
 
-If a `DESIGN.md` exists in the project root, `AGENTS.md` tells every tool to treat it as the design system. You can write one, or start from a [designmd.app](https://designmd.app/) template (Google's DESIGN.md format: YAML tokens plus prose rules). Optional design skills, pick at most one: Anthropic `frontend-design`, Impeccable, UI/UX Pro Max or Taste Skill; add `apple-design` for Apple HIG reviews. Details and caveats are in [docs/TOOLKIT-GUIDE.md](docs/TOOLKIT-GUIDE.md) §3.4.
+On by default: **Context7** (library docs) and **Playwright** (browser), both free with no account.
+
+| Server | Cost / account | Writes? |
+|---|---|---|
+| `deepwiki` | Free, no account | No |
+| `microsoft-learn` | Free, no account | No |
+| `aws-knowledge` | Free, no credentials (rate limited) | No |
+| `cloudflare-docs` | Free | No |
+| `exa` | Free tier without a key (rate limited) | No |
+| `chrome-devtools` | Free, needs Chrome | Local browser only |
+| `next-devtools` | Free, Next.js 16+ (telemetry disabled) | No |
+| `shadcn` | Free | Adds component files |
+| `git` | Free, needs `uv` | Can commit and switch branches |
+| `mobile-mcp` | Free, needs Xcode/ADB (telemetry disabled) | Drives devices |
+| `semgrep` | Free CLI | No |
+| `github` | Free, needs Docker + token | Read-only mode |
+| `supabase` | Free tier account | `read_only=true`, one project |
+| `linear` | Account | Read-only endpoint |
+| `grafana` | Your Grafana | `--disable-write` |
+| `sentry` | Account | Yes (no read-only mode) |
+
+Secrets go in `envPassthrough` (variable names only); the sync writes each tool's reference syntax. Versions are pinned.
 
 ## Repository layout
 
 ```text
-AGENTS.md                 # rules (source of truth)
-CLAUDE.md, GEMINI.md      # one-line adapters that import AGENTS.md
-toolkit.config.json       # tools in use + MCP servers (source of truth)
-.agents/skills/           # skills (source of truth)
+AGENTS.md                  rules for every tool
+CLAUDE.md, GEMINI.md       adapters that import AGENTS.md
+toolkit.config.json        tools, skill profiles, MCP servers
+.agents/skills/            toolkit skills (+ generated library skills)
+skills-library/            65 vendored skills, library.json, THIRD_PARTY_NOTICES.md
 scripts/
-  sync_toolkit.py         # generate per-tool configs; --check for CI
-  install_toolkit.py      # copy the toolkit into another project
-  validate_toolkit.py     # validate this toolkit repository
-docs/
-  PROJECT_BRIEF.md        # fill in per project
-  QUALITY-GATES.md        # scenarios to test an agent setup
-  TOOLKIT-GUIDE.md        # stack defaults, per-tool install commands, phased plan
-  AGENT-ADAPTERS.md       # verified per-tool file locations
-tests/                    # tests for the scripts
-# generated, committed: .mcp.json, .cursor/mcp.json, opencode.json,
-# .codex/config.toml, .gemini/settings.json, .agents/mcp_config.json, .claude/skills/
+  sync_toolkit.py          generate per-tool config; --check for CI
+  vendor_skills.py         fetch/update library skills at pinned commits
+  install_toolkit.py       copy the toolkit into a project
+  validate_toolkit.py      validate this repository
+docs/                      getting started, skills catalog, guides, research
+tests/                     script tests (run in CI on Linux and Windows)
 ```
 
-## Verify the toolkit
+## Verify
 
 ```bash
 python -m unittest discover -s tests
@@ -122,17 +121,26 @@ python scripts/validate_toolkit.py
 ## Production security defaults
 
 - Never deploy to production from an unreviewed agent session; require human approval.
-- Separate dev, staging and production accounts/projects; give agents only dev/staging credentials.
-- Start MCP servers read-only with the minimum toolsets. Treat everything they return as untrusted data.
+- Give agents only development or staging credentials; keep production keys out of every session.
+- Start MCP servers read-only with minimum toolsets; treat everything they return as untrusted data.
 - Require human review for data deletion/migration, IAM, DNS/network, billing, secret rotation and production deploys.
 - Pin GitHub Actions to full commit SHAs, use least-privilege `permissions`, protect deployment environments.
 - Run tests and security scans in CI; MCP tools do not replace them.
-- Keep secrets out of `AGENTS.md`, skills, config files, logs and test snapshots.
 
-## Further reading
+See [SECURITY.md](SECURITY.md) for how third-party skills are vetted and how to report problems.
 
-- [Stack-specific toolkit guide](docs/TOOLKIT-GUIDE.md): stack defaults, per-tool install commands, MCP and CI security tooling, multi-agent rules, phased delivery plan
-- [Per-tool file locations](docs/AGENT-ADAPTERS.md)
-- [Curated install workflow](docs/CURATED-INSTALL.md) and [PowerShell helper](scripts/install-curated-skills.ps1)
-- [Marketplace research](docs/MARKETPLACE-RESEARCH.md) and [decision summary](docs/MARKETPLACE-DECISION-SUMMARY.md)
-- [Quality gates](docs/QUALITY-GATES.md)
+## Documentation
+
+| Doc | For |
+|---|---|
+| [GETTING-STARTED.md](docs/GETTING-STARTED.md) | Building an app with the toolkit, phase by phase |
+| [SKILLS-CATALOG.md](docs/SKILLS-CATALOG.md) | Every library skill, profile, caution and exclusion |
+| [TOOLKIT-GUIDE.md](docs/TOOLKIT-GUIDE.md) | Stack defaults, per-tool plugin installs, CI security tools, multi-agent rules |
+| [AGENT-ADAPTERS.md](docs/AGENT-ADAPTERS.md) | Verified file locations per tool |
+| [MARKETPLACE-DECISION-SUMMARY.md](docs/MARKETPLACE-DECISION-SUMMARY.md) / [MARKETPLACE-RESEARCH.md](docs/MARKETPLACE-RESEARCH.md) | Marketplace review and evidence |
+| [QUALITY-GATES.md](docs/QUALITY-GATES.md) | Scenarios to test an agent setup |
+| [CONTRIBUTING.md](CONTRIBUTING.md) / [CHANGELOG.md](CHANGELOG.md) | Changing the toolkit |
+
+## License
+
+The toolkit is released under the [MIT License](LICENSE). Third-party skills in `skills-library/` (and their generated copies in `.agents/skills/` and `.claude/skills/`) keep their own upstream licenses, included in each skill folder and listed in [THIRD_PARTY_NOTICES.md](skills-library/THIRD_PARTY_NOTICES.md).

@@ -1,5 +1,7 @@
 {
   "tools": ["claude-code", "codex", "cursor", "opencode", "gemini-cli", "antigravity", "copilot"],
+  "skillProfiles": ["core", "docs"],
+  "skills": [],
   "mcpServers": {
     "context7": {
       "description": "Current library documentation lookup.",
@@ -48,6 +50,58 @@
       "command": "npx",
       "args": ["-y", "@mobilenext/mobile-mcp@1.0.12"],
       "env": { "MOBILEMCP_DISABLE_TELEMETRY": "1" }
+    },
+    "deepwiki": {
+      "description": "Free: AI docs and Q&A for any public GitHub repository. No account.",
+      "enabled": false,
+      "transport": "http",
+      "url": "https://mcp.deepwiki.com/mcp"
+    },
+    "microsoft-learn": {
+      "description": "Free: Microsoft, Azure and .NET docs search and code samples. No account.",
+      "enabled": false,
+      "transport": "http",
+      "url": "https://learn.microsoft.com/api/mcp"
+    },
+    "aws-knowledge": {
+      "description": "Free: AWS documentation and guidance. No AWS credentials; rate limited.",
+      "enabled": false,
+      "transport": "http",
+      "url": "https://knowledge-mcp.global.api.aws"
+    },
+    "cloudflare-docs": {
+      "description": "Free: Cloudflare documentation search (read-only).",
+      "enabled": false,
+      "transport": "http",
+      "url": "https://docs.mcp.cloudflare.com/mcp"
+    },
+    "exa": {
+      "description": "Free tier: web search and page fetch without an API key (rate limited).",
+      "enabled": false,
+      "transport": "http",
+      "url": "https://mcp.exa.ai/mcp"
+    },
+    "next-devtools": {
+      "description": "Free: Next.js 16+ dev-server errors, routes, logs and version-matched docs. Telemetry disabled.",
+      "enabled": false,
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@0.4.0"],
+      "env": { "NEXT_TELEMETRY_DISABLED": "1" }
+    },
+    "shadcn": {
+      "description": "Free: browse, search and install shadcn/ui components. Writes component files into the project.",
+      "enabled": false,
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "shadcn@4.22.1", "mcp"]
+    },
+    "git": {
+      "description": "Free: read, search and modify the local Git repository (can commit and switch branches). Needs uv.",
+      "enabled": false,
+      "transport": "stdio",
+      "command": "uvx",
+      "args": ["mcp-server-git@2026.10.19"]
     },
     "sentry": {
       "description": "Production errors and traces (official, OAuth). No read-only mode: approve each tool call.",

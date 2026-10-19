@@ -20,6 +20,14 @@ required_files = [
     "docs/BOOTSTRAP-PROMPT.md",
     "docs/CURATED-INSTALL.md",
     "docs/GETTING-STARTED.md",
+    "docs/SKILLS-CATALOG.md",
+    "LICENSE",
+    "SECURITY.md",
+    "CONTRIBUTING.md",
+    "CHANGELOG.md",
+    "skills-library/library.json",
+    "skills-library/THIRD_PARTY_NOTICES.md",
+    "scripts/vendor_skills.py",
     "docs/MARKETPLACE-DECISION-SUMMARY.md",
     "docs/MARKETPLACE-RESEARCH.md",
     "docs/PROJECT_BRIEF.md",
@@ -77,7 +85,14 @@ if skill_files and not any("skill name" in error.lower() or "frontmatter" in err
 
 # Validate internal Markdown links to local files when they resolve to a path.
 link_pattern = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
-for path in sorted(ROOT.rglob("*.md")):
+# Vendored third-party skills and their generated copies are kept unmodified, so
+# only the toolkit's own Markdown is checked.
+def is_third_party(path: Path) -> bool:
+    rel = path.relative_to(ROOT).parts
+    return rel[0] in {"skills-library", ".git"} or any((p / ".toolkit-generated").exists() for p in path.parents)
+
+
+for path in sorted(p for p in ROOT.rglob("*.md") if not is_third_party(p)):
     text = path.read_text(encoding="utf-8")
     for raw_target in link_pattern.findall(text):
         target = raw_target.strip().split()[0].strip("<>")

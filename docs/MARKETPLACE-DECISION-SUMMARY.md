@@ -2,6 +2,8 @@
 
 Full evidence, runner-ups and rejections: [MARKETPLACE-RESEARCH.md](MARKETPLACE-RESEARCH.md).
 
+> Most picks below now ship pre-vetted in `skills-library/` and are enabled by profile; see [SKILLS-CATALOG.md](SKILLS-CATALOG.md). Exceptions installed manually: Trail of Bits (share-alike plugin), Impeccable (excluded after review), and unlicensed skills.
+
 **Workflow (pick one):** Superpowers (most installed, broadest native support) or Addy Osmani Agent Skills.
 
 **Best skill per need:**

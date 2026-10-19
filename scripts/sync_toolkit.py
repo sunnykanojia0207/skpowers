@@ -3,12 +3,14 @@
 
 Sources (edit these):
   AGENTS.md            rules, read natively by most tools
-  .agents/skills/      skills, read natively by most tools
-  toolkit.config.json  which tools you use and which MCP servers to enable
+  .agents/skills/      your own skills, read natively by most tools
+  toolkit.config.json  tools you use, skill profiles to enable, MCP servers
+  skills-library/      vendored third-party skills (update with vendor_skills.py)
 
-Outputs (never edit by hand): per-tool MCP config files and the Claude Code skill
-mirror. Existing files are merged: only server names defined in
-toolkit.config.json are replaced, so servers you added yourself are kept.
+Outputs (never edit by hand): enabled library skills copied into .agents/skills/,
+per-tool MCP config files, and the Claude Code skill mirror. Existing MCP files
+are merged: only server names defined in toolkit.config.json are replaced, so
+servers you added yourself are kept.
 
 Usage:
   python scripts/sync_toolkit.py           write outputs
@@ -25,6 +27,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_FILE = "toolkit.config.json"
+LIBRARY_CATALOG = Path("skills-library") / "library.json"
 KNOWN_TOOLS = {"claude-code", "codex", "cursor", "opencode", "gemini-cli", "antigravity", "copilot"}
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 ENV_NAME_RE = re.compile(r"^[A-Z_][A-Z0-9_]*$")
@@ -54,12 +57,51 @@ def load_config(root: Path) -> dict:
     if unknown:
         raise SyncError(f"{CONFIG_FILE}: unknown tools {unknown}; known: {sorted(KNOWN_TOOLS)}")
 
+    for key in ("skillProfiles", "skills"):
+        value = config.setdefault(key, [])
+        if not isinstance(value, list) or not all(isinstance(v, str) for v in value):
+            raise SyncError(f"{CONFIG_FILE}: '{key}' must be a list of strings")
+
     servers = config.get("mcpServers")
     if not isinstance(servers, dict):
         raise SyncError(f"{CONFIG_FILE}: 'mcpServers' must be an object")
     for name, server in servers.items():
         validate_server(name, server)
     return config
+
+
+def resolve_library_skills(root: Path, config: dict) -> dict[str, Path]:
+    """Map each enabled library skill name to its vendored folder."""
+    wanted = config["skillProfiles"] or config["skills"]
+    if not wanted:
+        return {}
+    path = root / LIBRARY_CATALOG
+    try:
+        catalog = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SyncError(f"Cannot read {LIBRARY_CATALOG.as_posix()}: {exc}") from exc
+
+    locations = {
+        skill: root / "skills-library" / source_name / skill
+        for source_name, source in catalog["sources"].items()
+        for skill in source["skills"]
+    }
+    profiles = catalog["profiles"]
+    names: list[str] = []
+    for profile in config["skillProfiles"]:
+        if profile not in profiles:
+            raise SyncError(f"{CONFIG_FILE}: unknown skill profile {profile!r}; available: {sorted(profiles)}")
+        names += profiles[profile]["skills"]
+    names += config["skills"]
+
+    enabled: dict[str, Path] = {}
+    for name in names:
+        if name not in locations:
+            raise SyncError(f"{CONFIG_FILE}: skill {name!r} is not in {LIBRARY_CATALOG.as_posix()}")
+        if not (locations[name] / "SKILL.md").is_file():
+            raise SyncError(f"{name!r} is not vendored yet; run: python scripts/vendor_skills.py")
+        enabled[name] = locations[name]
+    return enabled
 
 
 def validate_server(name: str, server: object) -> None:
@@ -225,7 +267,13 @@ def render_codex(path: Path, servers: dict) -> str:
     return prefix + block + "\n"
 
 
-# ---------------------------------------------------------------- Claude Code skill mirror
+# ---------------------------------------------------------------- generated skill folders
+# Library skills are copied into .agents/skills/, and everything in .agents/skills/
+# is mirrored into .claude/skills/. Generated folders carry MIRROR_MARKER, so
+# hand-written skills are never overwritten or removed.
+
+Action = tuple[str, Path, "Path | None"]
+
 
 def tree_bytes(directory: Path) -> dict[str, bytes]:
     return {
@@ -235,26 +283,37 @@ def tree_bytes(directory: Path) -> dict[str, bytes]:
     }
 
 
-def plan_skill_mirror(root: Path, enabled: bool) -> list[tuple[str, Path, Path | None]]:
-    """Return (action, target, source) tuples: 'copy' or 'remove'."""
-    source_root = root / ".agents" / "skills"
-    mirror_root = root / ".claude" / "skills"
-    sources = {p.parent.name: p.parent for p in sorted(source_root.glob("*/SKILL.md"))} if enabled else {}
-    actions: list[tuple[str, Path, Path | None]] = []
-
+def plan_copies(sources: dict[str, Path], dest_root: Path) -> list[Action]:
+    """Return ('copy' | 'remove', target, source) actions that make dest_root match sources."""
+    actions: list[Action] = []
     for name, source in sources.items():
-        target = mirror_root / name
+        target = dest_root / name
         if target.exists() and not (target / MIRROR_MARKER).exists():
             raise SyncError(f"{target} exists and was not generated; rename one of the two '{name}' skills")
         expected = {**tree_bytes(source), MIRROR_MARKER: b""}
         if not target.exists() or tree_bytes(target) != expected:
             actions.append(("copy", target, source))
 
-    if mirror_root.is_dir():
-        for target in sorted(mirror_root.iterdir()):
+    if dest_root.is_dir():
+        for target in sorted(dest_root.iterdir()):
             if (target / MIRROR_MARKER).exists() and target.name not in sources:
                 actions.append(("remove", target, None))
     return actions
+
+
+def plan_skill_mirror(root: Path, enabled: bool) -> list[Action]:
+    source_root = root / ".agents" / "skills"
+    sources = {p.parent.name: p.parent for p in sorted(source_root.glob("*/SKILL.md"))} if enabled else {}
+    return plan_copies(sources, root / ".claude" / "skills")
+
+
+def apply_copies(actions: list[Action]) -> None:
+    for action, target, source in actions:
+        if target.exists():
+            shutil.rmtree(target)
+        if action == "copy" and source is not None:
+            shutil.copytree(source, target)
+            (target / MIRROR_MARKER).write_bytes(b"")
 
 
 # ---------------------------------------------------------------- main
@@ -275,14 +334,21 @@ def main(argv: list[str]) -> int:
                 files[ROOT / rel] = render_json_target(ROOT / rel, key, renderer, defaults, servers)
         if "codex" in tools:
             files[ROOT / ".codex" / "config.toml"] = render_codex(ROOT / ".codex" / "config.toml", servers)
+        library_skills = resolve_library_skills(ROOT, config)
+        library_actions = plan_copies(library_skills, ROOT / ".agents" / "skills")
+        if not args.check:
+            apply_copies(library_actions)  # the mirror below must see the new library skills
         mirror_actions = plan_skill_mirror(ROOT, "claude-code" in tools)
     except SyncError as exc:
         print(f"sync_toolkit: {exc}", file=sys.stderr)
         return 2
 
+    def describe(actions: list[Action]) -> list[str]:
+        return [f"{t.relative_to(ROOT).as_posix()}/ ({action})" for action, t, _ in actions]
+
     stale_files = [path for path, text in files.items() if read_text(path) != text]
-    stale = [p.relative_to(ROOT).as_posix() for p in stale_files]
-    stale += [f"{t.relative_to(ROOT).as_posix()}/ ({action})" for action, t, _ in mirror_actions]
+    stale = [p.relative_to(ROOT).as_posix() for p in stale_files] + describe(library_actions) + describe(mirror_actions)
+    summary = f"{len(files)} config files, {len(library_skills)} library skills, tools: {', '.join(sorted(tools))}"
 
     if args.check:
         if stale:
@@ -290,20 +356,15 @@ def main(argv: list[str]) -> int:
             for item in stale:
                 print(f"- {item}")
             return 1
-        print(f"Toolkit outputs are up to date ({len(files)} config files, tools: {', '.join(sorted(tools))}).")
+        print(f"Toolkit outputs are up to date ({summary}).")
         return 0
 
     for path in stale_files:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(files[path], encoding="utf-8", newline="\n")
-    for action, target, source in mirror_actions:
-        if target.exists():
-            shutil.rmtree(target)
-        if action == "copy" and source is not None:
-            shutil.copytree(source, target)
-            (target / MIRROR_MARKER).write_bytes(b"")
+    apply_copies(mirror_actions)
 
-    print("Updated:" if stale else "Nothing to update.")
+    print(f"Updated ({summary}):" if stale else f"Nothing to update ({summary}).")
     for item in stale:
         print(f"- {item}")
     if "codex" in tools:

@@ -1,0 +1,304 @@
+{
+  "sources": {
+    "superpowers": {
+      "repo": "obra/superpowers",
+      "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+      "skills": {
+        "brainstorming": "skills/brainstorming",
+        "writing-plans": "skills/writing-plans",
+        "executing-plans": "skills/executing-plans",
+        "subagent-driven-development": "skills/subagent-driven-development",
+        "dispatching-parallel-agents": "skills/dispatching-parallel-agents",
+        "test-driven-development": "skills/test-driven-development",
+        "systematic-debugging": "skills/systematic-debugging",
+        "verification-before-completion": "skills/verification-before-completion",
+        "requesting-code-review": "skills/requesting-code-review",
+        "receiving-code-review": "skills/receiving-code-review",
+        "using-git-worktrees": "skills/using-git-worktrees",
+        "finishing-a-development-branch": "skills/finishing-a-development-branch",
+        "using-superpowers": "skills/using-superpowers"
+      }
+    },
+    "vercel-agent-skills": {
+      "repo": "vercel-labs/agent-skills",
+      "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "skills": {
+        "vercel-react-best-practices": "skills/react-best-practices",
+        "vercel-composition-patterns": "skills/composition-patterns",
+        "vercel-react-native-skills": "skills/react-native-skills"
+      }
+    },
+    "anthropic-skills": {
+      "repo": "anthropics/skills",
+      "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+      "skills": {
+        "frontend-design": "skills/frontend-design",
+        "webapp-testing": "skills/webapp-testing",
+        "mcp-builder": "skills/mcp-builder",
+        "skill-creator": "skills/skill-creator"
+      }
+    },
+    "web-quality": {
+      "repo": "addyosmani/web-quality-skills",
+      "commit": "afa8da942115f2961fdbfa80807ea0b232ff6c00",
+      "skills": {
+        "performance": "skills/performance",
+        "core-web-vitals": "skills/core-web-vitals",
+        "accessibility": "skills/accessibility",
+        "best-practices": "skills/best-practices",
+        "web-quality-audit": "skills/web-quality-audit"
+      }
+    },
+    "playwright-best-practices": {
+      "repo": "currents-dev/playwright-best-practices-skill",
+      "commit": "283d5cbc5d11aac1abda058b16ad22c317d54dc0",
+      "skills": {
+        "playwright-best-practices": "playwright-best-practices"
+      }
+    },
+    "expo": {
+      "repo": "expo/skills",
+      "commit": "7ddc1f5796996e5c7efe2fc3fa9168eb24e8dac1",
+      "skills": {
+        "expo-native-ui": "plugins/expo/skills/expo-native-ui",
+        "expo-router": "plugins/expo/skills/expo-router",
+        "expo-data-fetching": "plugins/expo/skills/expo-data-fetching",
+        "expo-dev-client": "plugins/expo/skills/expo-dev-client",
+        "expo-upgrade": "plugins/expo/skills/expo-upgrade"
+      }
+    },
+    "callstack": {
+      "repo": "callstackincubator/agent-skills",
+      "commit": "59e9d17446a248b21d86f078fcd0bd2d36db1ca4",
+      "skills": {
+        "react-native-best-practices": "skills/react-native-best-practices",
+        "upgrading-react-native": "skills/upgrading-react-native"
+      }
+    },
+    "swiftui": {
+      "repo": "twostraws/SwiftUI-Agent-Skill",
+      "commit": "ce32af1693b9e78a7d22ff48001c97a304d32063",
+      "skills": {
+        "swiftui-pro": "swiftui-pro"
+      },
+      "exclude": [
+        "skills"
+      ]
+    },
+    "android": {
+      "repo": "android/skills",
+      "commit": "5bda39f154fb859a08d45e2392f3568e049f83fb",
+      "skills": {
+        "jetpack-compose-performance": "jetpack-compose/jetpack-compose-performance",
+        "adaptive": "jetpack-compose/adaptive",
+        "navigation-3": "navigation/navigation-3",
+        "edge-to-edge": "system/edge-to-edge",
+        "testing-setup": "testing/testing-setup",
+        "android-intent-security": "security/android-intent-security",
+        "android-permissions-security": "security/android-permissions-security"
+      }
+    },
+    "supabase": {
+      "repo": "supabase/agent-skills",
+      "commit": "c9be0e931b7930f7d02126d04774d904c381e7d7",
+      "skills": {
+        "supabase-postgres-best-practices": "skills/supabase-postgres-best-practices",
+        "supabase": "skills/supabase"
+      }
+    },
+    "prisma": {
+      "repo": "prisma/skills",
+      "commit": "ba3f9d73200bbb62e49733ab93a961fd138a2c18",
+      "skills": {
+        "prisma-client-api": "prisma-client-api",
+        "prisma-cli": "prisma-cli",
+        "prisma-database-setup": "prisma-database-setup",
+        "prisma-orm-setup": "prisma-orm-setup"
+      }
+    },
+    "wshobson": {
+      "repo": "wshobson/agents",
+      "commit": "0874a27b17a22e2b7c2e2bcd725768e0803cad06",
+      "skills": {
+        "api-design-principles": "plugins/backend-development/skills/api-design-principles",
+        "openapi-spec-generation": "plugins/documentation-generation/skills/openapi-spec-generation",
+        "architecture-decision-records": "plugins/documentation-generation/skills/architecture-decision-records",
+        "github-actions-templates": "plugins/cicd-automation/skills/github-actions-templates",
+        "k8s-manifest-generator": "plugins/kubernetes-operations/skills/k8s-manifest-generator"
+      }
+    },
+    "sentry": {
+      "repo": "getsentry/skills",
+      "commit": "f57ada2d0b640406ea7e25b11d636c530e77c58b",
+      "skills": {
+        "security-review": "skills/security-review",
+        "find-bugs": "skills/find-bugs",
+        "gha-security-review": "skills/gha-security-review",
+        "document-api-endpoint": "skills/document-api-endpoint"
+      }
+    },
+    "docker": {
+      "repo": "docker/skills",
+      "commit": "38df58b09720d38eb78c2c674675ddf9fa74d441",
+      "skills": {
+        "docker-build-strategies": "skills/docker-build-strategies",
+        "docker-compose-patterns": "skills/docker-compose-patterns",
+        "docker-destructive-guardrails": "skills/docker-destructive-guardrails"
+      }
+    },
+    "evals": {
+      "repo": "ai-evals-course/evals-skills",
+      "commit": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "skills": {
+        "evals-start": "skills/evals-start",
+        "error-discovery": "skills/error-discovery",
+        "eval-audit": "skills/eval-audit",
+        "write-judge-prompt": "skills/write-judge-prompt",
+        "evaluate-rag": "skills/evaluate-rag",
+        "validate-evaluator": "skills/validate-evaluator"
+      }
+    }
+  },
+  "profiles": {
+    "core": {
+      "description": "Superpowers workflow: brainstorm, plan, TDD, debug, review, verify, finish branches.",
+      "skills": [
+        "brainstorming",
+        "writing-plans",
+        "executing-plans",
+        "subagent-driven-development",
+        "dispatching-parallel-agents",
+        "test-driven-development",
+        "systematic-debugging",
+        "verification-before-completion",
+        "requesting-code-review",
+        "receiving-code-review",
+        "using-git-worktrees",
+        "finishing-a-development-branch",
+        "using-superpowers"
+      ]
+    },
+    "security": {
+      "description": "Security review of code changes, bug hunting, GitHub Actions security. Note: security-review and gha-security-review pre-approve the Bash tool in Claude Code while active.",
+      "skills": [
+        "security-review",
+        "find-bugs",
+        "gha-security-review"
+      ]
+    },
+    "docs": {
+      "description": "Architecture decision records.",
+      "skills": [
+        "architecture-decision-records"
+      ]
+    },
+    "web": {
+      "description": "React/Next.js performance and composition, distinctive frontend design, Core Web Vitals, accessibility.",
+      "skills": [
+        "vercel-react-best-practices",
+        "vercel-composition-patterns",
+        "frontend-design",
+        "performance",
+        "core-web-vitals",
+        "accessibility",
+        "best-practices",
+        "web-quality-audit"
+      ]
+    },
+    "testing": {
+      "description": "Playwright best practices and local web-app testing.",
+      "skills": [
+        "playwright-best-practices",
+        "webapp-testing"
+      ]
+    },
+    "react-native": {
+      "description": "React Native and Expo apps.",
+      "skills": [
+        "vercel-react-native-skills",
+        "react-native-best-practices",
+        "upgrading-react-native",
+        "expo-native-ui",
+        "expo-router",
+        "expo-data-fetching",
+        "expo-dev-client",
+        "expo-upgrade"
+      ]
+    },
+    "ios": {
+      "description": "Native iOS with SwiftUI.",
+      "skills": [
+        "swiftui-pro"
+      ]
+    },
+    "android": {
+      "description": "Native Android with Kotlin and Jetpack Compose (Google official).",
+      "skills": [
+        "jetpack-compose-performance",
+        "adaptive",
+        "navigation-3",
+        "edge-to-edge",
+        "testing-setup",
+        "android-intent-security",
+        "android-permissions-security"
+      ]
+    },
+    "postgres": {
+      "description": "Postgres schema, query and index best practices.",
+      "skills": [
+        "supabase-postgres-best-practices"
+      ]
+    },
+    "supabase": {
+      "description": "Supabase auth, database, storage, edge functions.",
+      "skills": [
+        "supabase"
+      ]
+    },
+    "prisma": {
+      "description": "Prisma ORM client, CLI and database setup.",
+      "skills": [
+        "prisma-client-api",
+        "prisma-cli",
+        "prisma-database-setup",
+        "prisma-orm-setup"
+      ]
+    },
+    "api": {
+      "description": "REST/OpenAPI design and endpoint documentation.",
+      "skills": [
+        "api-design-principles",
+        "openapi-spec-generation",
+        "document-api-endpoint"
+      ]
+    },
+    "devops": {
+      "description": "Docker builds and Compose, GitHub Actions, Kubernetes manifests.",
+      "skills": [
+        "docker-build-strategies",
+        "docker-compose-patterns",
+        "docker-destructive-guardrails",
+        "github-actions-templates",
+        "k8s-manifest-generator"
+      ]
+    },
+    "ai-apps": {
+      "description": "LLM evaluation (Hamel Husain & Shreya Shankar) and building MCP servers.",
+      "skills": [
+        "evals-start",
+        "error-discovery",
+        "eval-audit",
+        "write-judge-prompt",
+        "evaluate-rag",
+        "validate-evaluator",
+        "mcp-builder"
+      ]
+    },
+    "authoring": {
+      "description": "Create and evaluate new skills.",
+      "skills": [
+        "skill-creator"
+      ]
+    }
+  }
+}
