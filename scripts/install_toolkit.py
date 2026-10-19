@@ -30,7 +30,7 @@ MANIFEST = [
     "docs/GETTING-STARTED.md",
     "docs/PROJECT_BRIEF.md",
     "docs/QUALITY-GATES.md",
-    ".github/workflows/ci-node.example.yml",
+    "templates/ci-node.yml",
 ]
 
 

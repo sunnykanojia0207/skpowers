@@ -78,8 +78,8 @@ Read both documents carefully. This is where you decide what gets built; correct
 
 ```text
 Phase 1: scaffold the approved architecture with strict types, linting, formatting,
-environment validation, .env.example, a CI workflow (lint, typecheck, tests, build,
-security scan), and /healthz and /version endpoints. Fill in the "Project commands"
+environment validation, .env.example, a CI workflow at .github/workflows/ci.yml
+(start from templates/ci-node.yml; add a security scan), and /healthz and /version endpoints. Fill in the "Project commands"
 section of AGENTS.md with the real commands. Run every command and show me the output.
 ```
 

@@ -15,7 +15,7 @@ from pathlib import Path
 
 TOOLKIT = Path(__file__).resolve().parents[1]
 COPY = ["AGENTS.md", "CLAUDE.md", "GEMINI.md", "toolkit.config.json", ".agents/skills", "scripts", "skills-library",
-        "docs/GETTING-STARTED.md", "docs/PROJECT_BRIEF.md", "docs/QUALITY-GATES.md", ".github/workflows/ci-node.example.yml"]
+        "docs/GETTING-STARTED.md", "docs/PROJECT_BRIEF.md", "docs/QUALITY-GATES.md", "templates/ci-node.yml"]
 
 
 def run(script: Path, *args: str, cwd: Path) -> subprocess.CompletedProcess:

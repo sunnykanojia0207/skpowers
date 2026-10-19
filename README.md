@@ -107,6 +107,7 @@ scripts/
   vendor_skills.py         fetch/update library skills at pinned commits
   install_toolkit.py       copy the toolkit into a project
   validate_toolkit.py      validate this repository
+templates/ci-node.yml      CI starter to copy into your app's .github/workflows/
 docs/                      getting started, skills catalog, guides, research
 tests/                     script tests (run in CI on Linux and Windows)
 ```

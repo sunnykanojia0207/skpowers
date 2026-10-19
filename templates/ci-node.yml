@@ -1,4 +1,5 @@
-# TEMPLATE ONLY: rename to ci.yml after adapting to your package manager and scripts.
+# TEMPLATE ONLY: copy to .github/workflows/ci.yml in your app and adapt it to your
+# package manager and scripts. It lives outside .github/workflows so it doesn't run here.
 # For production repositories, pin actions to verified full commit SHAs and automate
 # safe action updates (for example with Dependabot). Keep permissions minimal.
 name: CI (Node template)
