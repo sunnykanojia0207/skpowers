@@ -62,6 +62,7 @@ def git(*args: str, cwd: Path) -> str:
 def fetch(repo: str, ref: str, paths: list[str], workdir: Path) -> str:
     """Sparse, shallow fetch of `paths` plus root license files; returns the commit SHA."""
     git("init", "-q", cwd=workdir)
+    git("config", "core.autocrlf", "false", cwd=workdir)  # keep upstream line endings byte-for-byte
     git("remote", "add", "origin", f"https://github.com/{repo}.git", cwd=workdir)
     patterns = [f"/{p.strip('/')}/" for p in paths] + [f"/{name}" for name in LICENSE_FILES]
     git("sparse-checkout", "set", "--no-cone", *patterns, cwd=workdir)

@@ -63,10 +63,12 @@ From the manual review. None of these instruct an agent to bypass the user, hide
 | Trail of Bits skills | CC-BY-SA-4.0 (share-alike) and packaged as plugins. | `/plugin marketplace add trailofbits/skills` (Claude Code), `codex plugin marketplace add trailofbits/skills` |
 | Taste Skill, UI/UX Pro Max | Design-style skills overlap `frontend-design`; pick one per project. | See [TOOLKIT-GUIDE.md](TOOLKIT-GUIDE.md) §3.4 |
 | `apple-design` (dickwu) | No license; bundles Apple's guideline text. | Install for personal use only |
+| Beautiful UI ([beautifului.dev](https://www.beautifului.dev/)) | A copy-paste component library (MIT) for AI-native interfaces: streaming text, thinking states, approval cards, tool traces, diff tables. Not a skill; the only GitHub skills and registries for it are unofficial ports with 2–21 stars. | When building chat or agent UIs, copy components from the site and record them in `DESIGN.md` |
 | mattpocock/skills (`tdd`, `diagnosing-bugs`, `code-review`, `grill-with-docs`) | Very popular, but a competing workflow to `core`; running both produces conflicting instructions. | Use instead of `core`, not alongside it |
 | Reposted Superpowers copies (`101-skills/superpowers`, `magentosh/superpowers`, `qu-skills/superpowers`, `skills-shell/superpowers`) | Copies of the original with inflated install counts. | Use `obra/superpowers` |
 | `anti-detect-browser`, `playwright-stealth-verify` and similar | Bot-detection evasion tooling, not software delivery. | — |
 | `android-cli`, `play-policy-insights` (android/skills) | Pipe a remote installer to the shell and install other skills; ship a scraper. | — |
+| Claude Code Templates ([aitmpl.com](https://www.aitmpl.com/), `davila7/claude-code-templates`) | MIT and active, but an aggregator: ~900 skills largely collected from other repositories, plus ~590 hook and settings files; its `npx claude-code-templates` installer writes agents, hooks and settings into Claude Code only. | Browse it for ideas; install a skill from its original repository instead, and read any hook before adding it by hand |
 | gstack, everything-claude-code, ruflo, moai-adk | All-in-one packs with self-update, binaries or overlapping methodologies. | — |
 
 ## Updating
