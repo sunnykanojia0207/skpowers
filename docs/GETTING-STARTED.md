@@ -36,7 +36,7 @@ The installer copies the toolkit in and generates each tool's config. It never o
 
    | App | Profiles |
    |---|---|
-   | Next.js / React SaaS or dashboard | `core docs web testing postgres api security devops` |
+   | Next.js / React SaaS or dashboard | `core docs web ui-polish testing postgres api security devops` |
    | Expo / React Native app | `core docs react-native testing api` |
    | Native iOS / Android | `core docs ios` / `core docs android` |
    | Any app with LLM features | add `ai-apps` |

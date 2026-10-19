@@ -3,6 +3,11 @@
 ## Unreleased
 
 ### Added
+- `ui-polish` profile with 15 MIT skills from Emil Kowalski (`emilkowalski/skills`): animation craft, performance and reviews, Apple-style interaction, worst-case data testing, mobile-web polish; `animate-expo` added to `react-native`, `write-swift` to `ios`, `ask-sonner` available individually.
+
+## 0.2.0
+
+### Added
 - **Skill library:** 65 third-party skills from 15 upstream repositories in `skills-library/`, each pinned to a commit with its license, grouped into 15 profiles (`core`, `docs`, `security`, `web`, `testing`, `react-native`, `ios`, `android`, `postgres`, `supabase`, `prisma`, `api`, `devops`, `ai-apps`, `authoring`).
 - `skillProfiles` and `skills` in `toolkit.config.json`; `sync_toolkit.py` copies enabled skills into `.agents/skills/` for every tool and removes disabled ones without touching hand-written skills.
 - `scripts/vendor_skills.py`: sparse, shallow, pinned fetch of library skills; refuses unlicensed skills; flags remote execution, skill installation, tool pre-approval, load-time commands and settings/hooks writes for review.

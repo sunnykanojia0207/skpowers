@@ -1,13 +1,13 @@
 # Skills Catalog
 
-The toolkit ships **65 vetted third-party skills** in `skills-library/`, grouped into profiles. Turn profiles on per project in `toolkit.config.json`, then run `python scripts/sync_toolkit.py`; only enabled skills are copied into `.agents/skills/`, so every tool sees the same small, relevant set.
+The toolkit ships **80 vetted third-party skills** in `skills-library/`, grouped into profiles. Turn profiles on per project in `toolkit.config.json`, then run `python scripts/sync_toolkit.py`; only enabled skills are copied into `.agents/skills/`, so every tool sees the same small, relevant set.
 
 ```json
 "skillProfiles": ["core", "docs", "web", "testing", "postgres"],
 "skills": ["mcp-builder"]
 ```
 
-`skills` adds individual library skills without their whole profile.
+`skills` adds individual library skills without their whole profile. Skills in no profile: `ask-sonner` (add it if the app uses the Sonner toast library).
 
 **How skills were chosen (2026-10-19):** discovery with `npx skills find` across 40 engineering queries (install counts from the skills.sh registry), cross-checked against the SkillsMP, MCP Market, AI Skill Market and SkillsMK reviews in [MARKETPLACE-RESEARCH.md](MARKETPLACE-RESEARCH.md). Only original upstream repositories with a redistributable license and recent activity were accepted; reposted copies (for example the several `*/superpowers` forks with inflated install counts) and browser-evasion skills were rejected. Every included skill was read by hand for prompt injection, remote execution, telemetry and destructive operations. Exact commits, licenses and automated review flags: [THIRD_PARTY_NOTICES.md](../skills-library/THIRD_PARTY_NOTICES.md).
 
@@ -19,9 +19,10 @@ The toolkit ships **65 vetted third-party skills** in `skills-library/`, grouped
 | `docs` | **on** | architecture-decision-records | [wshobson/agents](https://github.com/wshobson/agents) (MIT) |
 | `security` | off | security-review, find-bugs, gha-security-review | [getsentry/skills](https://github.com/getsentry/skills) (Apache-2.0) |
 | `web` | off | vercel-react-best-practices, vercel-composition-patterns, frontend-design, performance, core-web-vitals, accessibility, best-practices, web-quality-audit | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) (MIT), [anthropics/skills](https://github.com/anthropics/skills) (Apache-2.0), [addyosmani/web-quality-skills](https://github.com/addyosmani/web-quality-skills) (MIT) |
+| `ui-polish` | off | emil-design-eng, animate, animation-performance, animation-vocabulary, review-animations, improve-animations, find-animation-opportunities, apple-design, mobile-native, break-ui, pick-ui-library, prototype | [emilkowalski/skills](https://github.com/emilkowalski/skills) (MIT) |
 | `testing` | off | playwright-best-practices, webapp-testing | [currents-dev/playwright-best-practices-skill](https://github.com/currents-dev/playwright-best-practices-skill) (MIT), anthropics/skills (Apache-2.0) |
-| `react-native` | off | vercel-react-native-skills, react-native-best-practices, upgrading-react-native, expo-native-ui, expo-router, expo-data-fetching, expo-dev-client, expo-upgrade | vercel-labs/agent-skills (MIT), [callstackincubator/agent-skills](https://github.com/callstackincubator/agent-skills) (MIT), [expo/skills](https://github.com/expo/skills) (MIT) |
-| `ios` | off | swiftui-pro | [twostraws/SwiftUI-Agent-Skill](https://github.com/twostraws/SwiftUI-Agent-Skill) (MIT) |
+| `react-native` | off | vercel-react-native-skills, react-native-best-practices, upgrading-react-native, expo-native-ui, expo-router, expo-data-fetching, expo-dev-client, expo-upgrade, animate-expo | vercel-labs/agent-skills (MIT), [callstackincubator/agent-skills](https://github.com/callstackincubator/agent-skills) (MIT), [expo/skills](https://github.com/expo/skills) (MIT), emilkowalski/skills (MIT) |
+| `ios` | off | swiftui-pro, write-swift | [twostraws/SwiftUI-Agent-Skill](https://github.com/twostraws/SwiftUI-Agent-Skill) (MIT), emilkowalski/skills (MIT) |
 | `android` | off | jetpack-compose-performance, adaptive, navigation-3, edge-to-edge, testing-setup, android-intent-security, android-permissions-security | [android/skills](https://github.com/android/skills) (Apache-2.0, Google) |
 | `postgres` | off | supabase-postgres-best-practices | [supabase/agent-skills](https://github.com/supabase/agent-skills) (MIT) |
 | `supabase` | off | supabase | supabase/agent-skills (MIT) |
@@ -31,7 +32,7 @@ The toolkit ships **65 vetted third-party skills** in `skills-library/`, grouped
 | `ai-apps` | off | evals-start, error-discovery, eval-audit, write-judge-prompt, evaluate-rag, validate-evaluator, mcp-builder | [ai-evals-course/evals-skills](https://github.com/ai-evals-course/evals-skills) (Apache-2.0), anthropics/skills (Apache-2.0) |
 | `authoring` | off | skill-creator | anthropics/skills (Apache-2.0) |
 
-**Typical combinations:** Next.js SaaS → `core docs web testing postgres api security devops`. Expo mobile app → `core docs react-native testing api`. Native iOS → `core docs ios`. Native Android → `core docs android`. LLM product → add `ai-apps`.
+**Typical combinations:** Next.js SaaS → `core docs web ui-polish testing postgres api security devops`. Expo mobile app → `core docs react-native testing api`. Native iOS → `core docs ios`. Native Android → `core docs android`. LLM product → add `ai-apps`.
 
 ## Cautions on included skills
 
@@ -49,6 +50,8 @@ From the manual review. None of these instruct an agent to bypass the user, hide
 | `docker-build-strategies` | `rm -rf /var/lib/apt/lists/*` appears only as standard Dockerfile cleanup. |
 | `upgrading-react-native` | Its Xcode troubleshooting suggests `sudo xcode-select -s …` and `sudo xcodebuild -runFirstLaunch`; the agent must ask before running anything with `sudo`. |
 | `web-quality-audit` | `scripts/analyze.sh` is a read-only HTML checker (greps files, prints JSON); needs `jq`. |
+| `pick-ui-library` | An opinionated list that includes the author's own libraries (Sonner, Vaul). It runs only when invoked; adding any library is still a dependency change that `AGENTS.md` says to ask about first. |
+| `emil-design-eng`, `apple-design` | Broad design-philosophy triggers that can overlap `frontend-design` in the `web` profile; they complement it (motion and polish vs. visual direction), but disable `ui-polish` if suggestions conflict. `apple-design` here is Emil Kowalski's MIT skill, not the unlicensed dickwu skill excluded below. |
 
 ## Reviewed and excluded
 

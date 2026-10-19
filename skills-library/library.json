@@ -157,6 +157,27 @@
         "evaluate-rag": "skills/evaluate-rag",
         "validate-evaluator": "skills/validate-evaluator"
       }
+    },
+    "emil": {
+      "repo": "emilkowalski/skills",
+      "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+      "skills": {
+        "emil-design-eng": "skills/emil-design-eng",
+        "animate": "skills/animate",
+        "animate-expo": "skills/animate-expo",
+        "animation-performance": "skills/animation-performance",
+        "animation-vocabulary": "skills/animation-vocabulary",
+        "review-animations": "skills/review-animations",
+        "improve-animations": "skills/improve-animations",
+        "find-animation-opportunities": "skills/find-animation-opportunities",
+        "apple-design": "skills/apple-design",
+        "mobile-native": "skills/mobile-native",
+        "break-ui": "skills/break-ui",
+        "pick-ui-library": "skills/pick-ui-library",
+        "prototype": "skills/prototype",
+        "ask-sonner": "skills/ask-sonner",
+        "write-swift": "skills/write-swift"
+      }
     }
   },
   "profiles": {
@@ -222,13 +243,15 @@
         "expo-router",
         "expo-data-fetching",
         "expo-dev-client",
-        "expo-upgrade"
+        "expo-upgrade",
+        "animate-expo"
       ]
     },
     "ios": {
-      "description": "Native iOS with SwiftUI.",
+      "description": "Native iOS with SwiftUI and modern Swift.",
       "skills": [
-        "swiftui-pro"
+        "swiftui-pro",
+        "write-swift"
       ]
     },
     "android": {
@@ -298,6 +321,23 @@
       "description": "Create and evaluate new skills.",
       "skills": [
         "skill-creator"
+      ]
+    },
+    "ui-polish": {
+      "description": "Emil Kowalski's design engineering: animation craft and performance, motion reviews, Apple-style interaction, worst-case data testing, native feel on mobile web, library picks, UI prototyping.",
+      "skills": [
+        "emil-design-eng",
+        "animate",
+        "animation-performance",
+        "animation-vocabulary",
+        "review-animations",
+        "improve-animations",
+        "find-animation-opportunities",
+        "apple-design",
+        "mobile-native",
+        "break-ui",
+        "pick-ui-library",
+        "prototype"
       ]
     }
   }

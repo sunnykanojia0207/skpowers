@@ -637,5 +637,140 @@
     "flags": [
       "uses sudo (references/upgrading-react-native.md)"
     ]
+  },
+  {
+    "skill": "emil-design-eng",
+    "repo": "emilkowalski/skills",
+    "path": "skills/emil-design-eng",
+    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "animate",
+    "repo": "emilkowalski/skills",
+    "path": "skills/animate",
+    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "animate-expo",
+    "repo": "emilkowalski/skills",
+    "path": "skills/animate-expo",
+    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "animation-performance",
+    "repo": "emilkowalski/skills",
+    "path": "skills/animation-performance",
+    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "animation-vocabulary",
+    "repo": "emilkowalski/skills",
+    "path": "skills/animation-vocabulary",
+    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "review-animations",
+    "repo": "emilkowalski/skills",
+    "path": "skills/review-animations",
+    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "improve-animations",
+    "repo": "emilkowalski/skills",
+    "path": "skills/improve-animations",
+    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "find-animation-opportunities",
+    "repo": "emilkowalski/skills",
+    "path": "skills/find-animation-opportunities",
+    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "apple-design",
+    "repo": "emilkowalski/skills",
+    "path": "skills/apple-design",
+    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "mobile-native",
+    "repo": "emilkowalski/skills",
+    "path": "skills/mobile-native",
+    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "break-ui",
+    "repo": "emilkowalski/skills",
+    "path": "skills/break-ui",
+    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "pick-ui-library",
+    "repo": "emilkowalski/skills",
+    "path": "skills/pick-ui-library",
+    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "prototype",
+    "repo": "emilkowalski/skills",
+    "path": "skills/prototype",
+    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "ask-sonner",
+    "repo": "emilkowalski/skills",
+    "path": "skills/ask-sonner",
+    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "write-swift",
+    "repo": "emilkowalski/skills",
+    "path": "skills/write-swift",
+    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
   }
 ]
