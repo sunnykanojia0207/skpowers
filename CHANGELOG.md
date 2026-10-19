@@ -4,6 +4,7 @@
 
 ### Added
 - `ui-polish` profile with 15 MIT skills from Emil Kowalski (`emilkowalski/skills`): animation craft, performance and reviews, Apple-style interaction, worst-case data testing, mobile-web polish; `animate-expo` added to `react-native`, `write-swift` to `ios`, `ask-sonner` available individually.
+- `getlayers` MCP server (paid, off by default); GetLayers and GSAPify listed as design resources.
 - `design-memory` profile (MC Dean's `design-context` skills, MIT); `writing-skills` from Superpowers v7.0.0 added to `authoring`; habitat documented as a design-system tool with a pinned commit.
 - `ripwire` profile (17 Apache-2.0 skills from Red Hat's ripwire, pinned to v0.6.7) and `ripwire` MCP server (off by default), with a pinned, checksum-verified, project-local setup instead of the upstream `curl | bash` global installer.
 - GitHub Spec Kit v1.2.2 documented as an alternative to the `core` workflow, using the `codex` integration so its skills reach every tool.
