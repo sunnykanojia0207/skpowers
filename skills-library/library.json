@@ -16,7 +16,8 @@
         "receiving-code-review": "skills/receiving-code-review",
         "using-git-worktrees": "skills/using-git-worktrees",
         "finishing-a-development-branch": "skills/finishing-a-development-branch",
-        "using-superpowers": "skills/using-superpowers"
+        "using-superpowers": "skills/using-superpowers",
+        "writing-skills": "skills/writing-skills"
       }
     },
     "vercel-agent-skills": {
@@ -201,6 +202,14 @@
         "ripwire-handoff": "skills/ripwire-handoff",
         "ripwire-mcp": "skills/ripwire-mcp"
       }
+    },
+    "design-context": {
+      "repo": "Owl-Listener/design-context",
+      "commit": "a545d24948f202bec05e827284dd10be2b8a472e",
+      "skills": {
+        "init-design-context": "skills/init-design-context",
+        "update-design-context": "skills/update-design-context"
+      }
     }
   },
   "profiles": {
@@ -341,9 +350,10 @@
       ]
     },
     "authoring": {
-      "description": "Create and evaluate new skills.",
+      "description": "Create and evaluate new skills (Anthropic skill-creator, Superpowers writing-skills).",
       "skills": [
-        "skill-creator"
+        "skill-creator",
+        "writing-skills"
       ]
     },
     "ripwire": {
@@ -366,6 +376,13 @@
         "ripwire-opt-remarks",
         "ripwire-handoff",
         "ripwire-mcp"
+      ]
+    },
+    "design-memory": {
+      "description": "MC Dean's design-context: a design-context/ directory with a dated, human-approved log of design decisions (with reasons) that agents load at session start.",
+      "skills": [
+        "init-design-context",
+        "update-design-context"
       ]
     },
     "ui-polish": {

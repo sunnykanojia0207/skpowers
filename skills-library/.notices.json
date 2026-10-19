@@ -959,5 +959,34 @@
     "flags": [
       "pre-approves shell commands (allowed-tools) (SKILL.md)"
     ]
+  },
+  {
+    "skill": "init-design-context",
+    "repo": "Owl-Listener/design-context",
+    "path": "skills/init-design-context",
+    "commit": "a545d24948f202bec05e827284dd10be2b8a472e",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "update-design-context",
+    "repo": "Owl-Listener/design-context",
+    "path": "skills/update-design-context",
+    "commit": "a545d24948f202bec05e827284dd10be2b8a472e",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "writing-skills",
+    "repo": "obra/superpowers",
+    "path": "skills/writing-skills",
+    "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+    "license": "repository LICENSE (copied)",
+    "scripts": [
+      "render-graphs.js"
+    ],
+    "flags": []
   }
 ]

@@ -1,6 +1,6 @@
 # Skills Catalog
 
-The toolkit ships **97 vetted third-party skills** in `skills-library/`, grouped into profiles. Turn profiles on per project in `toolkit.config.json`, then run `python scripts/sync_toolkit.py`; only enabled skills are copied into `.agents/skills/`, so every tool sees the same small, relevant set.
+The toolkit ships **100 vetted third-party skills** in `skills-library/`, grouped into profiles. Turn profiles on per project in `toolkit.config.json`, then run `python scripts/sync_toolkit.py`; only enabled skills are copied into `.agents/skills/`, so every tool sees the same small, relevant set.
 
 ```json
 "skillProfiles": ["core", "docs", "web", "testing", "postgres"],
@@ -30,7 +30,8 @@ The toolkit ships **97 vetted third-party skills** in `skills-library/`, grouped
 | `api` | off | api-design-principles, openapi-spec-generation, document-api-endpoint | wshobson/agents (MIT), getsentry/skills (Apache-2.0) |
 | `devops` | off | docker-build-strategies, docker-compose-patterns, docker-destructive-guardrails, github-actions-templates, k8s-manifest-generator | [docker/skills](https://github.com/docker/skills) (Apache-2.0), wshobson/agents (MIT) |
 | `ai-apps` | off | evals-start, error-discovery, eval-audit, write-judge-prompt, evaluate-rag, validate-evaluator, mcp-builder | [ai-evals-course/evals-skills](https://github.com/ai-evals-course/evals-skills) (Apache-2.0), anthropics/skills (Apache-2.0) |
-| `authoring` | off | skill-creator | anthropics/skills (Apache-2.0) |
+| `authoring` | off | skill-creator, writing-skills | anthropics/skills (Apache-2.0), obra/superpowers (MIT) |
+| `design-memory` | off | init-design-context, update-design-context | [Owl-Listener/design-context](https://github.com/Owl-Listener/design-context) (MIT, MC Dean) |
 | `ripwire` | off | ripwire-router, -orient, -navigate, -graph-query, -layers, -before-you-build, -reuse-first, -change-check, -quality-bar, -fresh-eyes, -find-bug, -security-scan, -write-tests, -perf-target, -opt-remarks, -handoff, -mcp | [redhat-et/ripwire](https://github.com/redhat-et/ripwire) v0.6.7 (Apache-2.0, Red Hat). Needs the ripwire binary; see below. |
 
 **Typical combinations:** Next.js SaaS → `core docs web ui-polish testing postgres api security devops`. Expo mobile app → `core docs react-native testing api`. Native iOS → `core docs ios`. Native Android → `core docs android`. LLM product → add `ai-apps`.
@@ -51,6 +52,8 @@ From the manual review. None of these instruct an agent to bypass the user, hide
 | `docker-build-strategies` | `rm -rf /var/lib/apt/lists/*` appears only as standard Dockerfile cleanup. |
 | `upgrading-react-native` | Its Xcode troubleshooting suggests `sudo xcode-select -s …` and `sudo xcodebuild -runFirstLaunch`; the agent must ask before running anything with `sudo`. |
 | `web-quality-audit` | `scripts/analyze.sh` is a read-only HTML checker (greps files, prints JSON); needs `jq`. |
+| `init-design-context` | Step 4 adds a session-start line ("read design-context/index.md…") to `CLAUDE.md`, `AGENTS.md` or equivalent, creating the file if absent. In this toolkit, have it add the line to `AGENTS.md` only: `CLAUDE.md` and `GEMINI.md` already import it. The skills otherwise only write inside `design-context/` and propose every decision entry before appending it. Complements `DESIGN.md`: the design system lives there, the decision history in `design-context/decisions.md`. |
+| `writing-skills` | Ships `render-graphs.js`, which renders a skill's Graphviz diagrams to SVG with the local `dot` binary (no shell, no network). |
 | `ripwire-*` (all 17) | Each pre-approves unrestricted `Bash` (and `ripwire-opt-remarks` also `Edit`) in Claude Code while active, not only `ripwire` commands. The skills only document the upstream installer, they never tell the agent to run it. Keep the profile opt-in, and install the binary yourself as described below. |
 | `pick-ui-library` | An opinionated list that includes the author's own libraries (Sonner, Vaul). It runs only when invoked; adding any library is still a dependency change that `AGENTS.md` says to ask about first. |
 | `emil-design-eng`, `apple-design` | Broad design-philosophy triggers that can overlap `frontend-design` in the `web` profile; they complement it (motion and polish vs. visual direction), but disable `ui-polish` if suggestions conflict. `apple-design` here is Emil Kowalski's MIT skill, not the unlicensed dickwu skill excluded below. |
@@ -69,6 +72,7 @@ From the manual review. None of these instruct an agent to bypass the user, hide
 | prompts.chat (`f/prompts.chat`, formerly awesome-chatgpt-prompts) | Code MIT, prompts CC0. A community prompt library made mostly of "Act as…" persona prompts; its MCP server (`https://prompts.chat/api/mcp`) feeds community-submitted text straight into the agent's context, which is a prompt-injection route. | Browse it for ideas and copy a prompt into your own versioned files after reading it |
 | Beautiful UI ([beautifului.dev](https://www.beautifului.dev/)) | A copy-paste component library (MIT) for AI-native interfaces: streaming text, thinking states, approval cards, tool traces, diff tables. Not a skill; the only GitHub skills and registries for it are unofficial ports with 2–21 stars. | When building chat or agent UIs, copy components from the site and record them in `DESIGN.md` |
 | mattpocock/skills (`tdd`, `diagnosing-bugs`, `code-review`, `grill-with-docs`) | Very popular, but a competing workflow to `core`; running both produces conflicting instructions. | Use instead of `core`, not alongside it |
+| `diagnosing-superpowers` (obra/superpowers) | Troubleshoots the Superpowers plugin itself; not useful inside projects. The other 14 Superpowers skills are vendored (`core` and `authoring`), pinned to v7.0.0. | — |
 | Reposted Superpowers copies (`101-skills/superpowers`, `magentosh/superpowers`, `qu-skills/superpowers`, `skills-shell/superpowers`) | Copies of the original with inflated install counts. | Use `obra/superpowers` |
 | `anti-detect-browser`, `playwright-stealth-verify` and similar | Bot-detection evasion tooling, not software delivery. | — |
 | `android-cli`, `play-policy-insights` (android/skills) | Pipe a remote installer to the shell and install other skills; ship a scraper. | — |
@@ -119,6 +123,7 @@ Not skills, but they work with the `AGENTS.md` rule that every tool follows a ro
 | [designmd.app](https://designmd.app/) | Library of DESIGN.md templates in Google's format | Same: adapt, don't clone. No license is named. |
 | [Refero Styles](https://styles.refero.design/) (beta) | Design systems (colors, type, spacing, components, DESIGN.md) taken from product sites such as Linear, Notion and Figma; also offers an MCP connection | Same: adapt, don't clone. No license or pricing is published, and its MCP setup could not be verified, so it is not in `toolkit.config.json`. |
 | [shadcn-ui/lint](https://github.com/shadcn-ui/lint) (`@shadcn/lint`, MIT) | ESLint/Oxlint rules for Tailwind v4 design systems (React, Svelte, Vue). Errors tell the agent the allowed fix, e.g. "use a Button size, not padding". | Add it as a pinned dev dependency during Phase 1 and run it in CI. Read its `SETUP.md` yourself instead of telling an agent to fetch and follow it from `main`. |
+| [habitat](https://github.com/Owl-Listener/habitat) (MIT, MC Dean) | Toolkit for making an existing design system legible to agents: AI reads the facts from Figma, interviews you for the reasons, marks unknowns `TODO`, and measures the improvement on real screens. Includes a validator, a code checker and a local MCP server (no network calls). | New (June 2026, no stars yet). Its quick start runs unpinned `npx github:Owl-Listener/habitat`; pin a commit instead (`npx github:Owl-Listener/habitat#7d5122d init`, reviewed 2026-10-19). `init` installs Claude Code skills and appends rule blocks to `AGENTS.md`, `CLAUDE.md` and `.cursor/rules/habitat.mdc`: keep the block in `AGENTS.md` and remove the duplicates. |
 | [Beautiful UI](https://www.beautifului.dev/) (MIT) | Copy-paste components for AI chat/agent interfaces | Copy components directly; record them in `DESIGN.md`. |
 | 21st MCP (`21st` in `toolkit.config.json`, off) | Search 21st.dev's React/Tailwind component catalog; paid retrieval and generation | Enable with a key in `API_KEY_21ST`. Generated components are third-party code: review before committing. |
 
