@@ -59,7 +59,7 @@ From the manual review. None of these instruct an agent to bypass the user, hide
 
 | Skill | Why it is not vendored | If you still want it |
 |---|---|---|
-| Impeccable (`pbakaus/impeccable`) | Downloads a closed binary on first run (checksum comes from the same release), and its `hooks` command writes agent hook/settings files including user-global `~/.claude/settings.json`. | `npx skills add pbakaus/impeccable --skill impeccable`, after reading its hooks documentation |
+| Impeccable (`pbakaus/impeccable`, [impeccable.style](https://impeccable.style/)) | Apache-2.0 and popular, but every session the skill runs a launcher that downloads a self-contained binary on first run (checksum comes from the same release), and its opt-in `hooks on` command writes agent hook/settings files including user-global `~/.claude/settings.json`. Re-checked 2026-10-19 against CLI v4.6.0: unchanged. | `npx skills add pbakaus/impeccable --skill impeccable`, after reading its hooks documentation |
 | shadcn (`shadcn-ui/ui`) | Runs unpinned `npx shadcn@latest` automatically when the skill loads and pre-approves every shadcn subcommand, including installs from community registries. | Use the `shadcn` MCP server in `toolkit.config.json` (pinned, off by default) |
 | Vercel `web-design-guidelines`, Anthropic `doc-coauthoring`, Vercel `use-ai-sdk` | No license declared, so they cannot be redistributed. | `npx skills add vercel-labs/agent-skills --skill web-design-guidelines`; `npx skills add vercel/ai` |
 | Trail of Bits skills | CC-BY-SA-4.0 (share-alike) and packaged as plugins. | `/plugin marketplace add trailofbits/skills` (Claude Code), `codex plugin marketplace add trailofbits/skills` |
