@@ -104,6 +104,13 @@
       "args": ["-y", "@21st-dev/magic@0.2.3"],
       "envPassthrough": ["API_KEY_21ST"]
     },
+    "ripwire": {
+      "description": "Free, local: ranked code maps, call graph, blast radius, tests-to-run and quality deltas (Red Hat). Install the pinned v0.6.7 release binary on PATH first.",
+      "enabled": false,
+      "transport": "stdio",
+      "command": "ripwire",
+      "args": ["--mcp"]
+    },
     "git": {
       "description": "Free: read, search and modify the local Git repository (can commit and switch branches). Needs uv.",
       "enabled": false,

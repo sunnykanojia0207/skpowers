@@ -772,5 +772,192 @@
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []
+  },
+  {
+    "skill": "ripwire-router",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-router",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "ripwire-orient",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-orient",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "ripwire-navigate",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-navigate",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "ripwire-graph-query",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-graph-query",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "ripwire-layers",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-layers",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "ripwire-before-you-build",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-before-you-build",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "ripwire-reuse-first",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-reuse-first",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "ripwire-change-check",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-change-check",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "ripwire-quality-bar",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-quality-bar",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "ripwire-fresh-eyes",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-fresh-eyes",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "ripwire-find-bug",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-find-bug",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "ripwire-security-scan",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-security-scan",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "ripwire-write-tests",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-write-tests",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "ripwire-perf-target",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-perf-target",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "ripwire-opt-remarks",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-opt-remarks",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "ripwire-handoff",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-handoff",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "ripwire-mcp",
+    "repo": "redhat-et/ripwire",
+    "path": "skills/ripwire-mcp",
+    "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
   }
 ]

@@ -114,9 +114,11 @@ npx skills add supabase/agent-skills
 **Spec Kit**
 
 ```bash
-uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
+# Updated 2026-10-19 for Spec Kit v1.2.2. Use it instead of the `core` profile;
+# full steps in SKILLS-CATALOG.md, "Alternative workflow: GitHub Spec Kit".
+uv tool install specify-cli --from git+https://github.com/github/spec-kit.git@v1.2.2
 specify check
-specify init            # run inside your repo; pick your agent when prompted
+specify init --here --force --non-interactive --integration codex   # commit first; writes .agents/skills
 ```
 
 **Manual install (works everywhere)**: skills are folders containing a `SKILL.md`. Copy the folder to where your agent looks, then start a new session.

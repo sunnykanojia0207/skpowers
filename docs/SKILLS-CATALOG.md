@@ -1,6 +1,6 @@
 # Skills Catalog
 
-The toolkit ships **80 vetted third-party skills** in `skills-library/`, grouped into profiles. Turn profiles on per project in `toolkit.config.json`, then run `python scripts/sync_toolkit.py`; only enabled skills are copied into `.agents/skills/`, so every tool sees the same small, relevant set.
+The toolkit ships **97 vetted third-party skills** in `skills-library/`, grouped into profiles. Turn profiles on per project in `toolkit.config.json`, then run `python scripts/sync_toolkit.py`; only enabled skills are copied into `.agents/skills/`, so every tool sees the same small, relevant set.
 
 ```json
 "skillProfiles": ["core", "docs", "web", "testing", "postgres"],
@@ -31,6 +31,7 @@ The toolkit ships **80 vetted third-party skills** in `skills-library/`, grouped
 | `devops` | off | docker-build-strategies, docker-compose-patterns, docker-destructive-guardrails, github-actions-templates, k8s-manifest-generator | [docker/skills](https://github.com/docker/skills) (Apache-2.0), wshobson/agents (MIT) |
 | `ai-apps` | off | evals-start, error-discovery, eval-audit, write-judge-prompt, evaluate-rag, validate-evaluator, mcp-builder | [ai-evals-course/evals-skills](https://github.com/ai-evals-course/evals-skills) (Apache-2.0), anthropics/skills (Apache-2.0) |
 | `authoring` | off | skill-creator | anthropics/skills (Apache-2.0) |
+| `ripwire` | off | ripwire-router, -orient, -navigate, -graph-query, -layers, -before-you-build, -reuse-first, -change-check, -quality-bar, -fresh-eyes, -find-bug, -security-scan, -write-tests, -perf-target, -opt-remarks, -handoff, -mcp | [redhat-et/ripwire](https://github.com/redhat-et/ripwire) v0.6.7 (Apache-2.0, Red Hat). Needs the ripwire binary; see below. |
 
 **Typical combinations:** Next.js SaaS → `core docs web ui-polish testing postgres api security devops`. Expo mobile app → `core docs react-native testing api`. Native iOS → `core docs ios`. Native Android → `core docs android`. LLM product → add `ai-apps`.
 
@@ -50,6 +51,7 @@ From the manual review. None of these instruct an agent to bypass the user, hide
 | `docker-build-strategies` | `rm -rf /var/lib/apt/lists/*` appears only as standard Dockerfile cleanup. |
 | `upgrading-react-native` | Its Xcode troubleshooting suggests `sudo xcode-select -s …` and `sudo xcodebuild -runFirstLaunch`; the agent must ask before running anything with `sudo`. |
 | `web-quality-audit` | `scripts/analyze.sh` is a read-only HTML checker (greps files, prints JSON); needs `jq`. |
+| `ripwire-*` (all 17) | Each pre-approves unrestricted `Bash` (and `ripwire-opt-remarks` also `Edit`) in Claude Code while active, not only `ripwire` commands. The skills only document the upstream installer, they never tell the agent to run it. Keep the profile opt-in, and install the binary yourself as described below. |
 | `pick-ui-library` | An opinionated list that includes the author's own libraries (Sonner, Vaul). It runs only when invoked; adding any library is still a dependency change that `AGENTS.md` says to ask about first. |
 | `emil-design-eng`, `apple-design` | Broad design-philosophy triggers that can overlap `frontend-design` in the `web` profile; they complement it (motion and polish vs. visual direction), but disable `ui-polish` if suggestions conflict. `apple-design` here is Emil Kowalski's MIT skill, not the unlicensed dickwu skill excluded below. |
 
@@ -64,6 +66,7 @@ From the manual review. None of these instruct an agent to bypass the user, hide
 | Taste Skill, UI/UX Pro Max | Design-style skills overlap `frontend-design`; pick one per project. | See [TOOLKIT-GUIDE.md](TOOLKIT-GUIDE.md) §3.4 |
 | `apple-design` (dickwu) | No license; bundles Apple's guideline text. | Install for personal use only |
 | `find-skills` (`vercel-labs/skills`) | Its final step installs skills globally with `npx skills add … -g -y` (no confirmation prompt, every project affected) and ranks candidates by install count, which reposted copies inflate. The toolkit's `marketplace-skill-review` skill and `vendor_skills.py` cover discovery with review. | Use the CLI directly: `npx skills find <query>`, then review and add to `skills-library/library.json` |
+| prompts.chat (`f/prompts.chat`, formerly awesome-chatgpt-prompts) | Code MIT, prompts CC0. A community prompt library made mostly of "Act as…" persona prompts; its MCP server (`https://prompts.chat/api/mcp`) feeds community-submitted text straight into the agent's context, which is a prompt-injection route. | Browse it for ideas and copy a prompt into your own versioned files after reading it |
 | Beautiful UI ([beautifului.dev](https://www.beautifului.dev/)) | A copy-paste component library (MIT) for AI-native interfaces: streaming text, thinking states, approval cards, tool traces, diff tables. Not a skill; the only GitHub skills and registries for it are unofficial ports with 2–21 stars. | When building chat or agent UIs, copy components from the site and record them in `DESIGN.md` |
 | mattpocock/skills (`tdd`, `diagnosing-bugs`, `code-review`, `grill-with-docs`) | Very popular, but a competing workflow to `core`; running both produces conflicting instructions. | Use instead of `core`, not alongside it |
 | Reposted Superpowers copies (`101-skills/superpowers`, `magentosh/superpowers`, `qu-skills/superpowers`, `skills-shell/superpowers`) | Copies of the original with inflated install counts. | Use `obra/superpowers` |
@@ -71,6 +74,40 @@ From the manual review. None of these instruct an agent to bypass the user, hide
 | `android-cli`, `play-policy-insights` (android/skills) | Pipe a remote installer to the shell and install other skills; ship a scraper. | — |
 | Claude Code Templates ([aitmpl.com](https://www.aitmpl.com/), `davila7/claude-code-templates`) | MIT and active, but an aggregator: ~900 skills largely collected from other repositories, plus ~590 hook and settings files; its `npx claude-code-templates` installer writes agents, hooks and settings into Claude Code only. | Browse it for ideas; install a skill from its original repository instead, and read any hook before adding it by hand |
 | gstack, everything-claude-code, ruflo, moai-adk | All-in-one packs with self-update, binaries or overlapping methodologies. | — |
+
+## ripwire: safe setup
+
+[ripwire](https://github.com/redhat-et/ripwire) is a local C++ CLI and MCP server: a ranked map of the code before the agent reads files, and blast radius, tests-to-run and quality regressions after it edits. The library pins its skills to release **v0.6.7**, so install the same binary version.
+
+Its one-line installer pipes an unpinned script from `main` into `bash` and activates skills **globally** (`~/.claude/skills`, `~/.agents/skills`). In this toolkit, do it pinned and project-local instead:
+
+1. Download `ripwire-0.6.7-<os>-<arch>` and its `.sha256` file from the [v0.6.7 release](https://github.com/redhat-et/ripwire/releases/tag/v0.6.7), compare the checksum, extract, and put the `ripwire` binary on your `PATH`.
+2. Add `ripwire` to `skillProfiles` and set `"enabled": true` on the `ripwire` MCP server in `toolkit.config.json`.
+3. Run `python scripts/sync_toolkit.py`.
+4. Don't run its `skills/install.sh` or `--hook`; the toolkit already provides the skills, and the hooks write to `~/.claude/settings.json` and `~/.codex/hooks.json`.
+
+## Alternative workflow: GitHub Spec Kit
+
+[Spec Kit](https://github.com/github/spec-kit) (MIT, GitHub) is a spec-driven workflow: `/speckit-constitution`, then `/speckit-specify` → `plan` → `tasks` → `implement` → `converge` per feature, plus bug and assessment tracks. It is **an alternative to `core` (Superpowers), not an addition**: both run their own planning loop.
+
+It can't be vendored like the library skills: `specify init` generates its skills from templates together with `.specify/` scripts and memory files. To use it in every tool:
+
+```bash
+# 1. Commit first: init merges files into the existing directory.
+git add -A && git commit -m "Before Spec Kit"
+# 2. Turn off Superpowers: remove "core" from skillProfiles, then
+python scripts/sync_toolkit.py
+# 3. Install a pinned CLI and initialise with the codex integration, which writes
+#    skills to .agents/skills (read by Codex, Cursor, OpenCode, Gemini CLI,
+#    Antigravity and Copilot).
+uv tool install specify-cli --from git+https://github.com/github/spec-kit.git@v1.2.2
+specify init --here --force --non-interactive --integration codex
+# 4. Mirror the new skills into .claude/skills for Claude Code, then review.
+python scripts/sync_toolkit.py
+git diff
+```
+
+Check that `specify init` did not change `AGENTS.md`; if it added content, merge it so `AGENTS.md` stays the single rule file.
 
 ## Design resources and guardrails
 

@@ -4,9 +4,11 @@
 
 ### Added
 - `ui-polish` profile with 15 MIT skills from Emil Kowalski (`emilkowalski/skills`): animation craft, performance and reviews, Apple-style interaction, worst-case data testing, mobile-web polish; `animate-expo` added to `react-native`, `write-swift` to `ios`, `ask-sonner` available individually.
+- `ripwire` profile (17 Apache-2.0 skills from Red Hat's ripwire, pinned to v0.6.7) and `ripwire` MCP server (off by default), with a pinned, checksum-verified, project-local setup instead of the upstream `curl | bash` global installer.
+- GitHub Spec Kit v1.2.2 documented as an alternative to the `core` workflow, using the `codex` integration so its skills reach every tool.
 - `21st` MCP server (off by default) via the pinned `@21st-dev/magic` proxy with `API_KEY_21ST`.
 - "Design resources and guardrails" in `docs/SKILLS-CATALOG.md`: awesome-design-md and designmd.app templates, `@shadcn/lint`, Beautiful UI; `DESIGN.md` step in the getting-started guide.
-- Reviewed and not vendored: `find-skills` (global `-y` installs), Beautiful UI (no official skill), Claude Code Templates (aggregator writing hooks/settings).
+- Reviewed and not vendored: prompts.chat (community persona prompts; MCP feeds untrusted text to agents), `find-skills` (global `-y` installs), Beautiful UI (no official skill), Claude Code Templates (aggregator writing hooks/settings).
 
 ## 0.2.0
 

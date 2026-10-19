@@ -178,6 +178,29 @@
         "ask-sonner": "skills/ask-sonner",
         "write-swift": "skills/write-swift"
       }
+    },
+    "ripwire": {
+      "repo": "redhat-et/ripwire",
+      "commit": "0e0f67c73ca332ed58bb8478677f916f7ccc1e84",
+      "skills": {
+        "ripwire-router": "skills/ripwire-router",
+        "ripwire-orient": "skills/ripwire-orient",
+        "ripwire-navigate": "skills/ripwire-navigate",
+        "ripwire-graph-query": "skills/ripwire-graph-query",
+        "ripwire-layers": "skills/ripwire-layers",
+        "ripwire-before-you-build": "skills/ripwire-before-you-build",
+        "ripwire-reuse-first": "skills/ripwire-reuse-first",
+        "ripwire-change-check": "skills/ripwire-change-check",
+        "ripwire-quality-bar": "skills/ripwire-quality-bar",
+        "ripwire-fresh-eyes": "skills/ripwire-fresh-eyes",
+        "ripwire-find-bug": "skills/ripwire-find-bug",
+        "ripwire-security-scan": "skills/ripwire-security-scan",
+        "ripwire-write-tests": "skills/ripwire-write-tests",
+        "ripwire-perf-target": "skills/ripwire-perf-target",
+        "ripwire-opt-remarks": "skills/ripwire-opt-remarks",
+        "ripwire-handoff": "skills/ripwire-handoff",
+        "ripwire-mcp": "skills/ripwire-mcp"
+      }
     }
   },
   "profiles": {
@@ -321,6 +344,28 @@
       "description": "Create and evaluate new skills.",
       "skills": [
         "skill-creator"
+      ]
+    },
+    "ripwire": {
+      "description": "Red Hat's ripwire: ranked code maps before reading, blast radius, tests-to-run and quality deltas after editing. Requires the ripwire v0.6.7 binary on PATH.",
+      "skills": [
+        "ripwire-router",
+        "ripwire-orient",
+        "ripwire-navigate",
+        "ripwire-graph-query",
+        "ripwire-layers",
+        "ripwire-before-you-build",
+        "ripwire-reuse-first",
+        "ripwire-change-check",
+        "ripwire-quality-bar",
+        "ripwire-fresh-eyes",
+        "ripwire-find-bug",
+        "ripwire-security-scan",
+        "ripwire-write-tests",
+        "ripwire-perf-target",
+        "ripwire-opt-remarks",
+        "ripwire-handoff",
+        "ripwire-mcp"
       ]
     },
     "ui-polish": {
