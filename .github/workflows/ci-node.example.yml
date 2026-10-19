@@ -1,0 +1,24 @@
+# TEMPLATE ONLY: rename to ci.yml after adapting to your package manager and scripts.
+# For production repositories, pin actions to verified full commit SHAs and automate
+# safe action updates (for example with Dependabot). Keep permissions minimal.
+name: CI (Node template)
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # Pin to a reviewed full SHA before production use.
+      - uses: actions/setup-node@v4 # Pin to a reviewed full SHA before production use.
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint --if-present
+      - run: npm run typecheck --if-present
+      - run: npm test --if-present
+      - run: npm run build

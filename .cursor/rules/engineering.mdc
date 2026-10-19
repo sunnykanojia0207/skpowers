@@ -1,0 +1,5 @@
+---
+description: Superseded by AGENTS.md
+alwaysApply: false
+---
+Cursor reads `AGENTS.md` natively; the shared rules live there. This file is no longer needed and can be deleted.

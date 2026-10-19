@@ -1,0 +1,80 @@
+{
+  "tools": ["claude-code", "codex", "cursor", "opencode", "gemini-cli", "antigravity", "copilot"],
+  "mcpServers": {
+    "context7": {
+      "description": "Current library documentation lookup.",
+      "enabled": true,
+      "transport": "http",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "playwright": {
+      "description": "Local browser automation for UI verification.",
+      "enabled": true,
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@0.0.83", "--isolated"]
+    },
+    "chrome-devtools": {
+      "description": "Performance traces, console and network debugging. Needs Chrome.",
+      "enabled": false,
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@1.11.0"]
+    },
+    "github": {
+      "description": "Read-only GitHub repos, issues, PRs and Actions. Needs Docker and a fine-grained token.",
+      "enabled": false,
+      "transport": "stdio",
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm",
+        "-e", "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "-e", "GITHUB_READ_ONLY=1",
+        "-e", "GITHUB_TOOLSETS=repos,issues,pull_requests,actions,code_security",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "envPassthrough": ["GITHUB_PERSONAL_ACCESS_TOKEN"]
+    },
+    "supabase": {
+      "description": "Supabase database and docs. Keep read_only=true and scope to a dev project.",
+      "enabled": false,
+      "transport": "http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=YOUR_PROJECT_REF&read_only=true&features=database,docs"
+    },
+    "mobile-mcp": {
+      "description": "iOS/Android simulator, emulator and device automation. Needs Xcode or ADB. Telemetry disabled.",
+      "enabled": false,
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "@mobilenext/mobile-mcp@1.0.12"],
+      "env": { "MOBILEMCP_DISABLE_TELEMETRY": "1" }
+    },
+    "sentry": {
+      "description": "Production errors and traces (official, OAuth). No read-only mode: approve each tool call.",
+      "enabled": false,
+      "transport": "http",
+      "url": "https://mcp.sentry.dev/mcp"
+    },
+    "linear": {
+      "description": "Linear issues (official). Read-only endpoint.",
+      "enabled": false,
+      "transport": "http",
+      "url": "https://mcp.linear.app/mcp/readonly"
+    },
+    "grafana": {
+      "description": "Grafana dashboards, metrics and logs (official). Needs uv. Write tools disabled.",
+      "enabled": false,
+      "transport": "stdio",
+      "command": "uvx",
+      "args": ["mcp-grafana@2.0.2", "--disable-write"],
+      "envPassthrough": ["GRAFANA_URL", "GRAFANA_SERVICE_ACCOUNT_TOKEN"]
+    },
+    "semgrep": {
+      "description": "Static analysis via the Semgrep CLI (install Semgrep first).",
+      "enabled": false,
+      "transport": "stdio",
+      "command": "semgrep",
+      "args": ["mcp"]
+    }
+  }
+}
