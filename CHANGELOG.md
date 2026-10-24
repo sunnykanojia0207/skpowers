@@ -4,6 +4,7 @@
 
 ### Added
 - `ui-polish` profile with 15 MIT skills from Emil Kowalski (`emilkowalski/skills`): animation craft, performance and reviews, Apple-style interaction, worst-case data testing, mobile-web polish; `animate-expo` added to `react-native`, `write-swift` to `ios`, `ask-sonner` available individually.
+- 52 design skills in four new profiles: `interface-craft` (jakubkrehel/skills), `ux-design` and `ux-research` (Owl-Listener/designer-skills), `anti-slop` (MengTo/Skills); individual `landing-page-design` (elayadesign) and `tastemaker` (codeswithroh). Emil Kowalski's skills confirmed current. garden-skills and the rest of MengTo's and designer-skills' collections documented, not vendored. None of these repositories publishes an MCP server.
 - `magic-ui` skill from `magicuidesign/magicui` (MIT), available individually via `"skills": ["magic-ui"]`, and the read-only `magicui` MCP server (`@magicuidesign/mcp@2.0.0`, off by default).
 - `getlayers` MCP server (paid, off by default); GetLayers and GSAPify listed as design resources.
 - `design-memory` profile (MC Dean's `design-context` skills, MIT); `writing-skills` from Superpowers v7.0.0 added to `authoring`; habitat documented as a design-system tool with a pinned commit.

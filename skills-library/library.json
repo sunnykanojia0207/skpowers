@@ -203,6 +203,88 @@
         "ripwire-mcp": "skills/ripwire-mcp"
       }
     },
+    "jakubkrehel": {
+      "repo": "jakubkrehel/skills",
+      "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
+      "skills": {
+        "better-accessibility": "skills/better-accessibility",
+        "better-colors": "skills/better-colors",
+        "better-interface": "skills/better-interface",
+        "better-layout": "skills/better-layout",
+        "better-typography": "skills/better-typography",
+        "better-ui": "skills/better-ui",
+        "better-writing": "skills/better-writing",
+        "interface-review": "skills/interface-review",
+        "build-design": "skills/build-design",
+        "explain-interface": "skills/explain-interface",
+        "state-machine": "skills/state-machine",
+        "break": "skills/break",
+        "variant": "skills/variant"
+      }
+    },
+    "designer-skills": {
+      "repo": "Owl-Listener/designer-skills",
+      "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+      "skills": {
+        "form-design": "interaction-design/skills/form-design",
+        "error-handling-ux": "interaction-design/skills/error-handling-ux",
+        "loading-states": "interaction-design/skills/loading-states",
+        "feedback-patterns": "interaction-design/skills/feedback-patterns",
+        "navigation-patterns": "interaction-design/skills/navigation-patterns",
+        "onboarding-design": "interaction-design/skills/onboarding-design",
+        "search-ux": "interaction-design/skills/search-ux",
+        "information-architecture": "ux-strategy/skills/information-architecture",
+        "user-flow-diagram": "prototyping-testing/skills/user-flow-diagram",
+        "wireframe-spec": "prototyping-testing/skills/wireframe-spec",
+        "heuristic-evaluation": "prototyping-testing/skills/heuristic-evaluation",
+        "handoff-spec": "design-ops/skills/handoff-spec",
+        "design-qa-checklist": "design-ops/skills/design-qa-checklist",
+        "component-spec": "design-systems/skills/component-spec",
+        "design-token": "design-systems/skills/design-token",
+        "accessibility-audit": "design-systems/skills/accessibility-audit",
+        "responsive-design": "ui-design/skills/responsive-design",
+        "platform-conventions": "ui-design/skills/platform-conventions",
+        "dark-mode-design": "ui-design/skills/dark-mode-design",
+        "data-visualization": "ui-design/skills/data-visualization",
+        "ux-writing": "designer-toolkit/skills/ux-writing",
+        "design-brief": "ux-strategy/skills/design-brief",
+        "user-persona": "design-research/skills/user-persona",
+        "jobs-to-be-done": "design-research/skills/jobs-to-be-done",
+        "journey-map": "design-research/skills/journey-map",
+        "interview-script": "design-research/skills/interview-script",
+        "summarize-interview": "design-research/skills/summarize-interview",
+        "usability-test-plan": "design-research/skills/usability-test-plan",
+        "survey-design": "design-research/skills/survey-design",
+        "affinity-diagram": "design-research/skills/affinity-diagram",
+        "competitive-analysis": "ux-strategy/skills/competitive-analysis",
+        "metrics-definition": "ux-strategy/skills/metrics-definition",
+        "a-b-test-design": "prototyping-testing/skills/a-b-test-design"
+      }
+    },
+    "mengto": {
+      "repo": "MengTo/Skills",
+      "commit": "398cd41c86ba42fbb30e944ae507f463648f08b7",
+      "skills": {
+        "audit-ai-design-slop": "agent-skills/ui/audit-ai-design-slop",
+        "no-ai-design-slop": "agent-skills/ui/no-ai-design-slop",
+        "design-first-ui-prompting": "agent-skills/ui/design-first-ui-prompting",
+        "animation-systems": "agent-skills/web-design/animation-systems"
+      }
+    },
+    "elayadesign": {
+      "repo": "elayadesign/ai-design-skills",
+      "commit": "1c1e97cb9878e236552c772092dda7adcdddbcb2",
+      "skills": {
+        "landing-page-design": "skills/landing-page-design"
+      }
+    },
+    "tastemaker": {
+      "repo": "codeswithroh/tastemaker",
+      "commit": "792a28a820ec4e9159ef8621c21a6c88528bbf2e",
+      "skills": {
+        "tastemaker": "skills/tastemaker"
+      }
+    },
     "magicui": {
       "repo": "magicuidesign/magicui",
       "commit": "efe76fc5755eca1142dd4f74c1d6f0ace2887e3c",
@@ -383,6 +465,76 @@
         "ripwire-opt-remarks",
         "ripwire-handoff",
         "ripwire-mcp"
+      ]
+    },
+    "interface-craft": {
+      "description": "Jakub Krehel's interface quality skills: accessibility (WCAG 2.2), color, layout, typography, UI polish, interface copy, branch/PR interface review, building from Figma, state and variant pages, stress tests.",
+      "skills": [
+        "better-accessibility",
+        "better-colors",
+        "better-interface",
+        "better-layout",
+        "better-typography",
+        "better-ui",
+        "better-writing",
+        "interface-review",
+        "build-design",
+        "explain-interface",
+        "state-machine",
+        "break",
+        "variant"
+      ]
+    },
+    "ux-design": {
+      "description": "MC Dean's product UX skills: forms, errors, loading, feedback, navigation, onboarding, search, IA, flows, wireframes, heuristics, handoff, design QA, components, tokens, accessibility audit, responsive, platform conventions, dark mode, data viz, UX writing.",
+      "skills": [
+        "form-design",
+        "error-handling-ux",
+        "loading-states",
+        "feedback-patterns",
+        "navigation-patterns",
+        "onboarding-design",
+        "search-ux",
+        "information-architecture",
+        "user-flow-diagram",
+        "wireframe-spec",
+        "heuristic-evaluation",
+        "handoff-spec",
+        "design-qa-checklist",
+        "component-spec",
+        "design-token",
+        "accessibility-audit",
+        "responsive-design",
+        "platform-conventions",
+        "dark-mode-design",
+        "data-visualization",
+        "ux-writing"
+      ]
+    },
+    "ux-research": {
+      "description": "MC Dean's research and strategy skills: briefs, personas, jobs-to-be-done, journey maps, interviews, usability tests, surveys, affinity mapping, competitive analysis, UX metrics, A/B tests.",
+      "skills": [
+        "design-brief",
+        "user-persona",
+        "jobs-to-be-done",
+        "journey-map",
+        "interview-script",
+        "summarize-interview",
+        "usability-test-plan",
+        "survey-design",
+        "affinity-diagram",
+        "competitive-analysis",
+        "metrics-definition",
+        "a-b-test-design"
+      ]
+    },
+    "anti-slop": {
+      "description": "Meng To's skills for preventing and auditing generic AI-generated design, design-first UI prompting, and product-grade motion systems.",
+      "skills": [
+        "audit-ai-design-slop",
+        "no-ai-design-slop",
+        "design-first-ui-prompting",
+        "animation-systems"
       ]
     },
     "design-memory": {

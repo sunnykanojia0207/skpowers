@@ -997,5 +997,504 @@
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []
+  },
+  {
+    "skill": "better-accessibility",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/better-accessibility",
+    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "better-colors",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/better-colors",
+    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "better-interface",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/better-interface",
+    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "better-layout",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/better-layout",
+    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "better-typography",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/better-typography",
+    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "better-ui",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/better-ui",
+    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "better-writing",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/better-writing",
+    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "interface-review",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/interface-review",
+    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "build-design",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/build-design",
+    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "explain-interface",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/explain-interface",
+    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "state-machine",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/state-machine",
+    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "break",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/break",
+    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "variant",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/variant",
+    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "form-design",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "interaction-design/skills/form-design",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "error-handling-ux",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "interaction-design/skills/error-handling-ux",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "loading-states",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "interaction-design/skills/loading-states",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "feedback-patterns",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "interaction-design/skills/feedback-patterns",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "navigation-patterns",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "interaction-design/skills/navigation-patterns",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "onboarding-design",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "interaction-design/skills/onboarding-design",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "search-ux",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "interaction-design/skills/search-ux",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "information-architecture",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "ux-strategy/skills/information-architecture",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "user-flow-diagram",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "prototyping-testing/skills/user-flow-diagram",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "wireframe-spec",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "prototyping-testing/skills/wireframe-spec",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "heuristic-evaluation",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "prototyping-testing/skills/heuristic-evaluation",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "handoff-spec",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "design-ops/skills/handoff-spec",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "design-qa-checklist",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "design-ops/skills/design-qa-checklist",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "component-spec",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "design-systems/skills/component-spec",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "design-token",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "design-systems/skills/design-token",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "accessibility-audit",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "design-systems/skills/accessibility-audit",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "responsive-design",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "ui-design/skills/responsive-design",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "platform-conventions",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "ui-design/skills/platform-conventions",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "dark-mode-design",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "ui-design/skills/dark-mode-design",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "data-visualization",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "ui-design/skills/data-visualization",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "ux-writing",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "designer-toolkit/skills/ux-writing",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "design-brief",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "ux-strategy/skills/design-brief",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "user-persona",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "design-research/skills/user-persona",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "jobs-to-be-done",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "design-research/skills/jobs-to-be-done",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "journey-map",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "design-research/skills/journey-map",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "interview-script",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "design-research/skills/interview-script",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "summarize-interview",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "design-research/skills/summarize-interview",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "usability-test-plan",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "design-research/skills/usability-test-plan",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "survey-design",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "design-research/skills/survey-design",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "affinity-diagram",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "design-research/skills/affinity-diagram",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "competitive-analysis",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "ux-strategy/skills/competitive-analysis",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "metrics-definition",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "ux-strategy/skills/metrics-definition",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "a-b-test-design",
+    "repo": "Owl-Listener/designer-skills",
+    "path": "prototyping-testing/skills/a-b-test-design",
+    "commit": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "audit-ai-design-slop",
+    "repo": "MengTo/Skills",
+    "path": "agent-skills/ui/audit-ai-design-slop",
+    "commit": "398cd41c86ba42fbb30e944ae507f463648f08b7",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "no-ai-design-slop",
+    "repo": "MengTo/Skills",
+    "path": "agent-skills/ui/no-ai-design-slop",
+    "commit": "398cd41c86ba42fbb30e944ae507f463648f08b7",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "design-first-ui-prompting",
+    "repo": "MengTo/Skills",
+    "path": "agent-skills/ui/design-first-ui-prompting",
+    "commit": "398cd41c86ba42fbb30e944ae507f463648f08b7",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "animation-systems",
+    "repo": "MengTo/Skills",
+    "path": "agent-skills/web-design/animation-systems",
+    "commit": "398cd41c86ba42fbb30e944ae507f463648f08b7",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "landing-page-design",
+    "repo": "elayadesign/ai-design-skills",
+    "path": "skills/landing-page-design",
+    "commit": "1c1e97cb9878e236552c772092dda7adcdddbcb2",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "tastemaker",
+    "repo": "codeswithroh/tastemaker",
+    "path": "skills/tastemaker",
+    "commit": "792a28a820ec4e9159ef8621c21a6c88528bbf2e",
+    "license": "repository LICENSE (copied)",
+    "scripts": [
+      "assets/anime-starter.js",
+      "assets/artifact-kit.js",
+      "assets/gsap-starter.js",
+      "assets/reveal.js",
+      "ideagram/scripts/build_library_index.py",
+      "ideagram/scripts/export_png.py",
+      "ideagram/scripts/extract_component.py",
+      "ideagram/scripts/recolor_svg.py",
+      "ideagram/scripts/recolor_undraw.py",
+      "ideagram/scripts/validate_assets.py",
+      "scripts/_netguard.py",
+      "scripts/anti_slop_scan.py",
+      "scripts/audit_motion.py",
+      "scripts/check_component_coherence.py",
+      "scripts/check_contrast.py",
+      "scripts/check_copy_diversity.py",
+      "scripts/check_domains.py",
+      "scripts/check_structure_history.py",
+      "scripts/export_favicons.py",
+      "scripts/extract_palette.py",
+      "scripts/fetch_icons.py",
+      "scripts/fetch_photos.py",
+      "scripts/generate_palette.py",
+      "scripts/recolor_svg.py",
+      "scripts/summarize_outcomes.py",
+      "scripts/test_security.py",
+      "scripts/validate_assets.py"
+    ],
+    "flags": [
+      "uses sudo (ideagram/scripts/export_png.py)",
+      "uses sudo (scripts/export_favicons.py)"
+    ]
   }
 ]
