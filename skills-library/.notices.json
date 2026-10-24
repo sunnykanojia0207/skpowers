@@ -1907,5 +1907,638 @@
     "flags": [
       "installs other skills (README.md)"
     ]
+  },
+  {
+    "skill": "firebase-basics",
+    "repo": "firebase/agent-skills",
+    "path": "skills/firebase-basics",
+    "commit": "92eed24c0976a79a66d5b8038e9eda8b441ef92d",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "installs other skills (SKILL.md)",
+      "installs other skills (references/refresh/android_studio.md)",
+      "installs other skills (references/refresh/antigravity.md)",
+      "installs other skills (references/refresh/other-agents.md)",
+      "installs other skills (references/setup/android_studio.md)",
+      "installs other skills (references/setup/antigravity.md)",
+      "installs other skills (references/setup/cursor.md)",
+      "installs other skills (references/setup/github_copilot.md)",
+      "installs other skills (references/setup/other_agents.md)",
+      "mentions agent settings or hooks files (references/setup/other_agents.md)"
+    ]
+  },
+  {
+    "skill": "firebase-auth-basics",
+    "repo": "firebase/agent-skills",
+    "path": "skills/firebase-auth-basics",
+    "commit": "92eed24c0976a79a66d5b8038e9eda8b441ef92d",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "firebase-firestore",
+    "repo": "firebase/agent-skills",
+    "path": "skills/firebase-firestore",
+    "commit": "92eed24c0976a79a66d5b8038e9eda8b441ef92d",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "firestore-rules-creation",
+    "repo": "firebase/agent-skills",
+    "path": "skills/firestore-rules-creation",
+    "commit": "92eed24c0976a79a66d5b8038e9eda8b441ef92d",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "firebase-security-rules-auditor",
+    "repo": "firebase/agent-skills",
+    "path": "skills/firebase-security-rules-auditor",
+    "commit": "92eed24c0976a79a66d5b8038e9eda8b441ef92d",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "firebase-hosting-basics",
+    "repo": "firebase/agent-skills",
+    "path": "skills/firebase-hosting-basics",
+    "commit": "92eed24c0976a79a66d5b8038e9eda8b441ef92d",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "firebase-app-hosting-basics",
+    "repo": "firebase/agent-skills",
+    "path": "skills/firebase-app-hosting-basics",
+    "commit": "92eed24c0976a79a66d5b8038e9eda8b441ef92d",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "firebase-ai-logic-basics",
+    "repo": "firebase/agent-skills",
+    "path": "skills/firebase-ai-logic-basics",
+    "commit": "92eed24c0976a79a66d5b8038e9eda8b441ef92d",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "uses sudo (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "firebase-data-connect",
+    "repo": "firebase/agent-skills",
+    "path": "skills/firebase-data-connect-basics",
+    "commit": "92eed24c0976a79a66d5b8038e9eda8b441ef92d",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "firebase-remote-config-basics",
+    "repo": "firebase/agent-skills",
+    "path": "skills/firebase-remote-config-basics",
+    "commit": "92eed24c0976a79a66d5b8038e9eda8b441ef92d",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "global npm install (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "firebase-crashlytics",
+    "repo": "firebase/agent-skills",
+    "path": "skills/firebase-crashlytics",
+    "commit": "92eed24c0976a79a66d5b8038e9eda8b441ef92d",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "cloudflare",
+    "repo": "cloudflare/skills",
+    "path": "skills/cloudflare",
+    "commit": "86505e44f87d801aa1864a3c4109e9a8ae5c409f",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "wrangler",
+    "repo": "cloudflare/skills",
+    "path": "skills/wrangler",
+    "commit": "86505e44f87d801aa1864a3c4109e9a8ae5c409f",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "workers-best-practices",
+    "repo": "cloudflare/skills",
+    "path": "skills/workers-best-practices",
+    "commit": "86505e44f87d801aa1864a3c4109e9a8ae5c409f",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "workers-profiling",
+    "repo": "cloudflare/skills",
+    "path": "skills/workers-profiling",
+    "commit": "86505e44f87d801aa1864a3c4109e9a8ae5c409f",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "durable-objects",
+    "repo": "cloudflare/skills",
+    "path": "skills/durable-objects",
+    "commit": "86505e44f87d801aa1864a3c4109e9a8ae5c409f",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "agents-sdk",
+    "repo": "cloudflare/skills",
+    "path": "skills/agents-sdk",
+    "commit": "86505e44f87d801aa1864a3c4109e9a8ae5c409f",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "nextjs-on-cloudflare",
+    "repo": "cloudflare/skills",
+    "path": "skills/nextjs-on-cloudflare",
+    "commit": "86505e44f87d801aa1864a3c4109e9a8ae5c409f",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "installs other skills (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "turnstile-spin",
+    "repo": "cloudflare/skills",
+    "path": "skills/turnstile-spin",
+    "commit": "86505e44f87d801aa1864a3c4109e9a8ae5c409f",
+    "license": "repository LICENSE (copied)",
+    "scripts": [
+      "scripts/auth-probe.sh",
+      "scripts/persist-skill.sh",
+      "scripts/validate.sh",
+      "scripts/widget-create.sh",
+      "tests/test_persist_skill.py"
+    ],
+    "flags": []
+  },
+  {
+    "skill": "convex",
+    "repo": "convex/agent-skills",
+    "path": "skills/convex",
+    "commit": "191a5c33a7e7a22ec9d5ff13930f84748bbcf8f8",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "convex-quickstart",
+    "repo": "convex/agent-skills",
+    "path": "skills/convex-quickstart",
+    "commit": "191a5c33a7e7a22ec9d5ff13930f84748bbcf8f8",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "convex-design",
+    "repo": "convex/agent-skills",
+    "path": "skills/convex-design",
+    "commit": "191a5c33a7e7a22ec9d5ff13930f84748bbcf8f8",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "convex-auth",
+    "repo": "convex/agent-skills",
+    "path": "skills/convex-auth",
+    "commit": "191a5c33a7e7a22ec9d5ff13930f84748bbcf8f8",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "convex-authz",
+    "repo": "convex/agent-skills",
+    "path": "skills/convex-authz",
+    "commit": "191a5c33a7e7a22ec9d5ff13930f84748bbcf8f8",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "convex-optimize",
+    "repo": "convex/agent-skills",
+    "path": "skills/convex-optimize",
+    "commit": "191a5c33a7e7a22ec9d5ff13930f84748bbcf8f8",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "convex-migrate",
+    "repo": "convex/agent-skills",
+    "path": "skills/convex-migrate",
+    "commit": "191a5c33a7e7a22ec9d5ff13930f84748bbcf8f8",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "convex-test",
+    "repo": "convex/agent-skills",
+    "path": "skills/convex-test",
+    "commit": "191a5c33a7e7a22ec9d5ff13930f84748bbcf8f8",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "convex-crons",
+    "repo": "convex/agent-skills",
+    "path": "skills/convex-crons",
+    "commit": "191a5c33a7e7a22ec9d5ff13930f84748bbcf8f8",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "convex-create-component",
+    "repo": "convex/agent-skills",
+    "path": "skills/convex-create-component",
+    "commit": "191a5c33a7e7a22ec9d5ff13930f84748bbcf8f8",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "convex-reviewer",
+    "repo": "convex/agent-skills",
+    "path": "skills/convex-reviewer",
+    "commit": "191a5c33a7e7a22ec9d5ff13930f84748bbcf8f8",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "convex-deploy-guard",
+    "repo": "convex/agent-skills",
+    "path": "skills/convex-deploy-guard",
+    "commit": "191a5c33a7e7a22ec9d5ff13930f84748bbcf8f8",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "clerk",
+    "repo": "clerk/skills",
+    "path": "skills/clerk",
+    "commit": "d694f2709372feb38b87aa905ee2219a485095ab",
+    "license": "MIT (SKILL.md frontmatter)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "clerk-setup",
+    "repo": "clerk/skills",
+    "path": "skills/clerk-setup",
+    "commit": "d694f2709372feb38b87aa905ee2219a485095ab",
+    "license": "MIT (SKILL.md frontmatter)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "clerk-nextjs-patterns",
+    "repo": "clerk/skills",
+    "path": "skills/clerk-nextjs-patterns",
+    "commit": "d694f2709372feb38b87aa905ee2219a485095ab",
+    "license": "MIT (SKILL.md frontmatter)",
+    "scripts": [
+      "templates/nextjs-basic-auth/next.config.ts",
+      "templates/nextjs-basic-auth/proxy.ts"
+    ],
+    "flags": []
+  },
+  {
+    "skill": "clerk-react-patterns",
+    "repo": "clerk/skills",
+    "path": "skills/clerk-react-patterns",
+    "commit": "d694f2709372feb38b87aa905ee2219a485095ab",
+    "license": "MIT (SKILL.md frontmatter)",
+    "scripts": [
+      "templates/react-basic-auth/vite.config.ts"
+    ],
+    "flags": []
+  },
+  {
+    "skill": "clerk-expo",
+    "repo": "clerk/skills",
+    "path": "skills/clerk-expo",
+    "commit": "d694f2709372feb38b87aa905ee2219a485095ab",
+    "license": "MIT (SKILL.md frontmatter)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "clerk-custom-ui",
+    "repo": "clerk/skills",
+    "path": "skills/clerk-custom-ui",
+    "commit": "d694f2709372feb38b87aa905ee2219a485095ab",
+    "license": "MIT (SKILL.md frontmatter)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "clerk-orgs",
+    "repo": "clerk/skills",
+    "path": "skills/clerk-orgs",
+    "commit": "d694f2709372feb38b87aa905ee2219a485095ab",
+    "license": "MIT (SKILL.md frontmatter)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "clerk-webhooks",
+    "repo": "clerk/skills",
+    "path": "skills/clerk-webhooks",
+    "commit": "d694f2709372feb38b87aa905ee2219a485095ab",
+    "license": "MIT (SKILL.md frontmatter)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "clerk-testing",
+    "repo": "clerk/skills",
+    "path": "skills/clerk-testing",
+    "commit": "d694f2709372feb38b87aa905ee2219a485095ab",
+    "license": "MIT (SKILL.md frontmatter)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "neon",
+    "repo": "neondatabase/agent-skills",
+    "path": "skills/neon",
+    "commit": "ccca3334a7542d3133134cc6926f2fafc6edeb1f",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "global npm install (SKILL.md)",
+      "global npm install (references/claimable-neon.md)"
+    ]
+  },
+  {
+    "skill": "neon-postgres",
+    "repo": "neondatabase/agent-skills",
+    "path": "skills/neon-postgres",
+    "commit": "ccca3334a7542d3133134cc6926f2fafc6edeb1f",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "neon-postgres-branches",
+    "repo": "neondatabase/agent-skills",
+    "path": "skills/neon-postgres-branches",
+    "commit": "ccca3334a7542d3133134cc6926f2fafc6edeb1f",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "neon-auth",
+    "repo": "neondatabase/agent-skills",
+    "path": "skills/neon-auth",
+    "commit": "ccca3334a7542d3133134cc6926f2fafc6edeb1f",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "neon-postgres-egress-optimizer",
+    "repo": "neondatabase/agent-skills",
+    "path": "skills/neon-postgres-egress-optimizer",
+    "commit": "ccca3334a7542d3133134cc6926f2fafc6edeb1f",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "gsap-core",
+    "repo": "greensock/gsap-skills",
+    "path": "skills/gsap-core",
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "gsap-react",
+    "repo": "greensock/gsap-skills",
+    "path": "skills/gsap-react",
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "gsap-frameworks",
+    "repo": "greensock/gsap-skills",
+    "path": "skills/gsap-frameworks",
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "gsap-timeline",
+    "repo": "greensock/gsap-skills",
+    "path": "skills/gsap-timeline",
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "gsap-scrolltrigger",
+    "repo": "greensock/gsap-skills",
+    "path": "skills/gsap-scrolltrigger",
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "gsap-plugins",
+    "repo": "greensock/gsap-skills",
+    "path": "skills/gsap-plugins",
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "gsap-performance",
+    "repo": "greensock/gsap-skills",
+    "path": "skills/gsap-performance",
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "gsap-utils",
+    "repo": "greensock/gsap-skills",
+    "path": "skills/gsap-utils",
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "turborepo",
+    "repo": "vercel/turborepo",
+    "path": "skills/turborepo",
+    "commit": "8003ff0fe919160f68367cd08465b179410e0692",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "fastify-best-practices",
+    "repo": "mcollina/skills",
+    "path": "skills/fastify",
+    "commit": "c75d70dbfbe991d8cec42aeda0b64ff14fbb9ac7",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "global npm install (rules/performance.md)"
+    ]
+  },
+  {
+    "skill": "mastra",
+    "repo": "mastra-ai/skills",
+    "path": "skills/mastra",
+    "commit": "a8d35ab06d8c845c2ec6780f8f85b30886ebc431",
+    "license": "repository LICENSE (copied)",
+    "scripts": [
+      "scripts/provider-registry.mjs"
+    ],
+    "flags": [
+      "installs other skills (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "firecrawl-build",
+    "repo": "firecrawl/skills",
+    "path": "skills/build/firecrawl-build",
+    "commit": "2bf714d9f45e85085036a533ceb943c8577aef2b",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "firecrawl-build-onboarding",
+    "repo": "firecrawl/skills",
+    "path": "skills/build/firecrawl-build-onboarding",
+    "commit": "2bf714d9f45e85085036a533ceb943c8577aef2b",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "installs other skills (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "firecrawl-build-scrape",
+    "repo": "firecrawl/skills",
+    "path": "skills/build/firecrawl-build-scrape",
+    "commit": "2bf714d9f45e85085036a533ceb943c8577aef2b",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "firecrawl-build-search",
+    "repo": "firecrawl/skills",
+    "path": "skills/build/firecrawl-build-search",
+    "commit": "2bf714d9f45e85085036a533ceb943c8577aef2b",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "firecrawl-build-interact",
+    "repo": "firecrawl/skills",
+    "path": "skills/build/firecrawl-build-interact",
+    "commit": "2bf714d9f45e85085036a533ceb943c8577aef2b",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "improve-codebase-architecture",
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/improve-codebase-architecture",
+    "commit": "5beb35b040e3de97e54fa9e386d7e42d15c295c2",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "domain-modeling",
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/domain-modeling",
+    "commit": "5beb35b040e3de97e54fa9e386d7e42d15c295c2",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "codebase-design",
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/codebase-design",
+    "commit": "5beb35b040e3de97e54fa9e386d7e42d15c295c2",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "writing-for-agents",
+    "repo": "mattpocock/skills",
+    "path": "skills/productivity/writing-for-agents",
+    "commit": "5beb35b040e3de97e54fa9e386d7e42d15c295c2",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "prisma-upgrade-v7",
+    "repo": "prisma/skills",
+    "path": "prisma-upgrade-v7",
+    "commit": "ba3f9d73200bbb62e49733ab93a961fd138a2c18",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
   }
 ]

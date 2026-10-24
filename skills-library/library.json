@@ -115,7 +115,8 @@
         "prisma-client-api": "prisma-client-api",
         "prisma-cli": "prisma-cli",
         "prisma-database-setup": "prisma-database-setup",
-        "prisma-orm-setup": "prisma-orm-setup"
+        "prisma-orm-setup": "prisma-orm-setup",
+        "prisma-upgrade-v7": "prisma-upgrade-v7"
       }
     },
     "wshobson": {
@@ -284,6 +285,135 @@
       "commit": "792a28a820ec4e9159ef8621c21a6c88528bbf2e",
       "skills": {
         "tastemaker": "skills/tastemaker"
+      }
+    },
+    "firebase": {
+      "repo": "firebase/agent-skills",
+      "commit": "92eed24c0976a79a66d5b8038e9eda8b441ef92d",
+      "skills": {
+        "firebase-basics": "skills/firebase-basics",
+        "firebase-auth-basics": "skills/firebase-auth-basics",
+        "firebase-firestore": "skills/firebase-firestore",
+        "firestore-rules-creation": "skills/firestore-rules-creation",
+        "firebase-security-rules-auditor": "skills/firebase-security-rules-auditor",
+        "firebase-hosting-basics": "skills/firebase-hosting-basics",
+        "firebase-app-hosting-basics": "skills/firebase-app-hosting-basics",
+        "firebase-ai-logic-basics": "skills/firebase-ai-logic-basics",
+        "firebase-data-connect": "skills/firebase-data-connect-basics",
+        "firebase-remote-config-basics": "skills/firebase-remote-config-basics",
+        "firebase-crashlytics": "skills/firebase-crashlytics"
+      }
+    },
+    "cloudflare": {
+      "repo": "cloudflare/skills",
+      "commit": "86505e44f87d801aa1864a3c4109e9a8ae5c409f",
+      "skills": {
+        "cloudflare": "skills/cloudflare",
+        "wrangler": "skills/wrangler",
+        "workers-best-practices": "skills/workers-best-practices",
+        "workers-profiling": "skills/workers-profiling",
+        "durable-objects": "skills/durable-objects",
+        "agents-sdk": "skills/agents-sdk",
+        "turnstile-spin": "skills/turnstile-spin"
+      }
+    },
+    "convex": {
+      "repo": "convex/agent-skills",
+      "commit": "191a5c33a7e7a22ec9d5ff13930f84748bbcf8f8",
+      "skills": {
+        "convex": "skills/convex",
+        "convex-quickstart": "skills/convex-quickstart",
+        "convex-design": "skills/convex-design",
+        "convex-auth": "skills/convex-auth",
+        "convex-authz": "skills/convex-authz",
+        "convex-optimize": "skills/convex-optimize",
+        "convex-migrate": "skills/convex-migrate",
+        "convex-test": "skills/convex-test",
+        "convex-crons": "skills/convex-crons",
+        "convex-create-component": "skills/convex-create-component",
+        "convex-reviewer": "skills/convex-reviewer",
+        "convex-deploy-guard": "skills/convex-deploy-guard"
+      }
+    },
+    "clerk": {
+      "repo": "clerk/skills",
+      "commit": "d694f2709372feb38b87aa905ee2219a485095ab",
+      "skills": {
+        "clerk": "skills/clerk",
+        "clerk-setup": "skills/clerk-setup",
+        "clerk-nextjs-patterns": "skills/clerk-nextjs-patterns",
+        "clerk-react-patterns": "skills/clerk-react-patterns",
+        "clerk-expo": "skills/clerk-expo",
+        "clerk-custom-ui": "skills/clerk-custom-ui",
+        "clerk-orgs": "skills/clerk-orgs",
+        "clerk-webhooks": "skills/clerk-webhooks",
+        "clerk-testing": "skills/clerk-testing"
+      }
+    },
+    "neon": {
+      "repo": "neondatabase/agent-skills",
+      "commit": "ccca3334a7542d3133134cc6926f2fafc6edeb1f",
+      "skills": {
+        "neon": "skills/neon",
+        "neon-postgres": "skills/neon-postgres",
+        "neon-postgres-branches": "skills/neon-postgres-branches",
+        "neon-auth": "skills/neon-auth",
+        "neon-postgres-egress-optimizer": "skills/neon-postgres-egress-optimizer"
+      }
+    },
+    "gsap": {
+      "repo": "greensock/gsap-skills",
+      "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "skills": {
+        "gsap-core": "skills/gsap-core",
+        "gsap-react": "skills/gsap-react",
+        "gsap-frameworks": "skills/gsap-frameworks",
+        "gsap-timeline": "skills/gsap-timeline",
+        "gsap-scrolltrigger": "skills/gsap-scrolltrigger",
+        "gsap-plugins": "skills/gsap-plugins",
+        "gsap-performance": "skills/gsap-performance",
+        "gsap-utils": "skills/gsap-utils"
+      }
+    },
+    "turborepo": {
+      "repo": "vercel/turborepo",
+      "commit": "8003ff0fe919160f68367cd08465b179410e0692",
+      "skills": {
+        "turborepo": "skills/turborepo"
+      }
+    },
+    "mcollina": {
+      "repo": "mcollina/skills",
+      "commit": "c75d70dbfbe991d8cec42aeda0b64ff14fbb9ac7",
+      "skills": {
+        "fastify-best-practices": "skills/fastify"
+      }
+    },
+    "mastra": {
+      "repo": "mastra-ai/skills",
+      "commit": "a8d35ab06d8c845c2ec6780f8f85b30886ebc431",
+      "skills": {
+        "mastra": "skills/mastra"
+      }
+    },
+    "firecrawl": {
+      "repo": "firecrawl/skills",
+      "commit": "2bf714d9f45e85085036a533ceb943c8577aef2b",
+      "skills": {
+        "firecrawl-build": "skills/build/firecrawl-build",
+        "firecrawl-build-scrape": "skills/build/firecrawl-build-scrape",
+        "firecrawl-build-search": "skills/build/firecrawl-build-search",
+        "firecrawl-build-interact": "skills/build/firecrawl-build-interact"
+      }
+    },
+    "mattpocock": {
+      "repo": "mattpocock/skills",
+      "commit": "5beb35b040e3de97e54fa9e386d7e42d15c295c2",
+      "skills": {
+        "improve-codebase-architecture": "skills/engineering/improve-codebase-architecture",
+        "domain-modeling": "skills/engineering/domain-modeling",
+        "codebase-design": "skills/engineering/codebase-design",
+        "writing-for-agents": "skills/productivity/writing-for-agents"
       }
     },
     "jeffallan": {
@@ -493,7 +623,8 @@
         "prisma-client-api",
         "prisma-cli",
         "prisma-database-setup",
-        "prisma-orm-setup"
+        "prisma-orm-setup",
+        "prisma-upgrade-v7"
       ]
     },
     "api": {
@@ -532,7 +663,8 @@
       "description": "Create and evaluate new skills (Anthropic skill-creator, Superpowers writing-skills).",
       "skills": [
         "skill-creator",
-        "writing-skills"
+        "writing-skills",
+        "writing-for-agents"
       ]
     },
     "ripwire": {
@@ -625,6 +757,105 @@
         "no-ai-design-slop",
         "design-first-ui-prompting",
         "animation-systems"
+      ]
+    },
+    "firebase": {
+      "description": "Official Firebase skills: basics, Auth, Firestore and security rules (create and audit), Hosting, App Hosting, AI Logic, Data Connect, Remote Config, Crashlytics.",
+      "skills": [
+        "firebase-basics",
+        "firebase-auth-basics",
+        "firebase-firestore",
+        "firestore-rules-creation",
+        "firebase-security-rules-auditor",
+        "firebase-hosting-basics",
+        "firebase-app-hosting-basics",
+        "firebase-ai-logic-basics",
+        "firebase-data-connect",
+        "firebase-remote-config-basics",
+        "firebase-crashlytics"
+      ]
+    },
+    "cloudflare": {
+      "description": "Official Cloudflare skills: platform overview, Wrangler, Workers best practices and profiling, Durable Objects, Agents SDK, Next.js on Cloudflare, Turnstile.",
+      "skills": [
+        "cloudflare",
+        "wrangler",
+        "workers-best-practices",
+        "workers-profiling",
+        "durable-objects",
+        "agents-sdk",
+        "turnstile-spin"
+      ]
+    },
+    "convex": {
+      "description": "Official Convex skills: setup, schema design, auth and authorization, performance, migrations, tests, crons, components, review and deploy guard.",
+      "skills": [
+        "convex",
+        "convex-quickstart",
+        "convex-design",
+        "convex-auth",
+        "convex-authz",
+        "convex-optimize",
+        "convex-migrate",
+        "convex-test",
+        "convex-crons",
+        "convex-create-component",
+        "convex-reviewer",
+        "convex-deploy-guard"
+      ]
+    },
+    "clerk": {
+      "description": "Official Clerk authentication skills: setup, Next.js, React and Expo patterns, custom UI, organizations, webhooks, testing.",
+      "skills": [
+        "clerk",
+        "clerk-setup",
+        "clerk-nextjs-patterns",
+        "clerk-react-patterns",
+        "clerk-expo",
+        "clerk-custom-ui",
+        "clerk-orgs",
+        "clerk-webhooks",
+        "clerk-testing"
+      ]
+    },
+    "neon": {
+      "description": "Official Neon serverless Postgres skills: setup, branching, Neon Auth, egress optimization.",
+      "skills": [
+        "neon",
+        "neon-postgres",
+        "neon-postgres-branches",
+        "neon-auth",
+        "neon-postgres-egress-optimizer"
+      ]
+    },
+    "gsap": {
+      "description": "Official GSAP skills: core, React and other frameworks, timelines, ScrollTrigger, plugins, performance, utilities.",
+      "skills": [
+        "gsap-core",
+        "gsap-react",
+        "gsap-frameworks",
+        "gsap-timeline",
+        "gsap-scrolltrigger",
+        "gsap-plugins",
+        "gsap-performance",
+        "gsap-utils"
+      ]
+    },
+    "firecrawl": {
+      "description": "Official Firecrawl skills for building scraping, search and browser interaction into an app with the Firecrawl API.",
+      "skills": [
+        "firecrawl-build",
+        "firecrawl-build-scrape",
+        "firecrawl-build-search",
+        "firecrawl-build-interact"
+      ]
+    },
+    "codebase-architecture": {
+      "description": "Matt Pocock's architecture skills: improve a codebase's architecture, domain modeling, codebase design.",
+      "skills": [
+        "improve-codebase-architecture",
+        "domain-modeling",
+        "codebase-design"
       ]
     },
     "nextjs": {

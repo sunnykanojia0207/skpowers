@@ -212,6 +212,25 @@ def detect_requirements(root: Path) -> tuple[dict[str, list[str]], dict[str, lis
     if files_matching(r"\.tf$"):
         add(skills, "terraform-engineer", "Terraform files")
 
+    # Platforms and services with official vendor skills.
+    vendor_rules = (
+        ("firebase", has("firebase", "firebase-admin", "firebase-functions") + files_matching(r"(^|/)firebase\.json$")),
+        ("cloudflare", has("wrangler", "@cloudflare/workers-types") + files_matching(r"(^|/)wrangler\.(toml|jsonc?)$")),
+        ("convex", has("convex") + files_matching(r"(^|/)convex/schema\.(ts|js)$")),
+        ("clerk", has("@clerk")),
+        ("neon", has("@neondatabase/serverless", "@neondatabase/neon-js")),
+        ("gsap", has("gsap", "@gsap/react")),
+        ("firecrawl", has("@mendable/firecrawl-js", "firecrawl-py", "firecrawl")),
+    )
+    for profile, evidence in vendor_rules:
+        if evidence:
+            add(profiles, profile, f"{evidence[0]}")
+    for skill, evidence in (("turborepo", has("turbo") + files_matching(r"(^|/)turbo\.json$")),
+                            ("fastify-best-practices", has("fastify")),
+                            ("mastra", has("@mastra/core"))):
+        if evidence:
+            add(skills, skill, f"{evidence[0]}")
+
     ops = files_matching(r"(^|/)(Dockerfile|docker-compose[^/]*\.ya?ml|compose\.ya?ml)$|\.github/workflows/[^/]+\.ya?ml$"
                          r"|\.tf$|(^|/)(k8s|helm|charts)/")
     if ops:

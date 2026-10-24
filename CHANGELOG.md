@@ -3,6 +3,11 @@
 ## Unreleased
 
 ### Added
+- skills.sh registry sweep (129 topics, 1,660 skills): 64 more skills (258 total, 43 profiles). Official vendor profiles auto-selected from the stack: `firebase`, `cloudflare`, `convex`, `clerk`, `neon`, `gsap`, `firecrawl`; auto skills `turborepo`, `fastify-best-practices` (Matteo Collina), `mastra`; `codebase-architecture` profile and `writing-for-agents` from mattpocock/skills; `prisma-upgrade-v7`. Rejected: registry reposts, off-topic leaders, Azure (needs a paid subscription), better-auth (no license), Stitch (needs Stitch MCP), Anthropic document skills (proprietary), skills that install unreviewed skills or CLIs.
+
+## 0.4.0
+
+### Added
 - **Automatic skill selection** (`"autoSkills": true`): `sync_toolkit.py` detects the stack from dependencies (npm, Composer, Python), platform files (`go.mod`, `Cargo.toml`, `*.csproj`, `pom.xml`, Gradle, `Podfile`, `pubspec.yaml`, Dockerfile, CI, Terraform) and `docs/PROJECT_BRIEF.md` checkboxes, enables matching profiles and individual skills, and removes ones that stop matching. `--explain` prints the reasons. Profiles that pre-approve shell commands (`security`, `ripwire`) are only suggested. New toolkit skill `select-skills`; `AGENTS.md` tells agents when to rerun it.
 - 41 more skills (194 total, 35 profiles): language/framework profiles from jeffallan/claude-skills (`typescript`, `python`, `go`, `rust`, `java`, `dotnet`, `php`, `ruby`, `vue`, `angular`, `flutter`, `cloud`, plus FastAPI, Django, pandas, NestJS, GraphQL, WebSocket, Laravel, Terraform skills and RAG/prompt engineering in `ai-apps`); official Next.js skills (`nextjs`); Vercel `react-view-transitions`, AI SDK skills and `agent-browser`; `vibe-security`, Trail of Bits `sharp-edges`, `entry-point-analyzer`, `property-based-testing`; taste-skill v2 (`design-taste-frontend`). Overlaps resolved in favour of vendor/official skills.
 - `firecrawl` MCP server (off; free plan with limited credits). Superpowers updated to upstream `2ce8aa1`.

@@ -257,6 +257,22 @@ class SyncToolkitTests(unittest.TestCase):
         self.assertEqual(run(self.sync, cwd=self.root).returncode, 0)
         self.assertTrue((self.root / ".agents/skills/golang-pro/SKILL.md").is_file())
 
+    def test_auto_selects_vendor_platform_profiles(self) -> None:
+        self.write("package.json", json.dumps({"dependencies": {
+            "firebase": "12.0.0", "convex": "1.20.0", "@clerk/nextjs": "6.0.0", "gsap": "3.13.0",
+            "@neondatabase/serverless": "1.0.0", "fastify": "5.0.0", "@mastra/core": "0.20.0",
+            "@mendable/firecrawl-js": "4.0.0"}}))
+        self.write("wrangler.jsonc", "{}\n")
+        self.write("turbo.json", "{}\n")
+        self.edit_config(lambda c: c.update(autoSkills=True, skillProfiles=[]))
+        out = run(self.sync, "--explain", cwd=self.root).stdout
+        for name in ("firebase", "cloudflare", "convex", "clerk", "neon", "gsap", "firecrawl",
+                     "turborepo", "fastify-best-practices", "mastra", "vibe-security"):
+            self.assertIn(f"\n  {name} ", out, name)
+        self.assertEqual(run(self.sync, cwd=self.root).returncode, 0)
+        for skill in ("firebase-security-rules-auditor", "wrangler", "convex-authz", "clerk-webhooks", "gsap-react"):
+            self.assertTrue((self.root / ".agents/skills" / skill / "SKILL.md").is_file(), skill)
+
     def test_auto_skills_off_uses_only_explicit_profiles(self) -> None:
         self.write("package.json", json.dumps({"dependencies": {"next": "16.0.0"}}))
         self.edit_config(lambda c: c.update(autoSkills=False, skillProfiles=["ios"]))
