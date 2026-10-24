@@ -273,6 +273,13 @@ class SyncToolkitTests(unittest.TestCase):
         for skill in ("firebase-security-rules-auditor", "wrangler", "convex-authz", "clerk-webhooks", "gsap-react"):
             self.assertTrue((self.root / ".agents/skills" / skill / "SKILL.md").is_file(), skill)
 
+    def test_auto_selects_claude_api_for_anthropic_sdk_users(self) -> None:
+        self.write("requirements.txt", "anthropic>=0.70\nfastapi\n")
+        self.edit_config(lambda c: c.update(autoSkills=True, skillProfiles=[]))
+        self.assertEqual(run(self.sync, cwd=self.root).returncode, 0)
+        for skill in ("claude-api", "eval-audit", "python-pro", "fastapi-expert"):
+            self.assertTrue((self.root / ".agents/skills" / skill / "SKILL.md").is_file(), skill)
+
     def test_auto_skills_off_uses_only_explicit_profiles(self) -> None:
         self.write("package.json", json.dumps({"dependencies": {"next": "16.0.0"}}))
         self.edit_config(lambda c: c.update(autoSkills=False, skillProfiles=["ios"]))

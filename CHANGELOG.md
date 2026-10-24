@@ -3,6 +3,11 @@
 ## Unreleased
 
 ### Added
+- Anthropic `claude-api` skill (Apache-2.0), auto-enabled when a project depends on the Anthropic SDK or Agent SDK. The rest of anthropics/skills reviewed: proprietary (`docx`, `pdf`, `pptx`, `xlsx`), unlicensed (`doc-coauthoring`) or not software delivery.
+
+## 0.6.0
+
+### Added
 - `addy-engineering` profile: 14 production-engineering skills from addyosmani/agent-skills (security hardening, observability, performance, CI/CD, shipping, migration, API/frontend engineering, DevTools testing, source-driven development, context engineering, git workflow, simplification, docs/ADRs). Its workflow half stays an alternative to `core` (overlaps Superpowers; `test-driven-development` clashes by name).
 - `vendor_skills.py` `sharedFiles`: repository-level files a skill links to (Addy's shared checklists) are copied in unmodified.
 

@@ -206,7 +206,9 @@ def detect_requirements(root: Path) -> tuple[dict[str, list[str]], dict[str, lis
     for dep, skill in (("fastapi", "fastapi-expert"), ("django", "django-expert"), ("pandas", "pandas-pro"),
                        ("@nestjs/core", "nestjs-expert"), ("graphql", "graphql-architect"),
                        ("@apollo/server", "graphql-architect"), ("socket.io", "websocket-engineer"),
-                       ("ws", "websocket-engineer"), ("laravel/framework", "laravel-specialist"), ("ai", "ai-sdk")):
+                       ("ws", "websocket-engineer"), ("laravel/framework", "laravel-specialist"), ("ai", "ai-sdk"),
+                       ("@anthropic-ai/sdk", "claude-api"), ("anthropic", "claude-api"),
+                       ("@anthropic-ai/claude-agent-sdk", "claude-api"), ("claude-agent-sdk", "claude-api")):
         if has(dep):
             add(skills, skill, f"dependency {dep}")
     if files_matching(r"\.tf$"):

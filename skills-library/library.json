@@ -37,7 +37,8 @@
         "frontend-design": "skills/frontend-design",
         "webapp-testing": "skills/webapp-testing",
         "mcp-builder": "skills/mcp-builder",
-        "skill-creator": "skills/skill-creator"
+        "skill-creator": "skills/skill-creator",
+        "claude-api": "skills/claude-api"
       }
     },
     "web-quality": {

@@ -152,61 +152,6 @@
     "flags": []
   },
   {
-    "skill": "frontend-design",
-    "repo": "anthropics/skills",
-    "path": "skills/frontend-design",
-    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
-    "license": "LICENSE.txt in skill",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "webapp-testing",
-    "repo": "anthropics/skills",
-    "path": "skills/webapp-testing",
-    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
-    "license": "LICENSE.txt in skill",
-    "scripts": [
-      "examples/console_logging.py",
-      "examples/element_discovery.py",
-      "examples/static_html_automation.py",
-      "scripts/with_server.py"
-    ],
-    "flags": []
-  },
-  {
-    "skill": "mcp-builder",
-    "repo": "anthropics/skills",
-    "path": "skills/mcp-builder",
-    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
-    "license": "LICENSE.txt in skill",
-    "scripts": [
-      "scripts/connections.py",
-      "scripts/evaluation.py"
-    ],
-    "flags": []
-  },
-  {
-    "skill": "skill-creator",
-    "repo": "anthropics/skills",
-    "path": "skills/skill-creator",
-    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
-    "license": "LICENSE.txt in skill",
-    "scripts": [
-      "eval-viewer/generate_review.py",
-      "scripts/__init__.py",
-      "scripts/aggregate_benchmark.py",
-      "scripts/generate_report.py",
-      "scripts/improve_description.py",
-      "scripts/package_skill.py",
-      "scripts/quick_validate.py",
-      "scripts/run_eval.py",
-      "scripts/run_loop.py",
-      "scripts/utils.py"
-    ],
-    "flags": []
-  },
-  {
     "skill": "performance",
     "repo": "addyosmani/web-quality-skills",
     "path": "skills/performance",
@@ -2646,5 +2591,80 @@
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []
+  },
+  {
+    "skill": "frontend-design",
+    "repo": "anthropics/skills",
+    "path": "skills/frontend-design",
+    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+    "license": "LICENSE.txt in skill",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "webapp-testing",
+    "repo": "anthropics/skills",
+    "path": "skills/webapp-testing",
+    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+    "license": "LICENSE.txt in skill",
+    "scripts": [
+      "examples/console_logging.py",
+      "examples/element_discovery.py",
+      "examples/static_html_automation.py",
+      "scripts/with_server.py"
+    ],
+    "flags": []
+  },
+  {
+    "skill": "mcp-builder",
+    "repo": "anthropics/skills",
+    "path": "skills/mcp-builder",
+    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+    "license": "LICENSE.txt in skill",
+    "scripts": [
+      "scripts/connections.py",
+      "scripts/evaluation.py"
+    ],
+    "flags": []
+  },
+  {
+    "skill": "skill-creator",
+    "repo": "anthropics/skills",
+    "path": "skills/skill-creator",
+    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+    "license": "LICENSE.txt in skill",
+    "scripts": [
+      "eval-viewer/generate_review.py",
+      "scripts/__init__.py",
+      "scripts/aggregate_benchmark.py",
+      "scripts/generate_report.py",
+      "scripts/improve_description.py",
+      "scripts/package_skill.py",
+      "scripts/quick_validate.py",
+      "scripts/run_eval.py",
+      "scripts/run_loop.py",
+      "scripts/utils.py"
+    ],
+    "flags": []
+  },
+  {
+    "skill": "claude-api",
+    "repo": "anthropics/skills",
+    "path": "skills/claude-api",
+    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+    "license": "LICENSE.txt in skill",
+    "scripts": [
+      "shared/evals/report/build-report-lite.mjs",
+      "shared/evals/report/runner-scaffold.mjs",
+      "shared/preserved-thinking-migration/drop_block_probe.py",
+      "shared/preserved-thinking-migration/prefix_diff.py"
+    ],
+    "flags": [
+      "pipes a download into a shell (shared/managed-agents-onboarding-from-url.md)",
+      "recursive delete outside the project (shared/managed-agents-tools.md)",
+      "uses sudo (shared/anthropic-cli.md)",
+      "uses sudo (shared/managed-agents-self-hosted-sandboxes.md)",
+      "uses sudo (shared/model-migration.md)"
+    ]
   }
 ]
