@@ -203,6 +203,13 @@
         "ripwire-mcp": "skills/ripwire-mcp"
       }
     },
+    "magicui": {
+      "repo": "magicuidesign/magicui",
+      "commit": "efe76fc5755eca1142dd4f74c1d6f0ace2887e3c",
+      "skills": {
+        "magic-ui": "skills/magic-ui"
+      }
+    },
     "design-context": {
       "repo": "Owl-Listener/design-context",
       "commit": "a545d24948f202bec05e827284dd10be2b8a472e",

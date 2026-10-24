@@ -1,13 +1,13 @@
 # Skills Catalog
 
-The toolkit ships **100 vetted third-party skills** in `skills-library/`, grouped into profiles. Turn profiles on per project in `toolkit.config.json`, then run `python scripts/sync_toolkit.py`; only enabled skills are copied into `.agents/skills/`, so every tool sees the same small, relevant set.
+The toolkit ships **101 vetted third-party skills** in `skills-library/`, grouped into profiles. Turn profiles on per project in `toolkit.config.json`, then run `python scripts/sync_toolkit.py`; only enabled skills are copied into `.agents/skills/`, so every tool sees the same small, relevant set.
 
 ```json
 "skillProfiles": ["core", "docs", "web", "testing", "postgres"],
 "skills": ["mcp-builder"]
 ```
 
-`skills` adds individual library skills without their whole profile. Skills in no profile: `ask-sonner` (add it if the app uses the Sonner toast library).
+`skills` adds individual library skills without their whole profile. Skills in no profile: `ask-sonner` (add it if the app uses the Sonner toast library) and `magic-ui` (add it if the app uses [Magic UI](https://magicui.design) animated components; [magicuidesign/magicui](https://github.com/magicuidesign/magicui), MIT).
 
 **How skills were chosen (2026-10-19):** discovery with `npx skills find` across 40 engineering queries (install counts from the skills.sh registry), cross-checked against the SkillsMP, MCP Market, AI Skill Market and SkillsMK reviews in [MARKETPLACE-RESEARCH.md](MARKETPLACE-RESEARCH.md). Only original upstream repositories with a redistributable license and recent activity were accepted; reposted copies (for example the several `*/superpowers` forks with inflated install counts) and browser-evasion skills were rejected. Every included skill was read by hand for prompt injection, remote execution, telemetry and destructive operations. Exact commits, licenses and automated review flags: [THIRD_PARTY_NOTICES.md](../skills-library/THIRD_PARTY_NOTICES.md).
 
@@ -53,6 +53,7 @@ From the manual review. None of these instruct an agent to bypass the user, hide
 | `upgrading-react-native` | Its Xcode troubleshooting suggests `sudo xcode-select -s …` and `sudo xcodebuild -runFirstLaunch`; the agent must ask before running anything with `sudo`. |
 | `web-quality-audit` | `scripts/analyze.sh` is a read-only HTML checker (greps files, prints JSON); needs `jq`. |
 | `init-design-context` | Step 4 adds a session-start line ("read design-context/index.md…") to `CLAUDE.md`, `AGENTS.md` or equivalent, creating the file if absent. In this toolkit, have it add the line to `AGENTS.md` only: `CLAUDE.md` and `GEMINI.md` already import it. The skills otherwise only write inside `design-context/` and propose every decision entry before appending it. Complements `DESIGN.md`: the design system lives there, the decision history in `design-context/decisions.md`. |
+| `magic-ui` | Tells the agent to run unpinned `npx shadcn@latest init` and `npx shadcn@latest add @magicui/<component>`, which add component source and dependencies to the project. Unlike the excluded shadcn skill it runs nothing on load and pre-approves nothing; `AGENTS.md`'s "ask before adding dependencies" applies. Requires React/Next.js with Tailwind. |
 | `writing-skills` | Ships `render-graphs.js`, which renders a skill's Graphviz diagrams to SVG with the local `dot` binary (no shell, no network). |
 | `ripwire-*` (all 17) | Each pre-approves unrestricted `Bash` (and `ripwire-opt-remarks` also `Edit`) in Claude Code while active, not only `ripwire` commands. The skills only document the upstream installer, they never tell the agent to run it. Keep the profile opt-in, and install the binary yourself as described below. |
 | `pick-ui-library` | An opinionated list that includes the author's own libraries (Sonner, Vaul). It runs only when invoked; adding any library is still a dependency change that `AGENTS.md` says to ask about first. |

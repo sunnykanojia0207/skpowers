@@ -1,9 +1,9 @@
 # Universal Vibe-Coding Engineering Toolkit
 
-**One engineering setup for every AI coding tool.** Rules, 100 vetted skills and 21 MCP servers that behave the same in **Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Antigravity and GitHub Copilot**. You edit three sources; a script generates each tool's own configuration.
+**One engineering setup for every AI coding tool.** Rules, 101 vetted skills and 21 MCP servers that behave the same in **Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Antigravity and GitHub Copilot**. You edit three sources; a script generates each tool's own configuration.
 
 - **Superpowers workflow built in:** brainstorm → plan → test-first → debug → review → verify, on by default for every tool.
-- **100 vetted skills in 18 profiles:** web, UI polish and animation, design decision memory, React Native/Expo, native iOS and Android, Postgres, Supabase, Prisma, API, DevOps, security, testing, AI apps, code intelligence (ripwire). Each is pinned to an upstream commit, licensed and reviewed by hand.
+- **101 vetted skills in 18 profiles:** web, UI polish and animation, design decision memory, React Native/Expo, native iOS and Android, Postgres, Supabase, Prisma, API, DevOps, security, testing, AI apps, code intelligence (ripwire). Each is pinned to an upstream commit, licensed and reviewed by hand.
 - **21 MCP servers, written in each tool's own format:** documentation, browser, GitHub, databases, errors, issues and observability. Free ones are marked, and anything that can write is off by default.
 - **Safety by default:** human approval for production, no secrets in config, read-only MCP modes, and CI that checks generated files stay in sync.
 
@@ -109,7 +109,7 @@ AGENTS.md                  rules for every tool
 CLAUDE.md, GEMINI.md       adapters that import AGENTS.md
 toolkit.config.json        tools, skill profiles, MCP servers
 .agents/skills/            toolkit skills (+ generated library skills)
-skills-library/            100 vendored skills, library.json, THIRD_PARTY_NOTICES.md
+skills-library/            101 vendored skills, library.json, THIRD_PARTY_NOTICES.md
 scripts/
   sync_toolkit.py          generate per-tool config; --check for CI
   vendor_skills.py         fetch/update library skills at pinned commits

@@ -988,5 +988,14 @@
       "render-graphs.js"
     ],
     "flags": []
+  },
+  {
+    "skill": "magic-ui",
+    "repo": "magicuidesign/magicui",
+    "path": "skills/magic-ui",
+    "commit": "efe76fc5755eca1142dd4f74c1d6f0ace2887e3c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
   }
 ]
