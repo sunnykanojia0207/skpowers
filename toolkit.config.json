@@ -1,5 +1,6 @@
 {
   "tools": ["claude-code", "codex", "cursor", "opencode", "gemini-cli", "antigravity", "copilot"],
+  "autoSkills": true,
   "skillProfiles": ["core", "docs"],
   "skills": [],
   "mcpServers": {
@@ -111,11 +112,13 @@
       "args": ["-y", "@21st-dev/magic@0.2.3"],
       "envPassthrough": ["API_KEY_21ST"]
     },
-    "getlayers": {
-      "description": "Paid: GetLayers design library (templates, 3D scenes, palettes, fonts) returned as project source. Requires a Full Stack Lifetime subscription; browser sign-in, no API key.",
+    "firecrawl": {
+      "description": "Web scraping, crawling and search for AI features (official, MIT). Needs FIRECRAWL_API_KEY; the free plan has limited one-time credits, more is paid.",
       "enabled": false,
-      "transport": "http",
-      "url": "https://mcp.getlayers.ai/mcp"
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp@3.34.1"],
+      "envPassthrough": ["FIRECRAWL_API_KEY"]
     },
     "ripwire": {
       "description": "Free, local: ranked code maps, call graph, blast radius, tests-to-run and quality deltas (Red Hat). Install the pinned v0.6.7 release binary on PATH first.",

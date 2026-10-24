@@ -185,6 +185,85 @@ class SyncToolkitTests(unittest.TestCase):
         self.assertEqual(run(self.sync, cwd=self.root).returncode, 2)
         self.assertEqual((own / "SKILL.md").read_text(encoding="utf-8"), "mine")
 
+    def write(self, rel: str, text: str) -> None:
+        path = self.root / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8")
+
+    def test_auto_selects_profiles_from_a_nextjs_saas(self) -> None:
+        self.write("package.json", json.dumps({"dependencies": {
+            "next": "16.0.0", "react": "19.0.0", "react-dom": "19.0.0", "@prisma/client": "6.0.0",
+            "stripe": "18.0.0", "openai": "5.0.0", "sonner": "2.0.0", "framer-motion": "12.0.0"}}))
+        self.write("prisma/schema.prisma", 'datasource db {\n  provider = "postgresql"\n}\n')
+        self.write("Dockerfile", "FROM node:22\n")
+        self.edit_config(lambda c: c.update(autoSkills=True, skillProfiles=[]))
+
+        explained = run(self.sync, "--explain", cwd=self.root)
+        self.assertEqual(explained.returncode, 0, explained.stderr)
+        self.assertIn("next", explained.stdout)
+        self.assertEqual(run(self.sync, cwd=self.root).returncode, 0)
+        skills = self.root / ".agents/skills"
+        for name in ("systematic-debugging", "vercel-react-best-practices", "playwright-best-practices",
+                     "better-interface", "prisma-client-api", "supabase-postgres-best-practices",
+                     "docker-compose-patterns", "eval-audit", "animate", "vibe-security", "ask-sonner"):
+            self.assertTrue((skills / name / "SKILL.md").is_file(), name)
+        # security pre-approves Bash, so it is only suggested
+        self.assertFalse((skills / "security-review").exists())
+        self.assertIn("security", explained.stdout.split("Suggested")[1])
+
+    def test_auto_selects_react_native_not_native_ios_for_expo(self) -> None:
+        self.write("package.json", json.dumps({"dependencies": {"expo": "54.0.0", "react-native": "0.81.0"}}))
+        self.write("ios/Podfile", "platform :ios\n")
+        self.edit_config(lambda c: c.update(autoSkills=True, skillProfiles=[]))
+        self.assertEqual(run(self.sync, cwd=self.root).returncode, 0)
+        self.assertTrue((self.root / ".agents/skills/expo-router/SKILL.md").is_file())
+        self.assertFalse((self.root / ".agents/skills/swiftui-pro").exists())
+
+    def test_auto_selects_from_brief_checkboxes(self) -> None:
+        self.write("docs/PROJECT_BRIEF.md", "## Platforms\n- [ ] Web\n- [x] iOS\n- [x] Android\n- [x] AI/LLM features\n")
+        self.edit_config(lambda c: c.update(autoSkills=True, skillProfiles=[]))
+        explained = run(self.sync, "--explain", cwd=self.root).stdout
+        self.assertIn("react-native", explained)
+        self.assertIn("ai-apps", explained)
+        self.assertNotIn("\n  web ", explained)
+
+    def test_auto_selection_drops_profiles_when_requirements_go_away(self) -> None:
+        self.write("package.json", json.dumps({"dependencies": {"@prisma/client": "6.0.0"}}))
+        self.edit_config(lambda c: c.update(autoSkills=True, skillProfiles=[]))
+        run(self.sync, cwd=self.root)
+        self.assertTrue((self.root / ".agents/skills/prisma-cli").is_dir())
+        self.write("package.json", json.dumps({"dependencies": {}}))
+        self.assertEqual(run(self.sync, cwd=self.root).returncode, 0)
+        self.assertFalse((self.root / ".agents/skills/prisma-cli").exists())
+        self.assertTrue((self.root / ".agents/skills/systematic-debugging").is_dir())  # baseline stays
+
+    def test_auto_selects_language_profiles_and_framework_skills(self) -> None:
+        self.write("api/pyproject.toml", '[project]\nname = "svc"\ndependencies = ["fastapi>=0.115", "pandas"]\n')
+        self.write("worker/go.mod", "module example.com/worker\n")
+        self.write("web/package.json", json.dumps({"dependencies": {"next": "16.0.0", "ai": "5.0.0"},
+                                                    "devDependencies": {"typescript": "5.9.0"}}))
+        self.write("infra/main.tf", 'terraform {}\n')
+        self.write("mobile/android/build.gradle", "plugins { id 'com.android.application' }\n")
+        self.write("mobile/package.json", json.dumps({"dependencies": {"expo": "54.0.0"}}))
+        self.edit_config(lambda c: c.update(autoSkills=True, skillProfiles=[]))
+        out = run(self.sync, "--explain", cwd=self.root).stdout
+        profiles = out.split("Individual skills")[0]
+        for name in ("python", "go", "nextjs", "typescript", "react-native", "ai-apps"):
+            self.assertIn(f"\n  {name} ", profiles, name)
+        self.assertNotIn("\n  java ", profiles)  # Gradle here belongs to the mobile app
+        self.assertNotIn("\n  name ", out)  # pyproject keys are not dependencies
+        for skill in ("fastapi-expert", "pandas-pro", "ai-sdk", "terraform-engineer"):
+            self.assertIn(f"\n  {skill} ", out, skill)
+        self.assertEqual(run(self.sync, cwd=self.root).returncode, 0)
+        self.assertTrue((self.root / ".agents/skills/golang-pro/SKILL.md").is_file())
+
+    def test_auto_skills_off_uses_only_explicit_profiles(self) -> None:
+        self.write("package.json", json.dumps({"dependencies": {"next": "16.0.0"}}))
+        self.edit_config(lambda c: c.update(autoSkills=False, skillProfiles=["ios"]))
+        self.assertEqual(run(self.sync, cwd=self.root).returncode, 0)
+        self.assertTrue((self.root / ".agents/skills/swiftui-pro").is_dir())
+        self.assertFalse((self.root / ".agents/skills/vercel-react-best-practices").exists())
+
     def test_every_library_skill_is_vendored_with_license(self) -> None:
         catalog = json.loads((self.root / "skills-library/library.json").read_text(encoding="utf-8"))
         notices = (self.root / "skills-library/THIRD_PARTY_NOTICES.md").read_text(encoding="utf-8")

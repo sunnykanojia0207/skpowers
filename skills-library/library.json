@@ -2,7 +2,7 @@
   "sources": {
     "superpowers": {
       "repo": "obra/superpowers",
-      "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+      "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
       "skills": {
         "brainstorming": "skills/brainstorming",
         "writing-plans": "skills/writing-plans",
@@ -26,7 +26,8 @@
       "skills": {
         "vercel-react-best-practices": "skills/react-best-practices",
         "vercel-composition-patterns": "skills/composition-patterns",
-        "vercel-react-native-skills": "skills/react-native-skills"
+        "vercel-react-native-skills": "skills/react-native-skills",
+        "vercel-react-view-transitions": "skills/react-view-transitions"
       }
     },
     "anthropic-skills": {
@@ -285,6 +286,88 @@
         "tastemaker": "skills/tastemaker"
       }
     },
+    "jeffallan": {
+      "repo": "jeffallan/claude-skills",
+      "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+      "skills": {
+        "typescript-pro": "skills/typescript-pro",
+        "python-pro": "skills/python-pro",
+        "fastapi-expert": "skills/fastapi-expert",
+        "django-expert": "skills/django-expert",
+        "pandas-pro": "skills/pandas-pro",
+        "golang-pro": "skills/golang-pro",
+        "rust-engineer": "skills/rust-engineer",
+        "java-architect": "skills/java-architect",
+        "spring-boot-engineer": "skills/spring-boot-engineer",
+        "csharp-developer": "skills/csharp-developer",
+        "dotnet-core-expert": "skills/dotnet-core-expert",
+        "php-pro": "skills/php-pro",
+        "laravel-specialist": "skills/laravel-specialist",
+        "rails-expert": "skills/rails-expert",
+        "vue-expert": "skills/vue-expert",
+        "angular-architect": "skills/angular-architect",
+        "flutter-expert": "skills/flutter-expert",
+        "nestjs-expert": "skills/nestjs-expert",
+        "graphql-architect": "skills/graphql-architect",
+        "websocket-engineer": "skills/websocket-engineer",
+        "terraform-engineer": "skills/terraform-engineer",
+        "cloud-architect": "skills/cloud-architect",
+        "sre-engineer": "skills/sre-engineer",
+        "monitoring-expert": "skills/monitoring-expert",
+        "rag-architect": "skills/rag-architect",
+        "prompt-engineer": "skills/prompt-engineer"
+      }
+    },
+    "nextjs": {
+      "repo": "vercel/next.js",
+      "commit": "f58c038cb8275736eb7bb17598616805342af0ac",
+      "skills": {
+        "next-dev-loop": "skills/next-dev-loop",
+        "next-bundle-optimizer": "skills/next-bundle-optimizer",
+        "next-cache-components-adoption": "skills/next-cache-components-adoption",
+        "next-cache-components-optimizer": "skills/next-cache-components-optimizer",
+        "next-partial-prefetching-adoption": "skills/next-partial-prefetching-adoption",
+        "next-partial-prefetching-optimizer": "skills/next-partial-prefetching-optimizer"
+      }
+    },
+    "vercel-ai": {
+      "repo": "vercel/ai",
+      "commit": "e729d588b3291e22cfcd6cba32b6dcf7778ef21c",
+      "skills": {
+        "ai-sdk": "skills/use-ai-sdk",
+        "migrate-ai-sdk-v6-to-v7": "skills/migrate-ai-sdk-v6-to-v7"
+      }
+    },
+    "agent-browser": {
+      "repo": "vercel-labs/agent-browser",
+      "commit": "372ac5ce20fab885dbf45ee0c9d510ec8c3b6fdb",
+      "skills": {
+        "agent-browser": "skills/agent-browser"
+      }
+    },
+    "trailofbits": {
+      "repo": "trailofbits/skills",
+      "commit": "196a9073ab10d35bacf111f945e02c00b2c6883a",
+      "skills": {
+        "sharp-edges": "plugins/sharp-edges/skills/sharp-edges",
+        "entry-point-analyzer": "plugins/entry-point-analyzer/skills/entry-point-analyzer",
+        "property-based-testing": "plugins/property-based-testing/skills/property-based-testing"
+      }
+    },
+    "vibe-security": {
+      "repo": "raroque/vibe-security-skill",
+      "commit": "850938f20f6915e7c3688d85c0a838f7909c87bb",
+      "skills": {
+        "vibe-security": "vibe-security"
+      }
+    },
+    "taste-skill": {
+      "repo": "Leonxlnx/taste-skill",
+      "commit": "6010f91a9935f1c167dfc500fb1a475681892e6b",
+      "skills": {
+        "design-taste-frontend": "skills/taste-skill"
+      }
+    },
     "magicui": {
       "repo": "magicuidesign/magicui",
       "commit": "efe76fc5755eca1142dd4f74c1d6f0ace2887e3c",
@@ -325,7 +408,10 @@
       "skills": [
         "security-review",
         "find-bugs",
-        "gha-security-review"
+        "gha-security-review",
+        "vibe-security",
+        "sharp-edges",
+        "entry-point-analyzer"
       ]
     },
     "docs": {
@@ -344,14 +430,16 @@
         "core-web-vitals",
         "accessibility",
         "best-practices",
-        "web-quality-audit"
+        "web-quality-audit",
+        "vercel-react-view-transitions"
       ]
     },
     "testing": {
       "description": "Playwright best practices and local web-app testing.",
       "skills": [
         "playwright-best-practices",
-        "webapp-testing"
+        "webapp-testing",
+        "property-based-testing"
       ]
     },
     "react-native": {
@@ -435,7 +523,9 @@
         "write-judge-prompt",
         "evaluate-rag",
         "validate-evaluator",
-        "mcp-builder"
+        "mcp-builder",
+        "rag-architect",
+        "prompt-engineer"
       ]
     },
     "authoring": {
@@ -535,6 +625,94 @@
         "no-ai-design-slop",
         "design-first-ui-prompting",
         "animation-systems"
+      ]
+    },
+    "nextjs": {
+      "description": "Official Next.js skills (vercel/next.js): dev loop, bundle optimization, Cache Components and partial prefetching adoption and tuning.",
+      "skills": [
+        "next-dev-loop",
+        "next-bundle-optimizer",
+        "next-cache-components-adoption",
+        "next-cache-components-optimizer",
+        "next-partial-prefetching-adoption",
+        "next-partial-prefetching-optimizer"
+      ]
+    },
+    "typescript": {
+      "description": "Advanced TypeScript types and patterns.",
+      "skills": [
+        "typescript-pro"
+      ]
+    },
+    "python": {
+      "description": "Modern typed, async Python.",
+      "skills": [
+        "python-pro"
+      ]
+    },
+    "go": {
+      "description": "Idiomatic Go, concurrency and services.",
+      "skills": [
+        "golang-pro"
+      ]
+    },
+    "rust": {
+      "description": "Idiomatic, memory-safe Rust.",
+      "skills": [
+        "rust-engineer"
+      ]
+    },
+    "java": {
+      "description": "Java and Spring Boot 3.",
+      "skills": [
+        "java-architect",
+        "spring-boot-engineer"
+      ]
+    },
+    "dotnet": {
+      "description": "C# and .NET 8+, ASP.NET Core.",
+      "skills": [
+        "csharp-developer",
+        "dotnet-core-expert"
+      ]
+    },
+    "php": {
+      "description": "Modern PHP 8.3+.",
+      "skills": [
+        "php-pro"
+      ]
+    },
+    "ruby": {
+      "description": "Ruby on Rails 7+.",
+      "skills": [
+        "rails-expert"
+      ]
+    },
+    "vue": {
+      "description": "Vue 3 and Nuxt 3.",
+      "skills": [
+        "vue-expert"
+      ]
+    },
+    "angular": {
+      "description": "Angular 17+ standalone architecture.",
+      "skills": [
+        "angular-architect"
+      ]
+    },
+    "flutter": {
+      "description": "Flutter 3 and Dart.",
+      "skills": [
+        "flutter-expert"
+      ]
+    },
+    "cloud": {
+      "description": "Cloud architecture, Terraform, SRE (SLOs, incidents) and monitoring.",
+      "skills": [
+        "cloud-architect",
+        "terraform-engineer",
+        "sre-engineer",
+        "monitoring-expert"
       ]
     },
     "design-memory": {

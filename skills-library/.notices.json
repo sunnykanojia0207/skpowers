@@ -3,7 +3,7 @@
     "skill": "brainstorming",
     "repo": "obra/superpowers",
     "path": "skills/brainstorming",
-    "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+    "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
     "license": "repository LICENSE (copied)",
     "scripts": [
       "scripts/helper.js",
@@ -17,7 +17,7 @@
     "skill": "writing-plans",
     "repo": "obra/superpowers",
     "path": "skills/writing-plans",
-    "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+    "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []
@@ -26,7 +26,7 @@
     "skill": "executing-plans",
     "repo": "obra/superpowers",
     "path": "skills/executing-plans",
-    "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+    "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []
@@ -35,7 +35,7 @@
     "skill": "subagent-driven-development",
     "repo": "obra/superpowers",
     "path": "skills/subagent-driven-development",
-    "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+    "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []
@@ -44,7 +44,7 @@
     "skill": "dispatching-parallel-agents",
     "repo": "obra/superpowers",
     "path": "skills/dispatching-parallel-agents",
-    "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+    "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []
@@ -53,7 +53,7 @@
     "skill": "test-driven-development",
     "repo": "obra/superpowers",
     "path": "skills/test-driven-development",
-    "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+    "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []
@@ -62,7 +62,7 @@
     "skill": "systematic-debugging",
     "repo": "obra/superpowers",
     "path": "skills/systematic-debugging",
-    "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+    "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
     "license": "repository LICENSE (copied)",
     "scripts": [
       "condition-based-waiting-example.ts",
@@ -74,7 +74,7 @@
     "skill": "verification-before-completion",
     "repo": "obra/superpowers",
     "path": "skills/verification-before-completion",
-    "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+    "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []
@@ -83,7 +83,7 @@
     "skill": "requesting-code-review",
     "repo": "obra/superpowers",
     "path": "skills/requesting-code-review",
-    "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+    "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []
@@ -92,7 +92,7 @@
     "skill": "receiving-code-review",
     "repo": "obra/superpowers",
     "path": "skills/receiving-code-review",
-    "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+    "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []
@@ -101,7 +101,7 @@
     "skill": "using-git-worktrees",
     "repo": "obra/superpowers",
     "path": "skills/using-git-worktrees",
-    "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+    "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []
@@ -110,7 +110,7 @@
     "skill": "finishing-a-development-branch",
     "repo": "obra/superpowers",
     "path": "skills/finishing-a-development-branch",
-    "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+    "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []
@@ -119,7 +119,7 @@
     "skill": "using-superpowers",
     "repo": "obra/superpowers",
     "path": "skills/using-superpowers",
-    "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+    "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []
@@ -982,7 +982,7 @@
     "skill": "writing-skills",
     "repo": "obra/superpowers",
     "path": "skills/writing-skills",
-    "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+    "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
     "license": "repository LICENSE (copied)",
     "scripts": [
       "render-graphs.js"
@@ -1495,6 +1495,417 @@
     "flags": [
       "uses sudo (ideagram/scripts/export_png.py)",
       "uses sudo (scripts/export_favicons.py)"
+    ]
+  },
+  {
+    "skill": "vibe-security",
+    "repo": "raroque/vibe-security-skill",
+    "path": "vibe-security",
+    "commit": "850938f20f6915e7c3688d85c0a838f7909c87bb",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "design-taste-frontend",
+    "repo": "Leonxlnx/taste-skill",
+    "path": "skills/taste-skill",
+    "commit": "6010f91a9935f1c167dfc500fb1a475681892e6b",
+    "license": "repository LICENSE (copied)",
+    "scripts": [
+      "assets/base.js",
+      "assets/charts.js",
+      "assets/scenes/stage.js",
+      "scripts/assets.mjs",
+      "scripts/draw.mjs",
+      "scripts/inspect.mjs",
+      "scripts/lib/app-draw.mjs",
+      "scripts/lib/cdp.mjs",
+      "scripts/lib/probe.mjs",
+      "scripts/lib/rules.mjs",
+      "scripts/lint.mjs",
+      "scripts/scenes.mjs"
+    ],
+    "flags": []
+  },
+  {
+    "skill": "typescript-pro",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/typescript-pro",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "python-pro",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/python-pro",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "fastapi-expert",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/fastapi-expert",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "django-expert",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/django-expert",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "pandas-pro",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/pandas-pro",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "golang-pro",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/golang-pro",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "recursive delete outside the project (references/project-structure.md)"
+    ]
+  },
+  {
+    "skill": "rust-engineer",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/rust-engineer",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "java-architect",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/java-architect",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "spring-boot-engineer",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/spring-boot-engineer",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "csharp-developer",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/csharp-developer",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "mentions agent settings or hooks files (SKILL.md)",
+      "mentions agent settings or hooks files (references/aspnet-core.md)"
+    ]
+  },
+  {
+    "skill": "dotnet-core-expert",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/dotnet-core-expert",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "mentions agent settings or hooks files (references/authentication.md)",
+      "mentions agent settings or hooks files (references/cloud-native.md)"
+    ]
+  },
+  {
+    "skill": "php-pro",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/php-pro",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "laravel-specialist",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/laravel-specialist",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "rails-expert",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/rails-expert",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "vue-expert",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/vue-expert",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "angular-architect",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/angular-architect",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "flutter-expert",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/flutter-expert",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "nestjs-expert",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/nestjs-expert",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "graphql-architect",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/graphql-architect",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "websocket-engineer",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/websocket-engineer",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "terraform-engineer",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/terraform-engineer",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "cloud-architect",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/cloud-architect",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "sre-engineer",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/sre-engineer",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "monitoring-expert",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/monitoring-expert",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "global npm install (references/application-profiling.md)"
+    ]
+  },
+  {
+    "skill": "rag-architect",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/rag-architect",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "prompt-engineer",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/prompt-engineer",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "next-dev-loop",
+    "repo": "vercel/next.js",
+    "path": "skills/next-dev-loop",
+    "commit": "f58c038cb8275736eb7bb17598616805342af0ac",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "global npm install (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "next-bundle-optimizer",
+    "repo": "vercel/next.js",
+    "path": "skills/next-bundle-optimizer",
+    "commit": "f58c038cb8275736eb7bb17598616805342af0ac",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "installs other skills (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "next-cache-components-adoption",
+    "repo": "vercel/next.js",
+    "path": "skills/next-cache-components-adoption",
+    "commit": "f58c038cb8275736eb7bb17598616805342af0ac",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "installs other skills (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "next-cache-components-optimizer",
+    "repo": "vercel/next.js",
+    "path": "skills/next-cache-components-optimizer",
+    "commit": "f58c038cb8275736eb7bb17598616805342af0ac",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "next-partial-prefetching-adoption",
+    "repo": "vercel/next.js",
+    "path": "skills/next-partial-prefetching-adoption",
+    "commit": "f58c038cb8275736eb7bb17598616805342af0ac",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "installs other skills (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "next-partial-prefetching-optimizer",
+    "repo": "vercel/next.js",
+    "path": "skills/next-partial-prefetching-optimizer",
+    "commit": "f58c038cb8275736eb7bb17598616805342af0ac",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "ai-sdk",
+    "repo": "vercel/ai",
+    "path": "skills/use-ai-sdk",
+    "commit": "e729d588b3291e22cfcd6cba32b6dcf7778ef21c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "migrate-ai-sdk-v6-to-v7",
+    "repo": "vercel/ai",
+    "path": "skills/migrate-ai-sdk-v6-to-v7",
+    "commit": "e729d588b3291e22cfcd6cba32b6dcf7778ef21c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "agent-browser",
+    "repo": "vercel-labs/agent-browser",
+    "path": "skills/agent-browser",
+    "commit": "372ac5ce20fab885dbf45ee0c9d510ec8c3b6fdb",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "global npm install (SKILL.md)",
+      "pre-approves shell commands (allowed-tools) (SKILL.md)"
+    ]
+  },
+  {
+    "skill": "sharp-edges",
+    "repo": "trailofbits/skills",
+    "path": "plugins/sharp-edges/skills/sharp-edges",
+    "commit": "196a9073ab10d35bacf111f945e02c00b2c6883a",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "recursive delete outside the project (references/case-studies.md)",
+      "recursive delete outside the project (references/config-patterns.md)",
+      "recursive delete outside the project (references/lang-php.md)",
+      "recursive delete outside the project (references/lang-python.md)",
+      "recursive delete outside the project (references/lang-ruby.md)"
+    ]
+  },
+  {
+    "skill": "entry-point-analyzer",
+    "repo": "trailofbits/skills",
+    "path": "plugins/entry-point-analyzer/skills/entry-point-analyzer",
+    "commit": "196a9073ab10d35bacf111f945e02c00b2c6883a",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "property-based-testing",
+    "repo": "trailofbits/skills",
+    "path": "plugins/property-based-testing/skills/property-based-testing",
+    "commit": "196a9073ab10d35bacf111f945e02c00b2c6883a",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "vercel-react-view-transitions",
+    "repo": "vercel-labs/agent-skills",
+    "path": "skills/react-view-transitions",
+    "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+    "license": "MIT (SKILL.md frontmatter)",
+    "scripts": [],
+    "flags": [
+      "installs other skills (README.md)"
     ]
   }
 ]

@@ -32,7 +32,7 @@ The installer copies the toolkit in and generates each tool's config. It never o
      python scripts/sync_toolkit.py
      ```
 2. **Write the brief** in `docs/PROJECT_BRIEF.md`: product, users, platforms (web, iOS, Android, API, admin), the three most important user journeys, budget, deadline and data sensitivity. This is the most important input: agents build what the brief says.
-3. **Choose skill profiles** in `toolkit.config.json` under `skillProfiles`, then run `python scripts/sync_toolkit.py`. The vetted skills are already in `skills-library/`; nothing is downloaded. `core` (the Superpowers workflow) and `docs` are on by default. Add only what this app needs:
+3. **Let the toolkit pick the skills.** Tick your platforms in `docs/PROJECT_BRIEF.md` (`- [x] Web`, `- [x] iOS`, …), then run `python scripts/sync_toolkit.py --explain` to see what it picks and why, and `python scripts/sync_toolkit.py` to apply. It reads your dependencies and project files too, so rerun it whenever the stack changes (agents do this through the `select-skills` skill). The vetted skills are already in `skills-library/`; nothing is downloaded. To add more by hand, list profiles under `skillProfiles` in `toolkit.config.json`; typical additions:
 
    | App | Profiles |
    |---|---|

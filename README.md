@@ -1,9 +1,10 @@
 # Universal Vibe-Coding Engineering Toolkit
 
-**One engineering setup for every AI coding tool.** Rules, 153 vetted skills and 22 MCP servers that behave the same in **Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Antigravity and GitHub Copilot**. You edit three sources; a script generates each tool's own configuration.
+**One engineering setup for every AI coding tool.** Rules, 194 vetted skills and 22 MCP servers that behave the same in **Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Antigravity and GitHub Copilot**. The right skills are **picked automatically from your project**, and a script generates each tool's own configuration. Everything is free and openly licensed.
 
 - **Superpowers workflow built in:** brainstorm → plan → test-first → debug → review → verify, on by default for every tool.
-- **153 vetted skills in 22 profiles:** web, UI polish and animation, interface craft, product UX design and research, anti-AI-slop design, design decision memory, React Native/Expo, native iOS and Android, Postgres, Supabase, Prisma, API, DevOps, security, testing, AI apps, code intelligence (ripwire). Each is pinned to an upstream commit, licensed and reviewed by hand.
+- **Automatic skill selection:** the sync reads your dependencies, platform folders, CI files and project brief, and enables only the matching profiles (Next.js → `web`, `nextjs`, `testing`, `interface-craft`; Expo → `react-native`; `go.mod` → `go`; Prisma → `prisma`; OpenAI SDK → `ai-apps`; …). `--explain` shows why.
+- **194 vetted skills in 35 profiles from 31 upstream sources:** web, Next.js, React Native/Expo, native iOS and Android, Flutter, TypeScript, Python, Go, Rust, Java, .NET, PHP, Ruby, Vue, Angular, Postgres, Supabase, Prisma, API, DevOps, cloud, security, testing, AI apps, UI polish, interface craft, UX design and research, anti-AI-slop design, design memory, code intelligence. Each is pinned to an upstream commit, licensed and reviewed by hand; where two covered the same need, the best was kept.
 - **22 MCP servers, written in each tool's own format:** documentation, browser, GitHub, databases, errors, issues and observability. Free ones are marked, and anything that can write is off by default.
 - **Safety by default:** human approval for production, no secrets in config, read-only MCP modes, and CI that checks generated files stay in sync.
 
@@ -46,34 +47,36 @@ Then choose your tools, skill profiles and MCP servers in `toolkit.config.json`,
 
 ## Skills
 
-**Toolkit skills** (always on): `production-engineering`, `architecture-planning`, `release-verification`, `marketplace-skill-review`, `ai-application-engineering`.
+**Toolkit skills** (always on): `production-engineering`, `architecture-planning`, `release-verification`, `marketplace-skill-review`, `ai-application-engineering`, and `select-skills`, which tells every agent to re-run the selection when requirements change.
 
-**Library profiles** (`skillProfiles`). `core` and `docs` are on by default:
+**Library profiles** are chosen automatically (`"autoSkills": true`). `core` (the Superpowers workflow) and `docs` are always on; the rest switch on when the project needs them:
 
-| Profile | What it adds |
-|---|---|
-| `core` | Superpowers workflow (13 skills): brainstorming, plans, subagent-driven development, TDD, systematic debugging, code review, worktrees, verification |
-| `docs` | Architecture decision records |
-| `security` | Sentry's security review, bug finding, GitHub Actions security |
-| `web` | Vercel React/Next.js rules, composition patterns, Anthropic frontend-design, Core Web Vitals, accessibility |
-| `ui-polish` | Emil Kowalski's design engineering: animation craft and performance, motion reviews, Apple-style interaction, worst-case data testing, mobile-web native feel |
-| `testing` | Playwright best practices, web-app testing |
-| `react-native` | Vercel, Callstack and Expo skills, Reanimated animation |
-| `ios` / `android` | SwiftUI Pro (Paul Hudson) and modern Swift / Google's official Android skills |
-| `postgres` / `supabase` / `prisma` | Database skills from Supabase and Prisma |
-| `api` | REST/OpenAPI design, endpoint documentation |
-| `devops` | Docker (official), GitHub Actions, Kubernetes |
-| `ai-apps` | LLM evals (Hamel Husain & Shreya Shankar), MCP server builder |
-| `authoring` | Anthropic skill-creator, Superpowers writing-skills |
-| `interface-craft` | Jakub Krehel's interface quality: accessibility, color, layout, typography, UI polish, copy, PR interface review, build from Figma |
-| `ux-design` / `ux-research` | MC Dean's product UX (forms, errors, loading, navigation, onboarding, search, handoff, design QA, tokens) / research (personas, JTBD, journeys, interviews, usability tests, metrics) |
-| `anti-slop` | Meng To's AI-slop prevention and audit, design-first UI prompting, motion systems |
-| `design-memory` | A `design-context/` decision log (with reasons) that agents load each session and update only with your approval |
-| `ripwire` | Red Hat's ripwire: ranked code maps before reading, blast radius, tests-to-run and quality deltas after editing (needs the pinned binary) |
+For a Next.js app with Prisma (Postgres), Stripe and the OpenAI SDK:
 
-**Alternative workflow:** [GitHub Spec Kit](https://github.com/github/spec-kit) can replace `core`; setup for all tools is in the [skills catalog](docs/SKILLS-CATALOG.md#alternative-workflow-github-spec-kit).
+```bash
+python scripts/sync_toolkit.py --explain
+```
+```text
+Skill profiles enabled:
+  core             toolkit.config.json skillProfiles; baseline workflow
+  docs             toolkit.config.json skillProfiles; baseline
+  web              dependency next, react-dom
+  testing          web UI
+  postgres         Prisma datasource postgresql
+  prisma           @prisma/client
+  nextjs           dependency next
+  typescript       typescript
+  ai-apps          dependency openai
+  interface-craft  the project has a user interface
+Individual skills enabled:
+  vibe-security    handles stripe
+Suggested, not enabled automatically (add to skillProfiles to accept):
+  security         handles stripe -- security-review and gha-security-review pre-approve Bash in Claude Code
+```
 
-Full list, sources, cautions and what was rejected: **[docs/SKILLS-CATALOG.md](docs/SKILLS-CATALOG.md)**. Commits and licenses: [skills-library/THIRD_PARTY_NOTICES.md](skills-library/THIRD_PARTY_NOTICES.md).
+Profiles whose skills pre-approve shell commands (`security`, `ripwire`) are only suggested. Design and research profiles (`ux-design`, `ux-research`, `ui-polish`, `anti-slop`, `cloud`, `authoring`) are added by name. The full list, what triggers each profile, cautions and the "keep the best" decisions: **[docs/SKILLS-CATALOG.md](docs/SKILLS-CATALOG.md)**. Commits and licenses: [skills-library/THIRD_PARTY_NOTICES.md](skills-library/THIRD_PARTY_NOTICES.md).
+
+**Alternative workflows** that replace `core`: GitHub Spec Kit, GSD Core, pstack (see the catalog).
 
 Update the library with `python scripts/vendor_skills.py --update`, review `git diff skills-library/`, then sync.
 
@@ -93,7 +96,7 @@ On by default: **Context7** (library docs) and **Playwright** (browser), both fr
 | `shadcn` | Free | Adds component files |
 | `magicui` | Free, no account | No (read-only registry lookups) |
 | `21st` | Free key; retrieval and generation paid | Returns component code |
-| `getlayers` | Paid (Full Stack Lifetime), browser sign-in | Returns template code |
+| `firecrawl` | Free plan (limited credits), API key | No (scrapes and searches the web) |
 | `ripwire` | Free, local binary (v0.6.7) | No |
 | `git` | Free, needs `uv` | Can commit and switch branches |
 | `mobile-mcp` | Free, needs Xcode/ADB (telemetry disabled) | Drives devices |
@@ -113,7 +116,7 @@ AGENTS.md                  rules for every tool
 CLAUDE.md, GEMINI.md       adapters that import AGENTS.md
 toolkit.config.json        tools, skill profiles, MCP servers
 .agents/skills/            toolkit skills (+ generated library skills)
-skills-library/            153 vendored skills, library.json, THIRD_PARTY_NOTICES.md
+skills-library/            194 vendored skills, library.json, THIRD_PARTY_NOTICES.md
 scripts/
   sync_toolkit.py          generate per-tool config; --check for CI
   vendor_skills.py         fetch/update library skills at pinned commits

@@ -12,9 +12,15 @@ per-tool MCP config files, and the Claude Code skill mirror. Existing MCP files
 are merged: only server names defined in toolkit.config.json are replaced, so
 servers you added yourself are kept.
 
+With "autoSkills": true, the project itself picks skill profiles: package
+manifests, platform folders, CI/Docker files and the checked platforms in
+docs/PROJECT_BRIEF.md are matched to profiles (see AUTO_RULES). Profiles listed
+in "skillProfiles" are always added on top.
+
 Usage:
-  python scripts/sync_toolkit.py           write outputs
-  python scripts/sync_toolkit.py --check   exit 1 if any output is stale
+  python scripts/sync_toolkit.py             write outputs
+  python scripts/sync_toolkit.py --check     exit 1 if any output is stale
+  python scripts/sync_toolkit.py --explain   show which skills were picked and why
 """
 from __future__ import annotations
 
@@ -41,6 +47,208 @@ class SyncError(Exception):
     pass
 
 
+# ---------------------------------------------------------------- automatic skill selection
+
+SKIP_DIRS = {".git", "node_modules", ".agents", ".claude", ".cursor", ".codex", ".gemini", "skills-library",
+             ".venv", "venv", "__pycache__", "dist", "build", ".next", "Pods", "vendor", "templates", "tests"}
+UI_PROFILES = {"web", "react-native", "ios", "android"}
+
+# Profiles whose skills pre-approve tools are never enabled automatically, only suggested.
+MANUAL_ONLY = {
+    "security": "security-review and gha-security-review pre-approve Bash in Claude Code",
+    "ripwire": "needs the ripwire binary, and its skills pre-approve Bash",
+}
+
+
+def scan_project(root: Path, max_depth: int = 4) -> dict:
+    """Collect cheap facts about the project: dependency names, file names, brief text."""
+    deps: set[str] = set()
+    files: list[str] = []
+    texts: dict[str, str] = {}
+
+    def walk(directory: Path, depth: int) -> None:
+        try:
+            entries = sorted(directory.iterdir())
+        except OSError:
+            return
+        for entry in entries:
+            if entry.is_dir():
+                if entry.name not in SKIP_DIRS and depth < max_depth:
+                    walk(entry, depth + 1)
+                continue
+            rel = entry.relative_to(root).as_posix()
+            files.append(rel)
+            name = entry.name.lower()
+            if name in {"package.json", "composer.json"}:
+                try:
+                    pkg = json.loads(entry.read_text(encoding="utf-8"))
+                except (OSError, json.JSONDecodeError):
+                    continue
+                for key in ("dependencies", "devDependencies", "peerDependencies", "require", "require-dev"):
+                    if isinstance(pkg.get(key), dict):
+                        deps.update(pkg[key])
+            elif name in {"pyproject.toml", "pipfile", "components.json", "schema.prisma", "build.gradle",
+                          "build.gradle.kts", "pom.xml", "gemfile", "pubspec.yaml"} or name.startswith("requirements") \
+                    or name.startswith(("docker-compose", "compose.")):
+                try:
+                    texts[rel] = entry.read_text(encoding="utf-8", errors="replace").lower()
+                except OSError:
+                    pass
+
+    walk(root, 0)
+    # requirements*.txt / Pipfile: one package per line; pyproject.toml: quoted requirement strings.
+    line_based = "\n".join(t for p, t in texts.items() if p.rsplit("/", 1)[-1].startswith(("requirements", "pipfile")))
+    deps.update(re.findall(r"^\s*([a-z0-9][a-z0-9._-]*)\s*(?:[=<>~!\[;]|$)", line_based, re.MULTILINE))
+    pyproject = "\n".join(t for p, t in texts.items() if p.endswith("pyproject.toml"))
+    deps.update(re.findall(r'"([a-z0-9][a-z0-9._-]*)\s*[=<>~!\["]', pyproject))
+    brief_path = root / "docs" / "PROJECT_BRIEF.md"
+    brief = brief_path.read_text(encoding="utf-8", errors="replace") if brief_path.exists() else ""
+    checked = {m.strip().lower() for m in re.findall(r"^\s*-\s*\[[xX]\]\s*(.+?)\s*$", brief, re.MULTILINE)}
+    return {"deps": {d.lower() for d in deps}, "files": files, "texts": texts, "checked": checked}
+
+
+def detect_requirements(root: Path) -> tuple[dict[str, list[str]], dict[str, list[str]], dict[str, list[str]]]:
+    """Return (profiles to enable, individual skills to enable, manual-only suggestions), each with reasons."""
+    facts = scan_project(root)
+    deps, files, texts, checked = facts["deps"], facts["files"], facts["texts"], facts["checked"]
+    all_text = " ".join(texts.values())
+    profiles: dict[str, list[str]] = {"core": ["baseline workflow"], "docs": ["baseline"]}
+    skills: dict[str, list[str]] = {}
+    manual: dict[str, list[str]] = {}
+
+    def add(target: dict, key: str, reason: str) -> None:
+        target.setdefault(key, []).append(reason)
+
+    def has(*names: str) -> list[str]:
+        return [n for n in names if n in deps or any(d.startswith(n + "/") for d in deps if n.startswith("@"))]
+
+    def files_matching(pattern: str) -> list[str]:
+        rx = re.compile(pattern)
+        return [f for f in files if rx.search(f)]
+
+    def brief(*labels: str) -> list[str]:
+        return [label for label in labels if label in checked]
+
+    native_rn = has("react-native", "expo")
+    if native_rn:
+        add(profiles, "react-native", "dependency " + ", ".join(native_rn))
+    web = has("next", "nuxt", "vue", "svelte", "@sveltejs/kit", "astro", "@remix-run/react", "@angular/core",
+              "solid-js", "react-dom", "vite")
+    if web:
+        add(profiles, "web", "dependency " + ", ".join(web))
+    for label in brief("web", "admin portal"):
+        add(profiles, "web", f"brief: {label}")
+    if not native_rn:
+        ios = files_matching(r"(^|/)(Package\.swift|Podfile)$|\.xcodeproj/")
+        if ios:
+            add(profiles, "ios", f"file {ios[0]}")
+        android = [p for p, t in texts.items() if "gradle" in p and "com.android" in t] + files_matching(r"AndroidManifest\.xml$")
+        if android:
+            add(profiles, "android", f"file {android[0]}")
+        mobile = brief("ios", "android")
+        if len(mobile) == 2 and not ios and not android:
+            add(profiles, "react-native", "brief: iOS and Android (Expo is the toolkit default)")
+        elif mobile == ["ios"] and not ios:
+            add(profiles, "ios", "brief: iOS")
+        elif mobile == ["android"] and not android:
+            add(profiles, "android", "brief: Android")
+    if "web" in profiles or has("@playwright/test", "playwright"):
+        add(profiles, "testing", "web UI" if "web" in profiles else "dependency playwright")
+
+    pg = has("pg", "postgres", "@neondatabase/serverless", "@vercel/postgres", "pg-promise", "psycopg", "psycopg2",
+             "psycopg2-binary", "asyncpg")
+    if pg:
+        add(profiles, "postgres", "dependency " + ", ".join(pg))
+    if 'provider = "postgresql"' in all_text or "provider = 'postgresql'" in all_text:
+        add(profiles, "postgres", "Prisma datasource postgresql")
+    if re.search(r"image:\s*[\"']?postgres", all_text):
+        add(profiles, "postgres", "postgres container in compose file")
+    supa = has("@supabase/supabase-js", "@supabase/ssr", "supabase") + files_matching(r"(^|/)supabase/config\.toml$")
+    if supa:
+        add(profiles, "supabase", f"{supa[0]}")
+        add(profiles, "postgres", "Supabase is Postgres")
+    prisma = has("prisma", "@prisma/client") + files_matching(r"schema\.prisma$")
+    if prisma:
+        add(profiles, "prisma", f"{prisma[0]}")
+
+    api = has("express", "fastify", "hono", "@nestjs/core", "koa", "@trpc/server", "graphql", "@apollo/server",
+              "fastapi", "flask", "django", "djangorestframework", "starlette")
+    api += files_matching(r"(^|/)openapi\.(ya?ml|json)$")
+    if api:
+        add(profiles, "api", f"{api[0]}")
+    for label in brief("public api"):
+        add(profiles, "api", f"brief: {label}")
+
+    # Languages and frameworks: one profile per stack, plus single skills for specific frameworks.
+    if has("next"):
+        add(profiles, "nextjs", "dependency next")
+    ts = has("typescript") + files_matching(r"(^|/)tsconfig\.json$")
+    if ts:
+        add(profiles, "typescript", f"{ts[0]}")
+    py = files_matching(r"(^|/)(pyproject\.toml|requirements[^/]*\.txt|setup\.py|Pipfile)$")
+    if py:
+        add(profiles, "python", f"file {py[0]}")
+    for marker, profile in ((r"(^|/)go\.mod$", "go"), (r"(^|/)Cargo\.toml$", "rust"),
+                            (r"\.(csproj|fsproj|sln)$", "dotnet"), (r"(^|/)composer\.json$", "php")):
+        found = files_matching(marker)
+        if found:
+            add(profiles, profile, f"file {found[0]}")
+    jvm = files_matching(r"(^|/)pom\.xml$") + [p for p, t in texts.items() if "gradle" in p and "com.android" not in t]
+    if jvm and not native_rn and "android" not in profiles:
+        add(profiles, "java", f"file {jvm[0]}")
+    if any("rails" in t for p, t in texts.items() if p.lower().endswith("gemfile")):
+        add(profiles, "ruby", "Rails in Gemfile")
+    if any("flutter" in t for p, t in texts.items() if p.endswith("pubspec.yaml")):
+        add(profiles, "flutter", "Flutter in pubspec.yaml")
+    for dep, profile in (("vue", "vue"), ("nuxt", "vue"), ("@angular/core", "angular")):
+        if has(dep):
+            add(profiles, profile, f"dependency {dep}")
+    for dep, skill in (("fastapi", "fastapi-expert"), ("django", "django-expert"), ("pandas", "pandas-pro"),
+                       ("@nestjs/core", "nestjs-expert"), ("graphql", "graphql-architect"),
+                       ("@apollo/server", "graphql-architect"), ("socket.io", "websocket-engineer"),
+                       ("ws", "websocket-engineer"), ("laravel/framework", "laravel-specialist"), ("ai", "ai-sdk")):
+        if has(dep):
+            add(skills, skill, f"dependency {dep}")
+    if files_matching(r"\.tf$"):
+        add(skills, "terraform-engineer", "Terraform files")
+
+    ops = files_matching(r"(^|/)(Dockerfile|docker-compose[^/]*\.ya?ml|compose\.ya?ml)$|\.github/workflows/[^/]+\.ya?ml$"
+                         r"|\.tf$|(^|/)(k8s|helm|charts)/")
+    if ops:
+        add(profiles, "devops", f"file {ops[0]}")
+
+    ai = has("openai", "@anthropic-ai/sdk", "anthropic", "ai", "@ai-sdk/openai", "@ai-sdk/anthropic", "langchain",
+             "@langchain/core", "llamaindex", "llama-index", "@google/genai", "google-genai", "@modelcontextprotocol/sdk",
+             "mcp")
+    if ai:
+        add(profiles, "ai-apps", "dependency " + ", ".join(ai))
+    for label in brief("ai/llm features"):
+        add(profiles, "ai-apps", f"brief: {label}")
+
+    if UI_PROFILES & profiles.keys():
+        add(profiles, "interface-craft", "the project has a user interface")
+    motion = has("framer-motion", "motion", "gsap", "@react-spring/web", "react-native-reanimated", "lottie-react")
+    if motion:
+        add(profiles, "ui-polish", "animation library " + ", ".join(motion))
+    if files_matching(r"(^|/)design-context/index\.md$"):
+        add(profiles, "design-memory", "design-context/ exists")
+
+    sensitive = has("next-auth", "@auth/core", "@clerk/nextjs", "@clerk/clerk-react", "stripe", "@stripe/stripe-js",
+                    "firebase", "firebase-admin", "passport", "jsonwebtoken", "bcrypt", "bcryptjs", "lucia",
+                    "better-auth", "@supabase/supabase-js")
+    if sensitive or pg or supa or brief("public api"):
+        reason = "handles " + (", ".join(sensitive) if sensitive else "data access")
+        add(skills, "vibe-security", reason)
+        add(manual, "security", reason)
+    if has("sonner"):
+        add(skills, "ask-sonner", "dependency sonner")
+    if "magicui" in all_text:
+        add(skills, "magic-ui", "Magic UI registry in components.json")
+    if shutil.which("ripwire"):
+        add(manual, "ripwire", "ripwire binary on PATH")
+    return profiles, skills, manual
+
+
 # ---------------------------------------------------------------- config
 
 def load_config(root: Path) -> dict:
@@ -61,6 +269,8 @@ def load_config(root: Path) -> dict:
         value = config.setdefault(key, [])
         if not isinstance(value, list) or not all(isinstance(v, str) for v in value):
             raise SyncError(f"{CONFIG_FILE}: '{key}' must be a list of strings")
+    if not isinstance(config.setdefault("autoSkills", False), bool):
+        raise SyncError(f"{CONFIG_FILE}: 'autoSkills' must be true or false")
 
     servers = config.get("mcpServers")
     if not isinstance(servers, dict):
@@ -70,11 +280,29 @@ def load_config(root: Path) -> dict:
     return config
 
 
-def resolve_library_skills(root: Path, config: dict) -> dict[str, Path]:
-    """Map each enabled library skill name to its vendored folder."""
-    wanted = config["skillProfiles"] or config["skills"]
-    if not wanted:
-        return {}
+def select_skills(root: Path, config: dict) -> dict[str, dict[str, list[str]]]:
+    """Combine explicit config with automatic detection; every pick carries its reasons."""
+    profiles = {p: [f"{CONFIG_FILE} skillProfiles"] for p in config["skillProfiles"]}
+    skills = {s: [f"{CONFIG_FILE} skills"] for s in config["skills"]}
+    suggested: dict[str, list[str]] = {}
+    if config["autoSkills"]:
+        auto_profiles, auto_skills, manual = detect_requirements(root)
+        for name, reasons in auto_profiles.items():
+            target = suggested if name in MANUAL_ONLY and name not in profiles else profiles
+            target.setdefault(name, []).extend(reasons)
+        for name, reasons in auto_skills.items():
+            skills.setdefault(name, []).extend(reasons)
+        for name, reasons in manual.items():
+            if name not in profiles:
+                suggested.setdefault(name, []).extend(reasons)
+    return {"profiles": profiles, "skills": skills, "suggested": suggested}
+
+
+def resolve_library_skills(root: Path, config: dict) -> tuple[dict[str, Path], dict]:
+    """Map each enabled library skill name to its vendored folder, plus the selection behind it."""
+    selection = select_skills(root, config)
+    if not selection["profiles"] and not selection["skills"]:
+        return {}, selection
     path = root / LIBRARY_CATALOG
     try:
         catalog = json.loads(path.read_text(encoding="utf-8"))
@@ -88,11 +316,11 @@ def resolve_library_skills(root: Path, config: dict) -> dict[str, Path]:
     }
     profiles = catalog["profiles"]
     names: list[str] = []
-    for profile in config["skillProfiles"]:
+    for profile in selection["profiles"]:
         if profile not in profiles:
             raise SyncError(f"{CONFIG_FILE}: unknown skill profile {profile!r}; available: {sorted(profiles)}")
         names += profiles[profile]["skills"]
-    names += config["skills"]
+    names += list(selection["skills"])
 
     enabled: dict[str, Path] = {}
     for name in names:
@@ -101,7 +329,19 @@ def resolve_library_skills(root: Path, config: dict) -> dict[str, Path]:
         if not (locations[name] / "SKILL.md").is_file():
             raise SyncError(f"{name!r} is not vendored yet; run: python scripts/vendor_skills.py")
         enabled[name] = locations[name]
-    return enabled
+    return enabled, selection
+
+
+def explain(selection: dict) -> str:
+    lines = ["Skill profiles enabled:"]
+    lines += [f"  {name:<16} {'; '.join(reasons)}" for name, reasons in selection["profiles"].items()]
+    if selection["skills"]:
+        lines.append("Individual skills enabled:")
+        lines += [f"  {name:<16} {'; '.join(reasons)}" for name, reasons in selection["skills"].items()]
+    if selection["suggested"]:
+        lines.append("Suggested, not enabled automatically (add to skillProfiles to accept):")
+        lines += [f"  {name:<16} {'; '.join(reasons)} -- {MANUAL_ONLY.get(name, '')}" for name, reasons in selection["suggested"].items()]
+    return "\n".join(lines)
 
 
 def validate_server(name: str, server: object) -> None:
@@ -321,7 +561,17 @@ def apply_copies(actions: list[Action]) -> None:
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--check", action="store_true", help="report stale outputs without writing; exit 1 if any")
+    parser.add_argument("--explain", action="store_true", help="show which skills are picked and why, without writing")
     args = parser.parse_args(argv)
+
+    if args.explain:
+        try:
+            _, selection = resolve_library_skills(ROOT, load_config(ROOT))
+        except SyncError as exc:
+            print(f"sync_toolkit: {exc}", file=sys.stderr)
+            return 2
+        print(explain(selection))
+        return 0
 
     try:
         config = load_config(ROOT)
@@ -334,7 +584,7 @@ def main(argv: list[str]) -> int:
                 files[ROOT / rel] = render_json_target(ROOT / rel, key, renderer, defaults, servers)
         if "codex" in tools:
             files[ROOT / ".codex" / "config.toml"] = render_codex(ROOT / ".codex" / "config.toml", servers)
-        library_skills = resolve_library_skills(ROOT, config)
+        library_skills, selection = resolve_library_skills(ROOT, config)
         library_actions = plan_copies(library_skills, ROOT / ".agents" / "skills")
         if not args.check:
             apply_copies(library_actions)  # the mirror below must see the new library skills
@@ -367,6 +617,10 @@ def main(argv: list[str]) -> int:
     print(f"Updated ({summary}):" if stale else f"Nothing to update ({summary}).")
     for item in stale:
         print(f"- {item}")
+    print(f"Skill profiles: {', '.join(selection['profiles']) or 'none'}"
+          + (" (auto-selected; run with --explain for reasons)" if config["autoSkills"] else ""))
+    if selection["suggested"]:
+        print(f"Suggested, needs your approval: {', '.join(selection['suggested'])} (see --explain)")
     if "codex" in tools:
         print("Note: Codex reads .codex/config.toml only after you mark this project as trusted.")
     return 0
