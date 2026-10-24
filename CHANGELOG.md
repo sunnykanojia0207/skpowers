@@ -3,6 +3,15 @@
 ## Unreleased
 
 ### Added
+- `addy-engineering` profile: 14 production-engineering skills from addyosmani/agent-skills (security hardening, observability, performance, CI/CD, shipping, migration, API/frontend engineering, DevTools testing, source-driven development, context engineering, git workflow, simplification, docs/ADRs). Its workflow half stays an alternative to `core` (overlaps Superpowers; `test-driven-development` clashes by name).
+- `vendor_skills.py` `sharedFiles`: repository-level files a skill links to (Addy's shared checklists) are copied in unmodified.
+
+### Fixed
+- Single-source vendoring left removed skills in `THIRD_PARTY_NOTICES.md`; the validator now checks notices match `library.json` exactly.
+
+## 0.5.0
+
+### Added
 - skills.sh registry sweep (129 topics, 1,660 skills): 64 more skills (258 total, 43 profiles). Official vendor profiles auto-selected from the stack: `firebase`, `cloudflare`, `convex`, `clerk`, `neon`, `gsap`, `firecrawl`; auto skills `turborepo`, `fastify-best-practices` (Matteo Collina), `mastra`; `codebase-architecture` profile and `writing-for-agents` from mattpocock/skills; `prisma-upgrade-v7`. Rejected: registry reposts, off-topic leaders, Azure (needs a paid subscription), better-auth (no license), Stitch (needs Stitch MCP), Anthropic document skills (proprietary), skills that install unreviewed skills or CLIs.
 
 ## 0.4.0

@@ -1,6 +1,6 @@
 # Skills Catalog
 
-The toolkit ships **258 vetted third-party skills** in `skills-library/`, grouped into profiles. Every skill is free and openly licensed. **You don't have to pick them:** with `"autoSkills": true` (the default) `python scripts/sync_toolkit.py` reads the project and enables the matching profiles, and only those skills are copied into `.agents/skills/`, so every tool sees the same small, relevant set.
+The toolkit ships **272 vetted third-party skills** in `skills-library/`, grouped into profiles. Every skill is free and openly licensed. **You don't have to pick them:** with `"autoSkills": true` (the default) `python scripts/sync_toolkit.py` reads the project and enables the matching profiles, and only those skills are copied into `.agents/skills/`, so every tool sees the same small, relevant set.
 
 ```bash
 python scripts/sync_toolkit.py --explain   # what is picked and why
@@ -55,6 +55,7 @@ To force something on regardless of detection, list it in `toolkit.config.json`;
 | `neon` | `@neondatabase/serverless` dep | neon, neon-postgres, neon-postgres-branches, neon-auth, neon-postgres-egress-optimizer | [neondatabase/agent-skills](https://github.com/neondatabase/agent-skills) (Apache-2.0, official) |
 | `gsap` | `gsap` dep | gsap-core, gsap-react, gsap-frameworks, gsap-timeline, gsap-scrolltrigger, gsap-plugins, gsap-performance, gsap-utils | [greensock/gsap-skills](https://github.com/greensock/gsap-skills) (MIT, official) |
 | `firecrawl` | Firecrawl SDK dep | firecrawl-build, firecrawl-build-scrape, firecrawl-build-search, firecrawl-build-interact | [firecrawl/skills](https://github.com/firecrawl/skills) (ISC, official) |
+| `addy-engineering` | — (by name) | security-and-hardening, observability-and-instrumentation, performance-optimization, ci-cd-and-automation, shipping-and-launch, deprecation-and-migration, api-and-interface-design, frontend-ui-engineering, browser-testing-with-devtools, source-driven-development, context-engineering, git-workflow-and-versioning, code-simplification, documentation-and-adrs | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (MIT). Shared checklists (`references/*-checklist.md`, `definition-of-done.md`) are copied into the skills that link to them. |
 | `codebase-architecture` | — (by name) | improve-codebase-architecture, domain-modeling, codebase-design | [mattpocock/skills](https://github.com/mattpocock/skills) (MIT) |
 | `ai-apps` | OpenAI, Anthropic, AI SDK, LangChain, LlamaIndex, Google GenAI, MCP SDK dep; brief AI/LLM | evals-start, error-discovery, eval-audit, write-judge-prompt, evaluate-rag, validate-evaluator, mcp-builder, rag-architect, prompt-engineer | [ai-evals-course](https://github.com/ai-evals-course/evals-skills) (Apache-2.0), anthropics (Apache-2.0), jeffallan (MIT) |
 | `security` | suggested only (see cautions) | security-review, find-bugs, gha-security-review, vibe-security, sharp-edges, entry-point-analyzer | getsentry (Apache-2.0), [raroque/vibe-security-skill](https://github.com/raroque/vibe-security-skill) (MIT), trailofbits (CC-BY-SA-4.0) |
@@ -81,7 +82,7 @@ When a newly suggested collection covered the same need as a library skill, the 
 | Postgres | Supabase `supabase-postgres-best-practices` | jeffallan `postgres-pro`, `sql-pro` |
 | MCP servers | Anthropic `mcp-builder` | jeffallan `mcp-developer` |
 | Architecture, API design | toolkit `architecture-planning`, wshobson `api-design-principles` | jeffallan `architecture-designer`, `api-designer` |
-| Workflow | Superpowers | GSD Core, pstack, jeffallan `feature-forge` / `spec-miner` (see alternatives) |
+| Workflow | Superpowers | Addy Osmani's workflow half (`spec-driven-development`, `planning-and-task-breakdown`, `incremental-implementation`, `test-driven-development`, `code-review-and-quality`, `debugging-and-error-recovery`, `idea-refine`, `interview-me`), GSD Core, pstack, jeffallan `feature-forge` / `spec-miner` (see alternatives) |
 
 ## Cautions on included skills
 
@@ -194,6 +195,8 @@ Check that `specify init` did not change `AGENTS.md`; if it added content, merge
 ### Other alternative workflows
 
 Like Spec Kit, these **replace** `core` (remove it from `skillProfiles` first) and install as plugins per tool rather than as library skills:
+
+- **Addy Osmani Agent Skills** ([addyosmani/agent-skills](https://github.com/addyosmani/agent-skills), MIT): the full spec → plan → build → test → review → ship workflow plus its session hooks, via its plugin or `npx skills add addyosmani/agent-skills`. Its 14 production-engineering skills are already in the library as `addy-engineering` and work with either workflow.
 
 - **GSD Core** ([open-gsd/gsd-core](https://github.com/open-gsd/gsd-core), MIT): `npx @opengsd/gsd-core@latest`, which asks for your runtime and global or local install. The old `npx get-shit-done-cc` package points to an archived repository; don't use it.
 - **pstack** ([cursor/plugins/pstack](https://github.com/cursor/plugins/tree/main/pstack), MIT, Lauren Tan): `/add-plugin pstack` in Cursor; in Claude Code `/plugin marketplace add cursor/plugins` then `/plugin install pstack@cursor-plugins`. Its setup writes `~/.claude/rules/pstack-models.md`.

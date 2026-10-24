@@ -2,6 +2,7 @@
 """Lightweight, offline validation for the portable vibe-engineering toolkit."""
 from __future__ import annotations
 
+import json
 import re
 import subprocess
 import sys
@@ -43,6 +44,17 @@ for relative in required_files:
         errors.append(f"Missing required file: {relative}")
 if not errors:
     checks.append(f"required files present ({len(required_files)})")
+
+# Every vendored skill, and nothing else, must be listed in the third-party notices.
+catalog = json.loads((ROOT / "skills-library" / "library.json").read_text(encoding="utf-8"))
+catalog_skills = {skill for source in catalog["sources"].values() for skill in source["skills"]}
+notice_text = (ROOT / "skills-library" / "THIRD_PARTY_NOTICES.md").read_text(encoding="utf-8")
+noticed = set(re.findall(r"^\| `([^`]+)` \|", notice_text, re.MULTILINE))
+if noticed != catalog_skills:
+    errors.append(f"THIRD_PARTY_NOTICES.md out of sync with library.json: missing {sorted(catalog_skills - noticed)}, "
+                  f"extra {sorted(noticed - catalog_skills)}; run scripts/vendor_skills.py")
+else:
+    checks.append(f"third-party notices cover all {len(catalog_skills)} vendored skills")
 
 # Generated per-tool configs must match toolkit.config.json and .agents/skills.
 sync = subprocess.run(

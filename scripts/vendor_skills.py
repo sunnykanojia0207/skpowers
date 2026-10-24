@@ -64,7 +64,8 @@ def fetch(repo: str, ref: str, paths: list[str], workdir: Path) -> str:
     git("init", "-q", cwd=workdir)
     git("config", "core.autocrlf", "false", cwd=workdir)  # keep upstream line endings byte-for-byte
     git("remote", "add", "origin", f"https://github.com/{repo}.git", cwd=workdir)
-    patterns = [f"/{p.strip('/')}/" for p in paths] + [f"/{name}" for name in LICENSE_FILES]
+    patterns = [f"/{p.strip('/')}" + ("" if "." in p.rsplit("/", 1)[-1] else "/") for p in paths]
+    patterns += [f"/{name}" for name in LICENSE_FILES]
     git("sparse-checkout", "set", "--no-cone", *patterns, cwd=workdir)
     git("fetch", "-q", "--depth", "1", "--filter=blob:none", "origin", ref, cwd=workdir)
     git("-c", "core.symlinks=false", "checkout", "-q", "FETCH_HEAD", cwd=workdir)
@@ -116,7 +117,8 @@ def vendor_source(name: str, source: dict, update: bool) -> list[dict]:
     ref = "HEAD" if update or not source.get("commit") else source["commit"]
     with tempfile.TemporaryDirectory(prefix="vendor-") as tmp:
         workdir = Path(tmp)
-        commit = fetch(source["repo"], ref, list(source["skills"].values()), workdir)
+        shared = source.get("sharedFiles", [])
+        commit = fetch(source["repo"], ref, list(source["skills"].values()) + shared, workdir)
         target_root = LIBRARY / name
         rows = []
         for skill, rel in source["skills"].items():
@@ -130,6 +132,13 @@ def vendor_source(name: str, source: dict, update: bool) -> list[dict]:
                 shutil.rmtree(dest)
             excluded = set(source.get("exclude", []))
             shutil.copytree(src, dest, ignore=lambda d, names: [n for n in names if n == ".git" or (Path(d) == src and n in excluded)])
+            # Repository-level files (e.g. shared checklists) that a skill links to by the same
+            # relative path are copied in unmodified, as upstream recommends for per-skill installs.
+            skill_text = (dest / "SKILL.md").read_text(encoding="utf-8", errors="replace")
+            for rel_file in shared:
+                if rel_file in skill_text and not (dest / rel_file).exists() and (workdir / rel_file).is_file():
+                    (dest / rel_file).parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(workdir / rel_file, dest / rel_file)
             try:
                 license_note = resolve_license(dest, workdir)
             except VendorError as exc:
@@ -182,10 +191,14 @@ def main(argv: list[str]) -> int:
     if args.source and state.exists():
         rows = {r["skill"]: r for r in json.loads(state.read_text(encoding="utf-8"))}
     failures = []
+    all_skills = {skill for source in sources.values() for skill in source["skills"]}
     for name, source in sources.items():
         if args.source and name != args.source:
             continue
         print(f"- {name} ({source['repo']})", flush=True)
+        # Forget this source's previous rows so skills removed from the catalog leave the notices.
+        rows = {skill: row for skill, row in rows.items() if row["skill"] not in source["skills"]
+                and not (row["repo"] == source["repo"] and row["skill"] not in all_skills)}
         try:
             for row in vendor_source(name, source, args.update):
                 rows[row["skill"]] = row

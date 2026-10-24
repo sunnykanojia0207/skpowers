@@ -512,6 +512,33 @@
         "init-design-context": "skills/init-design-context",
         "update-design-context": "skills/update-design-context"
       }
+    },
+    "addyosmani": {
+      "repo": "addyosmani/agent-skills",
+      "commit": "aeac41d4d005999432bb7312f7ff06383a91d59d",
+      "skills": {
+        "security-and-hardening": "skills/security-and-hardening",
+        "observability-and-instrumentation": "skills/observability-and-instrumentation",
+        "performance-optimization": "skills/performance-optimization",
+        "ci-cd-and-automation": "skills/ci-cd-and-automation",
+        "shipping-and-launch": "skills/shipping-and-launch",
+        "deprecation-and-migration": "skills/deprecation-and-migration",
+        "api-and-interface-design": "skills/api-and-interface-design",
+        "frontend-ui-engineering": "skills/frontend-ui-engineering",
+        "browser-testing-with-devtools": "skills/browser-testing-with-devtools",
+        "source-driven-development": "skills/source-driven-development",
+        "context-engineering": "skills/context-engineering",
+        "git-workflow-and-versioning": "skills/git-workflow-and-versioning",
+        "code-simplification": "skills/code-simplification",
+        "documentation-and-adrs": "skills/documentation-and-adrs"
+      },
+      "sharedFiles": [
+        "references/accessibility-checklist.md",
+        "references/definition-of-done.md",
+        "references/observability-checklist.md",
+        "references/performance-checklist.md",
+        "references/security-checklist.md"
+      ]
     }
   },
   "profiles": {
@@ -968,6 +995,25 @@
         "break-ui",
         "pick-ui-library",
         "prototype"
+      ]
+    },
+    "addy-engineering": {
+      "description": "Addy Osmani's production engineering skills: security hardening, observability, performance, CI/CD, shipping and launch, deprecation and migration, API and frontend engineering, DevTools browser testing, source-driven development, context engineering, git workflow, code simplification, docs and ADRs.",
+      "skills": [
+        "security-and-hardening",
+        "observability-and-instrumentation",
+        "performance-optimization",
+        "ci-cd-and-automation",
+        "shipping-and-launch",
+        "deprecation-and-migration",
+        "api-and-interface-design",
+        "frontend-ui-engineering",
+        "browser-testing-with-devtools",
+        "source-driven-development",
+        "context-engineering",
+        "git-workflow-and-versioning",
+        "code-simplification",
+        "documentation-and-adrs"
       ]
     }
   }
