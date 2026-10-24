@@ -96,6 +96,13 @@
       "command": "npx",
       "args": ["-y", "shadcn@4.22.1", "mcp"]
     },
+    "magicui": {
+      "description": "Free, read-only: list, search and fetch Magic UI components (install steps, source, examples) from magicui.design's public registry. Pairs with the magic-ui skill.",
+      "enabled": false,
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "@magicuidesign/mcp@2.0.0"]
+    },
     "21st": {
       "description": "21st.dev component catalog and UI generation. Needs a free API key in API_KEY_21ST; search is free, component retrieval and generation are paid; prompts are sent to 21st.dev.",
       "enabled": false,

@@ -1,10 +1,10 @@
 # Universal Vibe-Coding Engineering Toolkit
 
-**One engineering setup for every AI coding tool.** Rules, 101 vetted skills and 21 MCP servers that behave the same in **Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Antigravity and GitHub Copilot**. You edit three sources; a script generates each tool's own configuration.
+**One engineering setup for every AI coding tool.** Rules, 101 vetted skills and 22 MCP servers that behave the same in **Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Antigravity and GitHub Copilot**. You edit three sources; a script generates each tool's own configuration.
 
 - **Superpowers workflow built in:** brainstorm → plan → test-first → debug → review → verify, on by default for every tool.
 - **101 vetted skills in 18 profiles:** web, UI polish and animation, design decision memory, React Native/Expo, native iOS and Android, Postgres, Supabase, Prisma, API, DevOps, security, testing, AI apps, code intelligence (ripwire). Each is pinned to an upstream commit, licensed and reviewed by hand.
-- **21 MCP servers, written in each tool's own format:** documentation, browser, GitHub, databases, errors, issues and observability. Free ones are marked, and anything that can write is off by default.
+- **22 MCP servers, written in each tool's own format:** documentation, browser, GitHub, databases, errors, issues and observability. Free ones are marked, and anything that can write is off by default.
 - **Safety by default:** human approval for production, no secrets in config, read-only MCP modes, and CI that checks generated files stay in sync.
 
 **New here? Start with [docs/GETTING-STARTED.md](docs/GETTING-STARTED.md):** build a full-stack app step by step, with copy-paste prompts for every phase.
@@ -88,6 +88,7 @@ On by default: **Context7** (library docs) and **Playwright** (browser), both fr
 | `chrome-devtools` | Free, needs Chrome | Local browser only |
 | `next-devtools` | Free, Next.js 16+ (telemetry disabled) | No |
 | `shadcn` | Free | Adds component files |
+| `magicui` | Free, no account | No (read-only registry lookups) |
 | `21st` | Free key; retrieval and generation paid | Returns component code |
 | `getlayers` | Paid (Full Stack Lifetime), browser sign-in | Returns template code |
 | `ripwire` | Free, local binary (v0.6.7) | No |

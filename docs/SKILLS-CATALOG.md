@@ -7,7 +7,7 @@ The toolkit ships **101 vetted third-party skills** in `skills-library/`, groupe
 "skills": ["mcp-builder"]
 ```
 
-`skills` adds individual library skills without their whole profile. Skills in no profile: `ask-sonner` (add it if the app uses the Sonner toast library) and `magic-ui` (add it if the app uses [Magic UI](https://magicui.design) animated components; [magicuidesign/magicui](https://github.com/magicuidesign/magicui), MIT).
+`skills` adds individual library skills without their whole profile. Skills in no profile: `ask-sonner` (add it if the app uses the Sonner toast library) and `magic-ui` (add it if the app uses [Magic UI](https://magicui.design) animated components; [magicuidesign/magicui](https://github.com/magicuidesign/magicui), MIT). Pair `magic-ui` with the read-only `magicui` MCP server ([magicuidesign/mcp](https://github.com/magicuidesign/mcp), MIT, pinned 2.0.0) to let agents search the component registry.
 
 **How skills were chosen (2026-10-19):** discovery with `npx skills find` across 40 engineering queries (install counts from the skills.sh registry), cross-checked against the SkillsMP, MCP Market, AI Skill Market and SkillsMK reviews in [MARKETPLACE-RESEARCH.md](MARKETPLACE-RESEARCH.md). Only original upstream repositories with a redistributable license and recent activity were accepted; reposted copies (for example the several `*/superpowers` forks with inflated install counts) and browser-evasion skills were rejected. Every included skill was read by hand for prompt injection, remote execution, telemetry and destructive operations. Exact commits, licenses and automated review flags: [THIRD_PARTY_NOTICES.md](../skills-library/THIRD_PARTY_NOTICES.md).
 
