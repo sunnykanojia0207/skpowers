@@ -1,36 +1,35 @@
 ---
 name: select-skills
-description: Pick and enable the right skills for this project from its requirements. Use at the start of a new project, after the user describes or changes requirements, after adding a platform (web, iOS, Android, API, AI features) or a significant dependency (framework, database, ORM, auth, payments, animation library), or when the user asks which skills or MCP servers apply.
+description: Pick and enable the right skills for this project and for the current request. Use at the start of a session or new project, whenever the user's request touches an area the enabled skills may not cover (a new platform, framework, database, auth, payments, design, testing, deployment, AI feature…), after adding a significant dependency, or when the user asks which skills or MCP servers apply.
 ---
 
-# Select skills for this project
+# Select skills for the project and the request
 
-The toolkit chooses skill profiles from the project itself. Your job is to keep that input accurate, run the selection, and report what changed. Never hand-edit `.agents/skills/` copies or generated MCP files.
+Skills come from two automatic sources: the **project** (dependencies, platform files, CI, the brief) and the **request** the user just made. Never hand-edit skill copies in `.agents/skills/` or generated MCP files.
 
-## Steps
+## For each new request
 
-1. **Update the brief.** If the user described requirements in conversation, reflect them in `docs/PROJECT_BRIEF.md`: tick the platform checkboxes (`- [x] Web`, `- [x] iOS`, `- [x] Android`, `- [x] Public API`, `- [x] Admin portal`, `- [x] AI/LLM features`) and fill in product, journeys and constraints. Show the user the brief changes.
-
-2. **Preview the selection.**
+1. **Ask the toolkit what fits the request.**
    ```bash
-   python scripts/sync_toolkit.py --explain
+   python scripts/sync_toolkit.py --suggest "<the user's request, in their words>"
    ```
-   It lists every enabled profile and skill with the reason (a dependency, a file, a brief checkbox), plus suggestions it will not enable on its own.
+   It answers in under a second. The first line lists **already enabled skills that match**: use those. Below it are the best library profiles and skills that are not enabled yet; stack-specific ones only appear when the request names that stack.
 
-3. **Apply it.**
+2. **Enable what the task clearly needs**, then continue with the task:
    ```bash
-   python scripts/sync_toolkit.py
+   python scripts/sync_toolkit.py --enable <profile-or-skill> [more…]
    ```
-   This copies the matching skills into `.agents/skills/` for every tool (and `.claude/skills/` for Claude Code) and removes skills that no longer match. Hand-written skills are never touched.
+   This updates `toolkit.config.json` and copies the skills for every tool in one step. Tell the user in one line what you enabled and why. Profiles marked `suggest-only` (they pre-approve shell commands) need the user's yes first. Turn things off with `--disable`.
 
-4. **Handle suggestions.** Profiles listed under "Suggested" (for example `security`, `ripwire`) pre-approve shell commands or need extra software. Explain why they were suggested and add them to `skillProfiles` in `toolkit.config.json` only if the user agrees, then run step 3 again.
+3. **Use the matching skills** (newly enabled or already active) before writing code. Some tools load new skills only at the next session; if a just-enabled skill isn't available, read its `SKILL.md` from `.agents/skills/<name>/` directly.
 
-5. **MCP servers are not enabled automatically.** If the stack would benefit from one (for example `supabase`, `next-devtools`, `magicui`, `github`), name it and ask; enabling a server means setting `"enabled": true` in `toolkit.config.json` and syncing.
+## When the project itself changes
 
-6. **Report.** Tell the user which profiles were added or removed and why. Some tools load skills only at session start: suggest restarting the session if newly enabled skills do not appear.
+1. If the user described requirements, reflect them in `docs/PROJECT_BRIEF.md` (tick `- [x] Web`, `iOS`, `Android`, `Public API`, `Admin portal`, `AI/LLM features`).
+2. Run `python scripts/sync_toolkit.py --explain` to preview, then `python scripts/sync_toolkit.py` to apply. Profiles that match the stack are added; ones that stopped matching are removed. Hand-written skills are never touched.
 
 ## Notes
 
-- To force a profile on, add it to `skillProfiles`; to turn automatic selection off, set `"autoSkills": false` in `toolkit.config.json`.
-- If the selection misses an obvious need, add the profile to `skillProfiles` rather than editing the detection rules in a product repository; propose rule changes to the toolkit repository instead.
-- After the selection, use the enabled skills whose descriptions match each task before writing code.
+- MCP servers are never enabled automatically. If one would help (for example `supabase`, `next-devtools`, `magicui`, `github`), name it and ask; enabling means `"enabled": true` in `toolkit.config.json` and a sync.
+- If the toolkit reports that the skills library was not found, the copied skills still work; to change them, the user clones the toolkit once (`git clone https://github.com/sunnykanojia0207/skpowers ~/.skpowers`) or sets `SKPOWERS_HOME`.
+- `"autoSkills": false` in `toolkit.config.json` turns off detection from the project; `--suggest` and `--enable` keep working.

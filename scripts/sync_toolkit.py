@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 import sys
@@ -33,7 +34,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_FILE = "toolkit.config.json"
-LIBRARY_CATALOG = Path("skills-library") / "library.json"
+HOME_FILE = Path(".agents") / ".toolkit-home"  # written by install_toolkit.py; git-ignored
+NO_LIBRARY_NOTE = ("Note: skills library not found, so library skills were left as they are. Clone the toolkit "
+                   "to ~/.skpowers (git clone https://github.com/sunnykanojia0207/skpowers ~/.skpowers) "
+                   "or set SKPOWERS_HOME to update them.")
 KNOWN_TOOLS = {"claude-code", "codex", "cursor", "opencode", "gemini-cli", "antigravity", "copilot"}
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 ENV_NAME_RE = re.compile(r"^[A-Z_][A-Z0-9_]*$")
@@ -319,19 +323,41 @@ def select_skills(root: Path, config: dict) -> dict[str, dict[str, list[str]]]:
     return {"profiles": profiles, "skills": skills, "suggested": suggested}
 
 
-def resolve_library_skills(root: Path, config: dict) -> tuple[dict[str, Path], dict]:
-    """Map each enabled library skill name to its vendored folder, plus the selection behind it."""
+def find_library(root: Path) -> Path | None:
+    """Locate the shared skills library: in this repo, $SKPOWERS_HOME, the path recorded at install, or ~/.skpowers."""
+    candidates = [root / "skills-library"]
+    if os.environ.get("SKPOWERS_HOME"):
+        candidates.append(Path(os.environ["SKPOWERS_HOME"]) / "skills-library")
+    home_file = root / HOME_FILE
+    if home_file.is_file():
+        candidates.append(Path(home_file.read_text(encoding="utf-8").strip()) / "skills-library")
+    candidates.append(Path.home() / ".skpowers" / "skills-library")
+    return next((c for c in candidates if (c / "library.json").is_file()), None)
+
+
+def load_catalog(library: Path) -> dict:
+    try:
+        return json.loads((library / "library.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SyncError(f"Cannot read {library / 'library.json'}: {exc}") from exc
+
+
+def resolve_library_skills(root: Path, config: dict) -> tuple[dict[str, Path] | None, dict]:
+    """Map each enabled library skill to its folder in the shared library, plus the selection behind it.
+
+    Returns None instead of a mapping when no library is available, so callers leave the
+    already-copied skills alone rather than deleting them.
+    """
     selection = select_skills(root, config)
     if not selection["profiles"] and not selection["skills"]:
         return {}, selection
-    path = root / LIBRARY_CATALOG
-    try:
-        catalog = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
-        raise SyncError(f"Cannot read {LIBRARY_CATALOG.as_posix()}: {exc}") from exc
+    library = find_library(root)
+    if library is None:
+        return None, selection
+    catalog = load_catalog(library)
 
     locations = {
-        skill: root / "skills-library" / source_name / skill
+        skill: library / source_name / skill
         for source_name, source in catalog["sources"].items()
         for skill in source["skills"]
     }
@@ -346,11 +372,170 @@ def resolve_library_skills(root: Path, config: dict) -> tuple[dict[str, Path], d
     enabled: dict[str, Path] = {}
     for name in names:
         if name not in locations:
-            raise SyncError(f"{CONFIG_FILE}: skill {name!r} is not in {LIBRARY_CATALOG.as_posix()}")
+            raise SyncError(f"{CONFIG_FILE}: skill {name!r} is not in skills-library/library.json")
         if not (locations[name] / "SKILL.md").is_file():
             raise SyncError(f"{name!r} is not vendored yet; run: python scripts/vendor_skills.py")
         enabled[name] = locations[name]
     return enabled, selection
+
+
+# ---------------------------------------------------------------- picking skills from a task description
+
+STOPWORDS = set("""a an and are as at be build building by can create do for from get help how i in into is it
+its make me my need new of on or our please should so some that the then this to up use using want we
+what when with without would you your add app apps project code write implement feature""".split())
+
+
+# Everyday words in a request mapped to the vocabulary skill descriptions use.
+SYNONYMS = {
+    "login": {"auth", "authentication", "sign"}, "signin": {"auth", "authentication"}, "signup": {"auth", "authentication"},
+    "auth": {"authentication", "login"}, "password": {"auth", "authentication"},
+    "payment": {"stripe", "billing", "checkout", "subscription"}, "stripe": {"payment", "billing"},
+    "subscription": {"billing", "payment"}, "db": {"database"}, "database": {"postgres", "sql", "schema"},
+    "test": {"testing", "e2e"}, "testing": {"test"}, "deploy": {"deployment", "release", "ci"},
+    "animation": {"motion", "animate"}, "animate": {"animation", "motion"},
+    "mobile": {"ios", "android", "expo", "native"}, "iphone": {"ios", "swiftui"}, "ui": {"interface", "design"},
+    "chatbot": {"llm", "ai", "agent", "rag"}, "llm": {"ai", "model", "prompt"}, "rag": {"retrieval", "embedding"},
+    "scrape": {"scraping", "crawl"}, "slow": {"performance"}, "fast": {"performance"}, "bug": {"debugging", "bugs"},
+    "secure": {"security"}, "hack": {"security", "vulnerability"}, "docs": {"documentation"},
+}
+
+
+# Stack-specific profiles and skills are only suggested when the request names their stack;
+# a project that already uses the stack gets them from automatic detection instead.
+STACK_WORDS = {
+    "firebase": {"firebase", "firestore"}, "cloudflare": {"cloudflare", "worker", "workers", "wrangler"},
+    "convex": {"convex"}, "clerk": {"clerk"}, "neon": {"neon"}, "gsap": {"gsap", "scrolltrigger"},
+    "firecrawl": {"firecrawl", "scrape", "scraping", "crawl"}, "supabase": {"supabase"}, "prisma": {"prisma"},
+    "postgres": {"postgres", "postgresql", "sql", "database", "db"}, "nextjs": {"next", "nextjs"},
+    "react-native": {"expo", "native", "mobile"}, "ios": {"ios", "iphone", "swift", "swiftui"},
+    "android": {"android", "kotlin", "compose"}, "flutter": {"flutter", "dart"},
+    "typescript": {"typescript", "ts"}, "python": {"python", "django", "fastapi", "flask", "pandas"},
+    "go": {"go", "golang"}, "rust": {"rust", "cargo"}, "java": {"java", "spring", "jvm"},
+    "dotnet": {"dotnet", "net", "csharp", "c#", "asp"}, "php": {"php", "laravel"}, "ruby": {"ruby", "rails"},
+    "vue": {"vue", "nuxt"}, "angular": {"angular"}, "ripwire": {"ripwire"}, "cloud": {"cloud", "aws", "gcp", "azure", "terraform"},
+    "fastapi-expert": {"fastapi"}, "django-expert": {"django"}, "pandas-pro": {"pandas", "dataframe"},
+    "nestjs-expert": {"nest", "nestjs"}, "laravel-specialist": {"laravel"}, "rails-expert": {"rails"},
+    "terraform-engineer": {"terraform"}, "turborepo": {"turborepo", "turbo", "monorepo"},
+    "fastify-best-practices": {"fastify"}, "mastra": {"mastra"}, "ai-sdk": {"ai", "vercel"},
+    "claude-api": {"claude", "anthropic"}, "magic-ui": {"magic", "magicui"}, "ask-sonner": {"sonner", "toast"},
+    "migrate-ai-sdk-v6-to-v7": {"migrate", "upgrade"}, "testing-setup": {"android", "kotlin"},
+    "java-architect": {"java", "spring", "jvm"}, "spring-boot-engineer": {"spring", "java"},
+    "csharp-developer": {"csharp", "c#", "dotnet", "net", "blazor"}, "dotnet-core-expert": {"dotnet", "net", "csharp"},
+    "golang-pro": {"go", "golang"}, "rust-engineer": {"rust"}, "python-pro": {"python"},
+    "typescript-pro": {"typescript", "ts", "types"}, "vue-expert": {"vue", "nuxt"}, "angular-architect": {"angular"},
+    "flutter-expert": {"flutter", "dart"}, "php-pro": {"php"}, "graphql-architect": {"graphql", "apollo"},
+    "websocket-engineer": {"websocket", "realtime", "socket"}, "agent-browser": {"browser", "automation"},
+    "swiftui-pro": {"swiftui", "ios", "swift"}, "write-swift": {"swift", "ios"},
+}
+
+
+def stack_allows(name: str, wanted: set[str]) -> bool:
+    gate = STACK_WORDS.get(name)
+    if gate is None:
+        prefix = next((k for k in ("firebase", "firestore", "convex", "clerk", "neon", "gsap", "firecrawl", "wrangler",
+                                   "cloudflare", "workers", "durable", "next-", "expo", "jetpack", "navigation-3",
+                                   "android", "swiftui", "flutter", "prisma", "supabase", "ripwire", "dimensional")
+                       if name.startswith(k)), None)
+        gate = {prefix.strip("-")} | STACK_WORDS.get(prefix.strip("-"), set()) if prefix else None
+    return gate is None or bool(gate & wanted)
+
+
+def words(text: str) -> set[str]:
+    tokens = re.findall(r"[a-z0-9][a-z0-9+#]*", text.lower().replace("-", " ").replace("/", " "))
+    return {t[:-1] if len(t) > 4 and t.endswith("s") else t for t in tokens if t not in STOPWORDS and len(t) > 1}
+
+
+def task_words(text: str) -> set[str]:
+    base = words(text)
+    return base | {s for w in base for s in SYNONYMS.get(w, ())}
+
+
+def skill_descriptions(library: Path, catalog: dict) -> dict[str, str]:
+    out = {}
+    for source_name, source in catalog["sources"].items():
+        for skill in source["skills"]:
+            path = library / source_name / skill / "SKILL.md"
+            text = path.read_text(encoding="utf-8", errors="replace") if path.is_file() else ""
+            match = re.search(r"^description:\s*(.+?)(?=^\w[\w-]*:|^---)", text, re.MULTILINE | re.DOTALL)
+            out[skill] = re.sub(r"\s+", " ", match.group(1)).strip(" >|-\"'") if match else ""
+    return out
+
+
+def suggest(root: Path, config: dict, task: str, limit: int = 5) -> str:
+    library = find_library(root)
+    if library is None:
+        raise SyncError("no skills library found; clone the toolkit to ~/.skpowers or set SKPOWERS_HOME")
+    catalog = load_catalog(library)
+    descriptions = skill_descriptions(library, catalog)
+    wanted = task_words(task)
+    enabled, selection = resolve_library_skills(root, config)
+    active = set(enabled or {})
+
+    def score(name: str, text: str) -> int:
+        return 3 * len(wanted & words(name)) + len(wanted & words(text))
+
+    skill_scores = {s: score(s, d) for s, d in descriptions.items() if s not in active and stack_allows(s, wanted)}
+    profile_scores = {}
+    for name, profile in catalog["profiles"].items():
+        if name in selection["profiles"] or not stack_allows(name, wanted):
+            continue
+        # A profile is as good as its best member plus its own description, not the sum of its size.
+        best_member = max((skill_scores.get(s, 0) for s in profile["skills"]), default=0)
+        profile_scores[name] = 2 * score(name, profile.get("description", "")) + best_member
+    # Keep only strong matches: at least 40% of the best score, so one shared word doesn't qualify.
+    top = max([*profile_scores.values(), *skill_scores.values(), 0])
+    floor = max(1, round(top * 0.4))
+    best_profiles = [p for p in sorted(profile_scores, key=lambda n: profile_scores[n], reverse=True)
+                     if profile_scores[p] >= floor][:limit]
+    covered = {s for p in best_profiles for s in catalog["profiles"][p]["skills"]}
+    best_skills = [s for s in sorted(skill_scores, key=lambda n: skill_scores[n], reverse=True)
+                   if skill_scores[s] >= floor and s not in covered][:limit]
+    relevant_active = [s for s in sorted(active, key=lambda n: score(n, descriptions.get(n, "")), reverse=True)
+                       if score(s, descriptions.get(s, "")) >= floor][:limit]
+    lines = []
+    if relevant_active:
+        lines.append(f"Already enabled and relevant (use these): {', '.join(relevant_active)}")
+    if not best_profiles and not best_skills:
+        lines.append(f"No other library skill matches {task!r}.")
+        return "\n".join(lines)
+    lines.append(f"Best matches for {task!r} (not yet enabled):")
+    for p in best_profiles:
+        note = f"  [suggest-only: {MANUAL_ONLY[p]}]" if p in MANUAL_ONLY else ""
+        lines.append(f"  profile {p:<22} {catalog['profiles'][p].get('description', '')[:90]}{note}")
+    for s in best_skills:
+        lines.append(f"  skill   {s:<22} {descriptions[s][:90]}")
+    pick = (best_profiles + best_skills)[0]
+    lines.append(f"Enable with: python scripts/sync_toolkit.py --enable {pick}")
+    return "\n".join(lines)
+
+
+def edit_config_lists(root: Path, enable: list[str], disable: list[str]) -> list[str]:
+    """Add or remove profile/skill names in toolkit.config.json; returns a summary of the changes."""
+    library = find_library(root)
+    if library is None:
+        raise SyncError("no skills library found; clone the toolkit to ~/.skpowers or set SKPOWERS_HOME")
+    catalog = load_catalog(library)
+    all_skills = {s for source in catalog["sources"].values() for s in source["skills"]}
+    path = root / CONFIG_FILE
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    profiles, skills = raw.setdefault("skillProfiles", []), raw.setdefault("skills", [])
+    changes = []
+    for name in enable:
+        target = profiles if name in catalog["profiles"] else skills if name in all_skills else None
+        if target is None:
+            raise SyncError(f"{name!r} is neither a profile nor a skill in the library (try --suggest)")
+        if name not in target:
+            target.append(name)
+            changes.append(f"enabled {name}")
+    for name in disable:
+        for target in (profiles, skills):
+            if name in target:
+                target.remove(name)
+                changes.append(f"disabled {name}")
+    if changes:
+        path.write_text(json.dumps(raw, indent=2) + "\n", encoding="utf-8", newline="\n")
+    return changes
 
 
 def explain(selection: dict) -> str:
@@ -583,16 +768,30 @@ def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--check", action="store_true", help="report stale outputs without writing; exit 1 if any")
     parser.add_argument("--explain", action="store_true", help="show which skills are picked and why, without writing")
+    parser.add_argument("--suggest", metavar="TASK", help="rank library profiles and skills for a task description")
+    parser.add_argument("--enable", nargs="+", metavar="NAME", default=[], help="turn on profiles or skills, then sync")
+    parser.add_argument("--disable", nargs="+", metavar="NAME", default=[], help="turn off profiles or skills, then sync")
+    parser.add_argument("--quiet", action="store_true", help="print only the summary, not every changed path")
     args = parser.parse_args(argv)
 
-    if args.explain:
+    if args.explain or args.suggest:
         try:
-            _, selection = resolve_library_skills(ROOT, load_config(ROOT))
+            config = load_config(ROOT)
+            enabled, selection = resolve_library_skills(ROOT, config)
+            print(suggest(ROOT, config, args.suggest) if args.suggest else explain(selection))
         except SyncError as exc:
             print(f"sync_toolkit: {exc}", file=sys.stderr)
             return 2
-        print(explain(selection))
+        if enabled is None and not args.suggest:
+            print(NO_LIBRARY_NOTE)
         return 0
+    if args.enable or args.disable:
+        try:
+            for change in edit_config_lists(ROOT, args.enable, args.disable):
+                print(change)
+        except SyncError as exc:
+            print(f"sync_toolkit: {exc}", file=sys.stderr)
+            return 2
 
     try:
         config = load_config(ROOT)
@@ -606,7 +805,8 @@ def main(argv: list[str]) -> int:
         if "codex" in tools:
             files[ROOT / ".codex" / "config.toml"] = render_codex(ROOT / ".codex" / "config.toml", servers)
         library_skills, selection = resolve_library_skills(ROOT, config)
-        library_actions = plan_copies(library_skills, ROOT / ".agents" / "skills")
+        # Without a library, keep the skills already copied into the project instead of removing them.
+        library_actions = [] if library_skills is None else plan_copies(library_skills, ROOT / ".agents" / "skills")
         if not args.check:
             apply_copies(library_actions)  # the mirror below must see the new library skills
         mirror_actions = plan_skill_mirror(ROOT, "claude-code" in tools)
@@ -619,7 +819,10 @@ def main(argv: list[str]) -> int:
 
     stale_files = [path for path, text in files.items() if read_text(path) != text]
     stale = [p.relative_to(ROOT).as_posix() for p in stale_files] + describe(library_actions) + describe(mirror_actions)
-    summary = f"{len(files)} config files, {len(library_skills)} library skills, tools: {', '.join(sorted(tools))}"
+    if library_skills is None:
+        print(NO_LIBRARY_NOTE)
+    skill_count = "library skills unchanged" if library_skills is None else f"{len(library_skills)} library skills"
+    summary = f"{len(files)} config files, {skill_count}, tools: {', '.join(sorted(tools))}"
 
     if args.check:
         if stale:
@@ -635,9 +838,12 @@ def main(argv: list[str]) -> int:
         path.write_text(files[path], encoding="utf-8", newline="\n")
     apply_copies(mirror_actions)
 
-    print(f"Updated ({summary}):" if stale else f"Nothing to update ({summary}).")
-    for item in stale:
-        print(f"- {item}")
+    if args.quiet:
+        print(f"Updated {len(stale)} path(s) ({summary})." if stale else f"Nothing to update ({summary}).")
+    else:
+        print(f"Updated ({summary}):" if stale else f"Nothing to update ({summary}).")
+        for item in stale:
+            print(f"- {item}")
     print(f"Skill profiles: {', '.join(selection['profiles']) or 'none'}"
           + (" (auto-selected; run with --explain for reasons)" if config["autoSkills"] else ""))
     if selection["suggested"]:

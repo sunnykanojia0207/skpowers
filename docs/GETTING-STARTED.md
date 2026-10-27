@@ -9,18 +9,20 @@ This project uses the universal engineering toolkit. Its rules, skills and MCP s
 | `toolkit.config.json` | Which tools you use and which MCP servers are on |
 | `docs/PROJECT_BRIEF.md` | What you want built (you write this) |
 
-## 1. Create the project (once)
+## 1. Set up (under a minute)
 
 Requires Git, Python 3.11+ and Node.js.
 
 ```bash
-mkdir my-app
-cd my-app
-git init
-python <path-to-toolkit>/scripts/install_toolkit.py .
+# once per machine: the shared toolkit and skills library
+git clone --depth 1 https://github.com/sunnykanojia0207/skpowers ~/.skpowers
+
+# per project (new or existing)
+mkdir my-app && cd my-app && git init
+python ~/.skpowers/scripts/install_toolkit.py
 ```
 
-The installer copies the toolkit in and generates each tool's config. It never overwrites a file that already exists; it lists skipped files so you can merge them by hand.
+The installer copies the rules and config, picks skill profiles from what the project contains, copies only those skills for every tool, and generates each tool's MCP config. It never overwrites a file that already exists; it lists skipped files so you can merge them by hand. The library stays in `~/.skpowers`, so projects stay small.
 
 ## 2. Configure (about 5 minutes)
 

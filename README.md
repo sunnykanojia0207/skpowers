@@ -38,12 +38,29 @@ Generated files (committed; never edit by hand): `.mcp.json` (Claude Code, Copil
 
 Requires Python 3.11+ and Git (standard library only; no packages), plus Node.js for the default MCP servers.
 
+**Once per machine** (a shared copy of the toolkit and its skills library):
+
 ```bash
-mkdir my-app && cd my-app && git init
-python <path-to-toolkit>/scripts/install_toolkit.py .
+git clone --depth 1 https://github.com/sunnykanojia0207/skpowers ~/.skpowers
 ```
 
-Then choose your tools, skill profiles and MCP servers in `toolkit.config.json`, run `python scripts/sync_toolkit.py`, and follow [GETTING-STARTED.md](docs/GETTING-STARTED.md). The installer never overwrites existing files; it lists them so you can merge.
+**In any project** (new or existing), one command:
+
+```bash
+cd my-app
+python ~/.skpowers/scripts/install_toolkit.py
+```
+
+It takes a few seconds: it copies the rules, config and toolkit skills, reads the project to pick the right skill profiles, copies only those skills for every tool, and writes each tool's MCP config. Existing files (your `AGENTS.md`, configs) are never overwritten; they are listed so you can merge. Commit the result so teammates and CI get the same skills without the toolkit.
+
+**While you work, skills follow the request too.** Agents run `--suggest` for each new request and enable what fits; you can do the same:
+
+```bash
+python scripts/sync_toolkit.py --suggest "add stripe payments and email login"
+python scripts/sync_toolkit.py --enable clerk          # or --disable
+```
+
+**Update later:** `git -C ~/.skpowers pull`, then in the project `python ~/.skpowers/scripts/install_toolkit.py --update` (refreshes the sync script and toolkit skills, never your files) and `python scripts/sync_toolkit.py`.
 
 ## Skills
 

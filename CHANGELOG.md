@@ -2,7 +2,13 @@
 
 ## Unreleased
 
+### Changed
+- **Faster setup:** projects no longer get a copy of the 37 MB skills library. Clone the toolkit once to `~/.skpowers`; `install_toolkit.py` (target defaults to the current folder) copies only rules, config, toolkit skills and the sync script, records the library location in git-ignored `.agents/.toolkit-home`, and copies just the skills the project uses. Measured on a Next.js + Prisma project: 15.8 s / 43 MB / 3,093 files → 6.0 s / 4.8 MB / 977 files. `--update` refreshes toolkit-owned files without touching yours.
+- The sync finds the library in this repo, `$SKPOWERS_HOME`, the recorded install location or `~/.skpowers`; without one it leaves copied skills in place instead of removing them.
+- Test suite 195 s → 68 s by sharing the library.
+
 ### Added
+- **Skills picked from the request:** `sync_toolkit.py --suggest "<task>"` lists matching skills that are already enabled, then ranks library profiles and skills (synonyms, best-member scoring, stack-specific results only when the request names the stack); `--enable` / `--disable` update the config and sync in one step. `select-skills` and `AGENTS.md` tell agents to do this for each new request. `--quiet` for short sync output.
 - Python virtual environments: `AGENTS.md` rule plus toolkit skill `python-venv` — every Python command runs in the project's `.venv` (created with uv or `venv` if missing, interpreter called directly on Windows/macOS/Linux), never the global or system Python; `.venv/` ignored by git.
 - Design batch (14 repositories reviewed): `ui-ux-pro-max`, `hallmark`, `dimensional-drawing` and `dimensional-drawing-motion` as individual skills; `AGENTS.md` now has agents lint `DESIGN.md` with Google's pinned `@google/design.md@0.4.0` CLI (spec, token references, WCAG contrast). React Bits, Canvas UI and the DESIGN.md spec added to design resources.
 - taste-skill and elayadesign updated to upstream (copy, chart and inspector changes; no new network or process use). Emil Kowalski, Magic UI and GSAP already current.

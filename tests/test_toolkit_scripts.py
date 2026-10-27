@@ -5,6 +5,7 @@ Run: python -m unittest discover -s tests
 from __future__ import annotations
 
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -14,12 +15,17 @@ import unittest
 from pathlib import Path
 
 TOOLKIT = Path(__file__).resolve().parents[1]
-COPY = ["AGENTS.md", "CLAUDE.md", "GEMINI.md", "toolkit.config.json", ".agents/skills", "scripts", "skills-library",
+# Test projects use the toolkit's shared library through SKPOWERS_HOME, like installed projects do.
+COPY = ["AGENTS.md", "CLAUDE.md", "GEMINI.md", "toolkit.config.json", ".agents/skills", "scripts",
         "docs/GETTING-STARTED.md", "docs/PROJECT_BRIEF.md", "docs/QUALITY-GATES.md", "templates/ci-node.yml"]
 
 
-def run(script: Path, *args: str, cwd: Path) -> subprocess.CompletedProcess:
-    return subprocess.run([sys.executable, "-I", str(script), *args], cwd=cwd, capture_output=True, text=True)
+def run(script: Path, *args: str, cwd: Path, library: bool = True) -> subprocess.CompletedProcess:
+    env = {k: v for k, v in os.environ.items() if k != "SKPOWERS_HOME"}
+    env["HOME"] = env["USERPROFILE"] = str(cwd)  # never pick up a real ~/.skpowers
+    if library:
+        env["SKPOWERS_HOME"] = str(TOOLKIT)
+    return subprocess.run([sys.executable, "-I", str(script), *args], cwd=cwd, capture_output=True, text=True, env=env)
 
 
 class SyncToolkitTests(unittest.TestCase):
@@ -280,6 +286,31 @@ class SyncToolkitTests(unittest.TestCase):
         for skill in ("claude-api", "eval-audit", "python-pro", "fastapi-expert"):
             self.assertTrue((self.root / ".agents/skills" / skill / "SKILL.md").is_file(), skill)
 
+    def test_missing_library_keeps_copied_skills(self) -> None:
+        self.edit_config(lambda c: c.update(skillProfiles=["ios"]))
+        run(self.sync, cwd=self.root)
+        result = run(self.sync, cwd=self.root, library=False)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("library not found", result.stdout)
+        self.assertTrue((self.root / ".agents/skills/swiftui-pro/SKILL.md").is_file())
+        self.assertEqual(run(self.sync, "--check", cwd=self.root, library=False).returncode, 0)
+
+    def test_suggest_and_enable_from_a_task(self) -> None:
+        self.edit_config(lambda c: c.update(autoSkills=True, skillProfiles=["core"]))
+        out = run(self.sync, "--suggest", "add clerk login to the app", cwd=self.root).stdout
+        self.assertIn("profile clerk", out)
+        self.assertNotIn("convex", out)  # stack-specific profiles need the request to name their stack
+        result = run(self.sync, "--enable", "clerk", "landing-page-design", cwd=self.root)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue((self.root / ".agents/skills/clerk-setup/SKILL.md").is_file())
+        self.assertTrue((self.root / ".agents/skills/landing-page-design/SKILL.md").is_file())
+        config = json.loads((self.root / "toolkit.config.json").read_text(encoding="utf-8"))
+        self.assertIn("clerk", config["skillProfiles"])
+        self.assertIn("landing-page-design", config["skills"])
+        run(self.sync, "--disable", "clerk", cwd=self.root)
+        self.assertFalse((self.root / ".agents/skills/clerk-setup").exists())
+        self.assertEqual(run(self.sync, "--enable", "no-such-thing", cwd=self.root).returncode, 2)
+
     def test_auto_skills_off_uses_only_explicit_profiles(self) -> None:
         self.write("package.json", json.dumps({"dependencies": {"next": "16.0.0"}}))
         self.edit_config(lambda c: c.update(autoSkills=False, skillProfiles=["ios"]))
@@ -288,12 +319,12 @@ class SyncToolkitTests(unittest.TestCase):
         self.assertFalse((self.root / ".agents/skills/vercel-react-best-practices").exists())
 
     def test_every_library_skill_is_vendored_with_license(self) -> None:
-        catalog = json.loads((self.root / "skills-library/library.json").read_text(encoding="utf-8"))
-        notices = (self.root / "skills-library/THIRD_PARTY_NOTICES.md").read_text(encoding="utf-8")
+        catalog = json.loads((TOOLKIT / "skills-library/library.json").read_text(encoding="utf-8"))
+        notices = (TOOLKIT / "skills-library/THIRD_PARTY_NOTICES.md").read_text(encoding="utf-8")
         for source_name, source in catalog["sources"].items():
             self.assertRegex(source["commit"] or "", r"^[0-9a-f]{40}$", source_name)
             for skill in source["skills"]:
-                self.assertTrue((self.root / "skills-library" / source_name / skill / "SKILL.md").is_file(), skill)
+                self.assertTrue((TOOLKIT / "skills-library" / source_name / skill / "SKILL.md").is_file(), skill)
                 self.assertIn(f"`{skill}`", notices)
         for profile in catalog["profiles"].values():
             for skill in profile["skills"]:
@@ -301,17 +332,37 @@ class SyncToolkitTests(unittest.TestCase):
 
 
 class InstallToolkitTests(unittest.TestCase):
-    def test_installs_without_overwriting_existing_files(self) -> None:
+    def test_installs_fast_without_the_library_and_never_overwrites(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             project = Path(tmp)
             (project / "AGENTS.md").write_text("existing rules", encoding="utf-8")
-            result = run(TOOLKIT / "scripts" / "install_toolkit.py", str(project), cwd=project)
+            (project / "package.json").write_text(json.dumps({"dependencies": {"expo": "54.0.0"}}), encoding="utf-8")
+            result = run(TOOLKIT / "scripts" / "install_toolkit.py", str(project), cwd=project, library=False)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertEqual((project / "AGENTS.md").read_text(encoding="utf-8"), "existing rules")
-            self.assertIn("= AGENTS.md", result.stdout)
+            self.assertIn("AGENTS.md", result.stdout)
+            self.assertFalse((project / "skills-library").exists())
+            self.assertFalse((project / "scripts/vendor_skills.py").exists())
+            self.assertEqual((project / ".agents/.toolkit-home").read_text(encoding="utf-8").strip(), str(TOOLKIT))
+            self.assertIn(".toolkit-home", (project / ".agents/.gitignore").read_text(encoding="utf-8"))
             self.assertTrue((project / ".mcp.json").is_file())
-            self.assertTrue((project / "docs/GETTING-STARTED.md").is_file())
-            self.assertTrue((project / ".claude/skills/release-verification/SKILL.md").is_file())
+            self.assertTrue((project / ".agents/skills/expo-router/SKILL.md").is_file())  # auto-selected
+            self.assertTrue((project / ".claude/skills/python-venv/SKILL.md").is_file())
+            # The project syncs again on its own, finding the library through .agents/.toolkit-home.
+            again = run(project / "scripts" / "sync_toolkit.py", "--check", cwd=project, library=False)
+            self.assertEqual(again.returncode, 0, again.stdout + again.stderr)
+
+    def test_update_refreshes_toolkit_owned_files_only(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            project = Path(tmp)
+            installer = TOOLKIT / "scripts" / "install_toolkit.py"
+            run(installer, str(project), cwd=project)
+            (project / "scripts/sync_toolkit.py").write_text("# stale", encoding="utf-8")
+            (project / "AGENTS.md").write_text("my rules", encoding="utf-8")
+            result = run(installer, str(project), "--update", cwd=project)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertNotEqual((project / "scripts/sync_toolkit.py").read_text(encoding="utf-8"), "# stale")
+            self.assertEqual((project / "AGENTS.md").read_text(encoding="utf-8"), "my rules")
 
 
 if __name__ == "__main__":
