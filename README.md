@@ -47,7 +47,7 @@ Then choose your tools, skill profiles and MCP servers in `toolkit.config.json`,
 
 ## Skills
 
-**Toolkit skills** (always on): `production-engineering`, `architecture-planning`, `release-verification`, `marketplace-skill-review`, `ai-application-engineering`, and `select-skills`, which tells every agent to re-run the selection when requirements change.
+**Toolkit skills** (always on): `production-engineering`, `architecture-planning`, `release-verification`, `marketplace-skill-review`, `ai-application-engineering`, `select-skills`, which tells every agent to re-run the selection when requirements change, and `python-venv`, which makes every Python command run in the project's `.venv` (never the system Python).
 
 **Library profiles** are chosen automatically (`"autoSkills": true`). `core` (the Superpowers workflow) and `docs` are always on; the rest switch on when the project needs them:
 

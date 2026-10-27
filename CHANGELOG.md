@@ -3,6 +3,7 @@
 ## Unreleased
 
 ### Added
+- Python virtual environments: `AGENTS.md` rule plus toolkit skill `python-venv` — every Python command runs in the project's `.venv` (created with uv or `venv` if missing, interpreter called directly on Windows/macOS/Linux), never the global or system Python; `.venv/` ignored by git.
 - Design batch (14 repositories reviewed): `ui-ux-pro-max`, `hallmark`, `dimensional-drawing` and `dimensional-drawing-motion` as individual skills; `AGENTS.md` now has agents lint `DESIGN.md` with Google's pinned `@google/design.md@0.4.0` CLI (spec, token references, WCAG contrast). React Bits, Canvas UI and the DESIGN.md spec added to design resources.
 - taste-skill and elayadesign updated to upstream (copy, chart and inspector changes; no new network or process use). Emil Kowalski, Magic UI and GSAP already current.
 - Not vendored: scroll-world (paid Higgsfield, broad tool pre-approval), open-design (an application), UI/UX Pro Max's paid-image-generation skills. Impeccable stays excluded; awesome-design-md stays a documented template source.

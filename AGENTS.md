@@ -35,6 +35,7 @@ Keep this list accurate; agents must use these instead of guessing. Replace each
 5. Implement loading, empty, success, error and (for mobile/offline-capable apps) offline states.
 6. Avoid unnecessary abstractions, duplicated business rules, hardcoded secrets, fake APIs, and giant files.
 7. Update documentation and `.env.example` with placeholder names only, never real secrets.
+8. **Python always runs in the project's virtual environment.** Before running, testing or installing anything in Python, create `.venv` in the project root if it does not exist, and use its interpreter for every command. Never install packages into the global or system Python. Follow the `python-venv` skill.
 
 ## UI/UX and accessibility
 - If `DESIGN.md` exists in the repository root, treat it as the design system: use its tokens, type scale, spacing and component rules for all UI work, and propose changes to it rather than diverging silently. After editing it, validate it with `npx @google/design.md@0.4.0 lint DESIGN.md` (spec conformance, broken token references, WCAG contrast) and fix the findings.
