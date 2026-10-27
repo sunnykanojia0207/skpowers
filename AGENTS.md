@@ -37,7 +37,7 @@ Keep this list accurate; agents must use these instead of guessing. Replace each
 7. Update documentation and `.env.example` with placeholder names only, never real secrets.
 
 ## UI/UX and accessibility
-- If `DESIGN.md` exists in the repository root, treat it as the design system: use its tokens, type scale, spacing and component rules for all UI work, and propose changes to it rather than diverging silently.
+- If `DESIGN.md` exists in the repository root, treat it as the design system: use its tokens, type scale, spacing and component rules for all UI work, and propose changes to it rather than diverging silently. After editing it, validate it with `npx @google/design.md@0.4.0 lint DESIGN.md` (spec conformance, broken token references, WCAG contrast) and fix the findings.
 - Otherwise build from a coherent visual system: type scale, spacing, color tokens, reusable components, states, responsive behavior.
 - Use semantic HTML, accessible names and labels, keyboard/focus behavior, and sufficient contrast. For native mobile, respect platform navigation, permissions, lifecycle and touch targets.
 - Verify UI in a real browser (Playwright) or device/simulator, at realistic viewports, including empty/error/loading states.

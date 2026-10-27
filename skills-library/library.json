@@ -276,7 +276,7 @@
     },
     "elayadesign": {
       "repo": "elayadesign/ai-design-skills",
-      "commit": "1c1e97cb9878e236552c772092dda7adcdddbcb2",
+      "commit": "5e578402da175cdc539c900e4b09ceecfadcb37c",
       "skills": {
         "landing-page-design": "skills/landing-page-design"
       }
@@ -494,7 +494,7 @@
     },
     "taste-skill": {
       "repo": "Leonxlnx/taste-skill",
-      "commit": "6010f91a9935f1c167dfc500fb1a475681892e6b",
+      "commit": "12af471f627f866411b4bd785b19646d3672784c",
       "skills": {
         "design-taste-frontend": "skills/taste-skill"
       }
@@ -540,6 +540,28 @@
         "references/performance-checklist.md",
         "references/security-checklist.md"
       ]
+    },
+    "ui-ux-pro-max": {
+      "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "commit": "28b3b8dee8c976df4fa3e94aed4e092ad43fcb03",
+      "skills": {
+        "ui-ux-pro-max": ".claude/skills/ui-ux-pro-max"
+      }
+    },
+    "hallmark": {
+      "repo": "Nutlope/hallmark",
+      "commit": "7ec868225c6caa040558c321ee0fefa0e73f83a8",
+      "skills": {
+        "hallmark": "skills/hallmark"
+      }
+    },
+    "dimensional-drawing": {
+      "repo": "enesozturk/dimensional-drawing",
+      "commit": "5c457437c8c83524308aad3b7443e81adcc13153",
+      "skills": {
+        "dimensional-drawing": "skills/dimensional-drawing",
+        "dimensional-drawing-motion": "skills/dimensional-drawing-motion"
+      }
     }
   },
   "profiles": {

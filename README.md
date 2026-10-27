@@ -1,10 +1,10 @@
 # Universal Vibe-Coding Engineering Toolkit
 
-**One engineering setup for every AI coding tool.** Rules, 273 vetted skills and 22 MCP servers that behave the same in **Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Antigravity and GitHub Copilot**. The right skills are **picked automatically from your project**, and a script generates each tool's own configuration. Everything is free and openly licensed.
+**One engineering setup for every AI coding tool.** Rules, 277 vetted skills and 22 MCP servers that behave the same in **Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Antigravity and GitHub Copilot**. The right skills are **picked automatically from your project**, and a script generates each tool's own configuration. Everything is free and openly licensed.
 
 - **Superpowers workflow built in:** brainstorm → plan → test-first → debug → review → verify, on by default for every tool.
 - **Automatic skill selection:** the sync reads your dependencies, platform folders, CI files and project brief, and enables only the matching profiles (Next.js → `web`, `nextjs`, `testing`, `interface-craft`; Expo → `react-native`; `go.mod` → `go`; Prisma → `prisma`; OpenAI SDK → `ai-apps`; …). `--explain` shows why.
-- **273 vetted skills in 44 profiles from 43 upstream sources:** web, Next.js, Firebase, Cloudflare, Convex, Clerk, Neon, GSAP, React Native/Expo, native iOS and Android, Flutter, TypeScript, Python, Go, Rust, Java, .NET, PHP, Ruby, Vue, Angular, Postgres, Supabase, Prisma, API, DevOps, cloud, security, testing, AI apps, UI polish, interface craft, UX design and research, anti-AI-slop design, design memory, code intelligence. Each is pinned to an upstream commit, licensed and reviewed by hand; where two covered the same need, the best was kept.
+- **277 vetted skills in 44 profiles from 46 upstream sources:** web, Next.js, Firebase, Cloudflare, Convex, Clerk, Neon, GSAP, React Native/Expo, native iOS and Android, Flutter, TypeScript, Python, Go, Rust, Java, .NET, PHP, Ruby, Vue, Angular, Postgres, Supabase, Prisma, API, DevOps, cloud, security, testing, AI apps, UI polish, interface craft, UX design and research, anti-AI-slop design, design memory, code intelligence. Each is pinned to an upstream commit, licensed and reviewed by hand; where two covered the same need, the best was kept.
 - **22 MCP servers, written in each tool's own format:** documentation, browser, GitHub, databases, errors, issues and observability. Free ones are marked, and anything that can write is off by default.
 - **Safety by default:** human approval for production, no secrets in config, read-only MCP modes, and CI that checks generated files stay in sync.
 
@@ -116,7 +116,7 @@ AGENTS.md                  rules for every tool
 CLAUDE.md, GEMINI.md       adapters that import AGENTS.md
 toolkit.config.json        tools, skill profiles, MCP servers
 .agents/skills/            toolkit skills (+ generated library skills)
-skills-library/            273 vendored skills, library.json, THIRD_PARTY_NOTICES.md
+skills-library/            277 vendored skills, library.json, THIRD_PARTY_NOTICES.md
 scripts/
   sync_toolkit.py          generate per-tool config; --check for CI
   vendor_skills.py         fetch/update library skills at pinned commits

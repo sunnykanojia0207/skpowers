@@ -1394,15 +1394,6 @@
     "flags": []
   },
   {
-    "skill": "landing-page-design",
-    "repo": "elayadesign/ai-design-skills",
-    "path": "skills/landing-page-design",
-    "commit": "1c1e97cb9878e236552c772092dda7adcdddbcb2",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
     "skill": "tastemaker",
     "repo": "codeswithroh/tastemaker",
     "path": "skills/tastemaker",
@@ -1449,28 +1440,6 @@
     "commit": "850938f20f6915e7c3688d85c0a838f7909c87bb",
     "license": "repository LICENSE (copied)",
     "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "design-taste-frontend",
-    "repo": "Leonxlnx/taste-skill",
-    "path": "skills/taste-skill",
-    "commit": "6010f91a9935f1c167dfc500fb1a475681892e6b",
-    "license": "repository LICENSE (copied)",
-    "scripts": [
-      "assets/base.js",
-      "assets/charts.js",
-      "assets/scenes/stage.js",
-      "scripts/assets.mjs",
-      "scripts/draw.mjs",
-      "scripts/inspect.mjs",
-      "scripts/lib/app-draw.mjs",
-      "scripts/lib/cdp.mjs",
-      "scripts/lib/probe.mjs",
-      "scripts/lib/rules.mjs",
-      "scripts/lint.mjs",
-      "scripts/scenes.mjs"
-    ],
     "flags": []
   },
   {
@@ -2666,5 +2635,109 @@
       "uses sudo (shared/managed-agents-self-hosted-sandboxes.md)",
       "uses sudo (shared/model-migration.md)"
     ]
+  },
+  {
+    "skill": "ui-ux-pro-max",
+    "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+    "path": ".claude/skills/ui-ux-pro-max",
+    "commit": "28b3b8dee8c976df4fa3e94aed4e092ad43fcb03",
+    "license": "repository LICENSE (copied)",
+    "scripts": [
+      "scripts/core.py",
+      "scripts/design_system.py",
+      "scripts/reasoning_contract.py",
+      "scripts/search.py",
+      "scripts/tests/test_catalog_refresh.py",
+      "scripts/tests/test_catalog_summary_line_endings.py",
+      "scripts/tests/test_core.py",
+      "scripts/tests/test_core_data_quality.py",
+      "scripts/tests/test_data_contracts.py",
+      "scripts/tests/test_design_system_mode.py",
+      "scripts/tests/test_design_system_stack.py",
+      "scripts/tests/test_native_desktop_stack_freshness.py",
+      "scripts/tests/test_relevance_evaluator.py",
+      "scripts/tests/test_skill_script_paths.py",
+      "scripts/tests/test_style_taxonomy.py",
+      "scripts/tests/test_text_layout_resilience.py",
+      "scripts/tests/test_web_stack_freshness.py",
+      "scripts/validate_data.py"
+    ],
+    "flags": []
+  },
+  {
+    "skill": "hallmark",
+    "repo": "Nutlope/hallmark",
+    "path": "skills/hallmark",
+    "commit": "7ec868225c6caa040558c321ee0fefa0e73f83a8",
+    "license": "LICENSE in skill",
+    "scripts": [
+      "scripts/capture.mjs",
+      "scripts/imagegen.mjs",
+      "scripts/install-hook.mjs",
+      "scripts/install.mjs",
+      "scripts/lint-hook.mjs",
+      "scripts/picture.mjs",
+      "scripts/refcheck.mjs",
+      "scripts/sloplint-render.mjs",
+      "scripts/sloplint.mjs",
+      "scripts/theme.mjs"
+    ],
+    "flags": [
+      "global npm install (references/flow.md)",
+      "mentions agent settings or hooks files (scripts/install-hook.mjs)"
+    ]
+  },
+  {
+    "skill": "dimensional-drawing",
+    "repo": "enesozturk/dimensional-drawing",
+    "path": "skills/dimensional-drawing",
+    "commit": "5c457437c8c83524308aad3b7443e81adcc13153",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "dimensional-drawing-motion",
+    "repo": "enesozturk/dimensional-drawing",
+    "path": "skills/dimensional-drawing-motion",
+    "commit": "5c457437c8c83524308aad3b7443e81adcc13153",
+    "license": "repository LICENSE (copied)",
+    "scripts": [
+      "adapters/headless/render.mjs",
+      "templates/scene-dialog.js"
+    ],
+    "flags": []
+  },
+  {
+    "skill": "design-taste-frontend",
+    "repo": "Leonxlnx/taste-skill",
+    "path": "skills/taste-skill",
+    "commit": "12af471f627f866411b4bd785b19646d3672784c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [
+      "assets/base.js",
+      "assets/charts.js",
+      "assets/scenes/stage.js",
+      "scripts/assets.mjs",
+      "scripts/draw.mjs",
+      "scripts/inspect.mjs",
+      "scripts/lib/app-draw.mjs",
+      "scripts/lib/cdp.mjs",
+      "scripts/lib/inspection-files.mjs",
+      "scripts/lib/probe.mjs",
+      "scripts/lib/rules.mjs",
+      "scripts/lint.mjs",
+      "scripts/scenes.mjs"
+    ],
+    "flags": []
+  },
+  {
+    "skill": "landing-page-design",
+    "repo": "elayadesign/ai-design-skills",
+    "path": "skills/landing-page-design",
+    "commit": "5e578402da175cdc539c900e4b09ceecfadcb37c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
   }
 ]

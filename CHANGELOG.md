@@ -3,6 +3,13 @@
 ## Unreleased
 
 ### Added
+- Design batch (14 repositories reviewed): `ui-ux-pro-max`, `hallmark`, `dimensional-drawing` and `dimensional-drawing-motion` as individual skills; `AGENTS.md` now has agents lint `DESIGN.md` with Google's pinned `@google/design.md@0.4.0` CLI (spec, token references, WCAG contrast). React Bits, Canvas UI and the DESIGN.md spec added to design resources.
+- taste-skill and elayadesign updated to upstream (copy, chart and inspector changes; no new network or process use). Emil Kowalski, Magic UI and GSAP already current.
+- Not vendored: scroll-world (paid Higgsfield, broad tool pre-approval), open-design (an application), UI/UX Pro Max's paid-image-generation skills. Impeccable stays excluded; awesome-design-md stays a documented template source.
+
+## 0.7.0
+
+### Added
 - Anthropic `claude-api` skill (Apache-2.0), auto-enabled when a project depends on the Anthropic SDK or Agent SDK. The rest of anthropics/skills reviewed: proprietary (`docx`, `pdf`, `pptx`, `xlsx`), unlicensed (`doc-coauthoring`) or not software delivery.
 
 ## 0.6.0
