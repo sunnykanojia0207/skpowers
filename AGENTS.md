@@ -17,9 +17,10 @@ Keep this list accurate; agents must use these instead of guessing. Replace each
 ## Before changing code
 1. Inspect repository structure, README, package manifests, current git diff/status, tests, CI, and existing architectural conventions.
 2. Do not discard or overwrite user changes. Never reset, clean, or force-push without explicit approval.
-3. Read `docs/PROJECT_BRIEF.md` (and `docs/SPEC.md` / `docs/ARCHITECTURE.md` if they exist). If the brief is incomplete, state noncritical assumptions; ask only when missing information blocks safe implementation.
+3. Read `docs/PROJECT_BRIEF.md` and the documents the change touches: `DESIGN.md`, `docs/ARCHITECTURE.md`, `docs/DATABASE.md`, `docs/API.md`, `docs/SECURITY.md`, `docs/UX_FLOWS.md`, `docs/CODE_STYLE.md`, `docs/TESTING.md`. They are the shared source of truth; do not invent requirements, tables, endpoints or flows they don't contain. If the brief is incomplete, state noncritical assumptions; ask only when missing information blocks safe implementation.
 4. Write a short implementation plan and acceptance criteria. For substantial or architecture-changing work, wait for approval of the plan and record decisions in `docs/ARCHITECTURE_DECISIONS.md` before code.
 5. Use current official documentation (Context7 MCP or official docs) when versions or APIs may have changed. Verify package names and APIs; never invent them.
+6. If documents conflict with each other, with the code or with the request, don't guess: name the conflict and ask.
 
 ## Architecture and stack selection
 - Choose a stack from product constraints, team familiarity, hosting, operating cost, ecosystem maturity, security, and maintenance burden, not trendiness. `docs/TOOLKIT-GUIDE.md` in the toolkit repository lists suggested defaults.
@@ -34,7 +35,7 @@ Keep this list accurate; agents must use these instead of guessing. Replace each
 4. Every interactive UI control must work or be clearly disabled; no fake buttons or hidden mock behavior.
 5. Implement loading, empty, success, error and (for mobile/offline-capable apps) offline states.
 6. Avoid unnecessary abstractions, duplicated business rules, hardcoded secrets, fake APIs, and giant files.
-7. Update documentation and `.env.example` with placeholder names only, never real secrets.
+7. Keep the docs in step with the code: when product behaviour, architecture, schema, API contracts, security rules or conventions change, update the matching document in the same change. Update `.env.example` with placeholder names only, never real secrets.
 8. **Python always runs in the project's virtual environment.** Before running, testing or installing anything in Python, create `.venv` in the project root if it does not exist, and use its interpreter for every command. Never install packages into the global or system Python. Follow the `python-venv` skill.
 
 ## UI/UX and accessibility

@@ -29,6 +29,7 @@ required_files = [
     "skills-library/library.json",
     "skills-library/THIRD_PARTY_NOTICES.md",
     "scripts/vendor_skills.py",
+    "templates/docs/README.md",
     "docs/MARKETPLACE-DECISION-SUMMARY.md",
     "docs/MARKETPLACE-RESEARCH.md",
     "docs/PROJECT_BRIEF.md",

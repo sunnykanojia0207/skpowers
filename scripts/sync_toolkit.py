@@ -211,7 +211,7 @@ def detect_requirements(root: Path) -> tuple[dict[str, list[str]], dict[str, lis
                        ("@nestjs/core", "nestjs-expert"), ("graphql", "graphql-architect"),
                        ("@apollo/server", "graphql-architect"), ("socket.io", "websocket-engineer"),
                        ("ws", "websocket-engineer"), ("laravel/framework", "laravel-specialist"), ("ai", "ai-sdk"),
-                       ("@anthropic-ai/sdk", "claude-api"), ("anthropic", "claude-api"),
+                       ("antd", "ant-design"), ("@anthropic-ai/sdk", "claude-api"), ("anthropic", "claude-api"),
                        ("@anthropic-ai/claude-agent-sdk", "claude-api"), ("claude-agent-sdk", "claude-api")):
         if has(dep):
             add(skills, skill, f"dependency {dep}")
@@ -427,6 +427,7 @@ STACK_WORDS = {
     "flutter-expert": {"flutter", "dart"}, "php-pro": {"php"}, "graphql-architect": {"graphql", "apollo"},
     "websocket-engineer": {"websocket", "realtime", "socket"}, "agent-browser": {"browser", "automation"},
     "swiftui-pro": {"swiftui", "ios", "swift"}, "write-swift": {"swift", "ios"},
+    "ant-design": {"antd", "ant"}, "angular-developer": {"angular"}, "create-adaptable-composable": {"vue", "composable"},
 }
 
 
@@ -435,7 +436,7 @@ def stack_allows(name: str, wanted: set[str]) -> bool:
     if gate is None:
         prefix = next((k for k in ("firebase", "firestore", "convex", "clerk", "neon", "gsap", "firecrawl", "wrangler",
                                    "cloudflare", "workers", "durable", "next-", "expo", "jetpack", "navigation-3",
-                                   "android", "swiftui", "flutter", "prisma", "supabase", "ripwire", "dimensional")
+                                   "android", "swiftui", "flutter", "prisma", "supabase", "ripwire", "dimensional", "vue")
                        if name.startswith(k)), None)
         gate = {prefix.strip("-")} | STACK_WORDS.get(prefix.strip("-"), set()) if prefix else None
     return gate is None or bool(gate & wanted)

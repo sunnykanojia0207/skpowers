@@ -34,7 +34,19 @@ PROJECT_FILES = [
     "docs/PROJECT_BRIEF.md",
     "docs/QUALITY-GATES.md",
     "templates/ci-node.yml",
+    "templates/docs",
 ]
+# Toolkit path -> project path, for templates that land somewhere else in the project.
+RENAMES = {"templates/docs/README.md": "docs/DOCS-INDEX.md", "templates/docs/": "docs/"}
+
+
+def destination_for(rel: str) -> str:
+    if rel in RENAMES:
+        return RENAMES[rel]
+    for prefix, target in RENAMES.items():
+        if prefix.endswith("/") and rel.startswith(prefix):
+            return target + rel[len(prefix):]
+    return rel
 # Owned by the toolkit; refreshed by --update.
 TOOLKIT_FILES = ["scripts/sync_toolkit.py", ".agents/skills"]
 
@@ -75,7 +87,7 @@ def main(argv: list[str]) -> int:
     copied, refreshed, skipped = [], [], []
     plan = [(p, False) for p in expand(PROJECT_FILES)] + [(p, True) for p in expand(TOOLKIT_FILES)]
     for source, toolkit_owned in plan:
-        rel = source.relative_to(ROOT)
+        rel = Path(destination_for(source.relative_to(ROOT).as_posix()))
         destination = target / rel
         if destination.exists():
             if not (toolkit_owned and args.update):
@@ -93,7 +105,7 @@ def main(argv: list[str]) -> int:
     verb = "Would" if args.dry_run else "Did"
     print(f"{verb} copy {len(copied)} file(s)" + (f", refresh {len(refreshed)}" if refreshed else "") + f" into {target}",
           flush=True)
-    project_skips = [s for s in skipped if s in PROJECT_FILES]
+    project_skips = [s for s in skipped if not s.startswith((".agents/", "scripts/"))]
     if project_skips:
         print("Kept your existing files (merge by hand if needed): " + ", ".join(project_skips))
         if "AGENTS.md" in project_skips:

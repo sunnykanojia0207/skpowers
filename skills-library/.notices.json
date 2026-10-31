@@ -197,51 +197,6 @@
     "flags": []
   },
   {
-    "skill": "expo-native-ui",
-    "repo": "expo/skills",
-    "path": "plugins/expo/skills/expo-native-ui",
-    "commit": "7ddc1f5796996e5c7efe2fc3fa9168eb24e8dac1",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "expo-router",
-    "repo": "expo/skills",
-    "path": "plugins/expo/skills/expo-router",
-    "commit": "7ddc1f5796996e5c7efe2fc3fa9168eb24e8dac1",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "expo-data-fetching",
-    "repo": "expo/skills",
-    "path": "plugins/expo/skills/expo-data-fetching",
-    "commit": "7ddc1f5796996e5c7efe2fc3fa9168eb24e8dac1",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "expo-dev-client",
-    "repo": "expo/skills",
-    "path": "plugins/expo/skills/expo-dev-client",
-    "commit": "7ddc1f5796996e5c7efe2fc3fa9168eb24e8dac1",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "expo-upgrade",
-    "repo": "expo/skills",
-    "path": "plugins/expo/skills/expo-upgrade",
-    "commit": "7ddc1f5796996e5c7efe2fc3fa9168eb24e8dac1",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
     "skill": "react-native-best-practices",
     "repo": "callstackincubator/agent-skills",
     "path": "skills/react-native-best-practices",
@@ -584,141 +539,6 @@
     ]
   },
   {
-    "skill": "emil-design-eng",
-    "repo": "emilkowalski/skills",
-    "path": "skills/emil-design-eng",
-    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "animate",
-    "repo": "emilkowalski/skills",
-    "path": "skills/animate",
-    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "animate-expo",
-    "repo": "emilkowalski/skills",
-    "path": "skills/animate-expo",
-    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "animation-performance",
-    "repo": "emilkowalski/skills",
-    "path": "skills/animation-performance",
-    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "animation-vocabulary",
-    "repo": "emilkowalski/skills",
-    "path": "skills/animation-vocabulary",
-    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "review-animations",
-    "repo": "emilkowalski/skills",
-    "path": "skills/review-animations",
-    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "improve-animations",
-    "repo": "emilkowalski/skills",
-    "path": "skills/improve-animations",
-    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "find-animation-opportunities",
-    "repo": "emilkowalski/skills",
-    "path": "skills/find-animation-opportunities",
-    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "apple-design",
-    "repo": "emilkowalski/skills",
-    "path": "skills/apple-design",
-    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "mobile-native",
-    "repo": "emilkowalski/skills",
-    "path": "skills/mobile-native",
-    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "break-ui",
-    "repo": "emilkowalski/skills",
-    "path": "skills/break-ui",
-    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "pick-ui-library",
-    "repo": "emilkowalski/skills",
-    "path": "skills/pick-ui-library",
-    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "prototype",
-    "repo": "emilkowalski/skills",
-    "path": "skills/prototype",
-    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "ask-sonner",
-    "repo": "emilkowalski/skills",
-    "path": "skills/ask-sonner",
-    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "write-swift",
-    "repo": "emilkowalski/skills",
-    "path": "skills/write-swift",
-    "commit": "2d228630ba1446365f614a108cb8252f1feda202",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
     "skill": "ripwire-router",
     "repo": "redhat-et/ripwire",
     "path": "skills/ripwire-router",
@@ -939,123 +759,6 @@
     "repo": "magicuidesign/magicui",
     "path": "skills/magic-ui",
     "commit": "efe76fc5755eca1142dd4f74c1d6f0ace2887e3c",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "better-accessibility",
-    "repo": "jakubkrehel/skills",
-    "path": "skills/better-accessibility",
-    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "better-colors",
-    "repo": "jakubkrehel/skills",
-    "path": "skills/better-colors",
-    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "better-interface",
-    "repo": "jakubkrehel/skills",
-    "path": "skills/better-interface",
-    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "better-layout",
-    "repo": "jakubkrehel/skills",
-    "path": "skills/better-layout",
-    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "better-typography",
-    "repo": "jakubkrehel/skills",
-    "path": "skills/better-typography",
-    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "better-ui",
-    "repo": "jakubkrehel/skills",
-    "path": "skills/better-ui",
-    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "better-writing",
-    "repo": "jakubkrehel/skills",
-    "path": "skills/better-writing",
-    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "interface-review",
-    "repo": "jakubkrehel/skills",
-    "path": "skills/interface-review",
-    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "build-design",
-    "repo": "jakubkrehel/skills",
-    "path": "skills/build-design",
-    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "explain-interface",
-    "repo": "jakubkrehel/skills",
-    "path": "skills/explain-interface",
-    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "state-machine",
-    "repo": "jakubkrehel/skills",
-    "path": "skills/state-machine",
-    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "break",
-    "repo": "jakubkrehel/skills",
-    "path": "skills/break",
-    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "variant",
-    "repo": "jakubkrehel/skills",
-    "path": "skills/variant",
-    "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []
@@ -1438,250 +1141,6 @@
     "repo": "raroque/vibe-security-skill",
     "path": "vibe-security",
     "commit": "850938f20f6915e7c3688d85c0a838f7909c87bb",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "typescript-pro",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/typescript-pro",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "python-pro",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/python-pro",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "fastapi-expert",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/fastapi-expert",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "django-expert",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/django-expert",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "pandas-pro",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/pandas-pro",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "golang-pro",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/golang-pro",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": [
-      "recursive delete outside the project (references/project-structure.md)"
-    ]
-  },
-  {
-    "skill": "rust-engineer",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/rust-engineer",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "java-architect",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/java-architect",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "spring-boot-engineer",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/spring-boot-engineer",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "csharp-developer",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/csharp-developer",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": [
-      "mentions agent settings or hooks files (SKILL.md)",
-      "mentions agent settings or hooks files (references/aspnet-core.md)"
-    ]
-  },
-  {
-    "skill": "dotnet-core-expert",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/dotnet-core-expert",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": [
-      "mentions agent settings or hooks files (references/authentication.md)",
-      "mentions agent settings or hooks files (references/cloud-native.md)"
-    ]
-  },
-  {
-    "skill": "php-pro",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/php-pro",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "laravel-specialist",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/laravel-specialist",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "rails-expert",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/rails-expert",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "vue-expert",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/vue-expert",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "angular-architect",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/angular-architect",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "flutter-expert",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/flutter-expert",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "nestjs-expert",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/nestjs-expert",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "graphql-architect",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/graphql-architect",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "websocket-engineer",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/websocket-engineer",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "terraform-engineer",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/terraform-engineer",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "cloud-architect",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/cloud-architect",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "sre-engineer",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/sre-engineer",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "monitoring-expert",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/monitoring-expert",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": [
-      "global npm install (references/application-profiling.md)"
-    ]
-  },
-  {
-    "skill": "rag-architect",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/rag-architect",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
-    "license": "repository LICENSE (copied)",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "prompt-engineer",
-    "repo": "jeffallan/claude-skills",
-    "path": "skills/prompt-engineer",
-    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []
@@ -2562,132 +2021,6 @@
     "flags": []
   },
   {
-    "skill": "frontend-design",
-    "repo": "anthropics/skills",
-    "path": "skills/frontend-design",
-    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
-    "license": "LICENSE.txt in skill",
-    "scripts": [],
-    "flags": []
-  },
-  {
-    "skill": "webapp-testing",
-    "repo": "anthropics/skills",
-    "path": "skills/webapp-testing",
-    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
-    "license": "LICENSE.txt in skill",
-    "scripts": [
-      "examples/console_logging.py",
-      "examples/element_discovery.py",
-      "examples/static_html_automation.py",
-      "scripts/with_server.py"
-    ],
-    "flags": []
-  },
-  {
-    "skill": "mcp-builder",
-    "repo": "anthropics/skills",
-    "path": "skills/mcp-builder",
-    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
-    "license": "LICENSE.txt in skill",
-    "scripts": [
-      "scripts/connections.py",
-      "scripts/evaluation.py"
-    ],
-    "flags": []
-  },
-  {
-    "skill": "skill-creator",
-    "repo": "anthropics/skills",
-    "path": "skills/skill-creator",
-    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
-    "license": "LICENSE.txt in skill",
-    "scripts": [
-      "eval-viewer/generate_review.py",
-      "scripts/__init__.py",
-      "scripts/aggregate_benchmark.py",
-      "scripts/generate_report.py",
-      "scripts/improve_description.py",
-      "scripts/package_skill.py",
-      "scripts/quick_validate.py",
-      "scripts/run_eval.py",
-      "scripts/run_loop.py",
-      "scripts/utils.py"
-    ],
-    "flags": []
-  },
-  {
-    "skill": "claude-api",
-    "repo": "anthropics/skills",
-    "path": "skills/claude-api",
-    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
-    "license": "LICENSE.txt in skill",
-    "scripts": [
-      "shared/evals/report/build-report-lite.mjs",
-      "shared/evals/report/runner-scaffold.mjs",
-      "shared/preserved-thinking-migration/drop_block_probe.py",
-      "shared/preserved-thinking-migration/prefix_diff.py"
-    ],
-    "flags": [
-      "pipes a download into a shell (shared/managed-agents-onboarding-from-url.md)",
-      "recursive delete outside the project (shared/managed-agents-tools.md)",
-      "uses sudo (shared/anthropic-cli.md)",
-      "uses sudo (shared/managed-agents-self-hosted-sandboxes.md)",
-      "uses sudo (shared/model-migration.md)"
-    ]
-  },
-  {
-    "skill": "ui-ux-pro-max",
-    "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
-    "path": ".claude/skills/ui-ux-pro-max",
-    "commit": "28b3b8dee8c976df4fa3e94aed4e092ad43fcb03",
-    "license": "repository LICENSE (copied)",
-    "scripts": [
-      "scripts/core.py",
-      "scripts/design_system.py",
-      "scripts/reasoning_contract.py",
-      "scripts/search.py",
-      "scripts/tests/test_catalog_refresh.py",
-      "scripts/tests/test_catalog_summary_line_endings.py",
-      "scripts/tests/test_core.py",
-      "scripts/tests/test_core_data_quality.py",
-      "scripts/tests/test_data_contracts.py",
-      "scripts/tests/test_design_system_mode.py",
-      "scripts/tests/test_design_system_stack.py",
-      "scripts/tests/test_native_desktop_stack_freshness.py",
-      "scripts/tests/test_relevance_evaluator.py",
-      "scripts/tests/test_skill_script_paths.py",
-      "scripts/tests/test_style_taxonomy.py",
-      "scripts/tests/test_text_layout_resilience.py",
-      "scripts/tests/test_web_stack_freshness.py",
-      "scripts/validate_data.py"
-    ],
-    "flags": []
-  },
-  {
-    "skill": "hallmark",
-    "repo": "Nutlope/hallmark",
-    "path": "skills/hallmark",
-    "commit": "7ec868225c6caa040558c321ee0fefa0e73f83a8",
-    "license": "LICENSE in skill",
-    "scripts": [
-      "scripts/capture.mjs",
-      "scripts/imagegen.mjs",
-      "scripts/install-hook.mjs",
-      "scripts/install.mjs",
-      "scripts/lint-hook.mjs",
-      "scripts/picture.mjs",
-      "scripts/refcheck.mjs",
-      "scripts/sloplint-render.mjs",
-      "scripts/sloplint.mjs",
-      "scripts/theme.mjs"
-    ],
-    "flags": [
-      "global npm install (references/flow.md)",
-      "mentions agent settings or hooks files (scripts/install-hook.mjs)"
-    ]
-  },
-  {
     "skill": "dimensional-drawing",
     "repo": "enesozturk/dimensional-drawing",
     "path": "skills/dimensional-drawing",
@@ -2736,6 +2069,831 @@
     "repo": "elayadesign/ai-design-skills",
     "path": "skills/landing-page-design",
     "commit": "5e578402da175cdc539c900e4b09ceecfadcb37c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "hue",
+    "repo": "dominikmartn/hue",
+    "path": ".",
+    "commit": "a910e31cd24b45b9455c0c3502150413aa5a3b32",
+    "license": "LICENSE in skill",
+    "scripts": [
+      "scripts/validate.mjs"
+    ],
+    "flags": [
+      "pipes a download into a shell (examples/oxide/landing-page.html)"
+    ]
+  },
+  {
+    "skill": "interface-design",
+    "repo": "Dammyjay93/interface-design",
+    "path": ".claude/skills/interface-design",
+    "commit": "2f9be3206855bcb2d1d0af262c8bae25cba6658d",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "vue-best-practices",
+    "repo": "vuejs-ai/skills",
+    "path": "skills/vue-best-practices",
+    "commit": "198f0cd8f7f9c0a3d9b566ccc16de6677519ee78",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "vue-router-best-practices",
+    "repo": "vuejs-ai/skills",
+    "path": "skills/vue-router-best-practices",
+    "commit": "198f0cd8f7f9c0a3d9b566ccc16de6677519ee78",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "vue-pinia-best-practices",
+    "repo": "vuejs-ai/skills",
+    "path": "skills/vue-pinia-best-practices",
+    "commit": "198f0cd8f7f9c0a3d9b566ccc16de6677519ee78",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "vue-testing-best-practices",
+    "repo": "vuejs-ai/skills",
+    "path": "skills/vue-testing-best-practices",
+    "commit": "198f0cd8f7f9c0a3d9b566ccc16de6677519ee78",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "vue-debug-guides",
+    "repo": "vuejs-ai/skills",
+    "path": "skills/vue-debug-guides",
+    "commit": "198f0cd8f7f9c0a3d9b566ccc16de6677519ee78",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "create-adaptable-composable",
+    "repo": "vuejs-ai/skills",
+    "path": "skills/create-adaptable-composable",
+    "commit": "198f0cd8f7f9c0a3d9b566ccc16de6677519ee78",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "angular-developer",
+    "repo": "angular/angular",
+    "path": "skills/dev-skills/angular-developer",
+    "commit": "74961c662420ea02a5872bfa1a0ee3284526b887",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "mentions agent settings or hooks files (references/mcp.md)"
+    ]
+  },
+  {
+    "skill": "ant-design",
+    "repo": "ant-design/antd-skill",
+    "path": "skills/ant-design",
+    "commit": "e65d2d3da9a2a129885131f5aeffe2c9037f83cb",
+    "license": "LICENSE in skill",
+    "scripts": [],
+    "flags": [
+      "global npm install (references/antd-cli.md)"
+    ]
+  },
+  {
+    "skill": "create-design-md",
+    "repo": "ibelick/ui-skills",
+    "path": "skills/create-design-md",
+    "commit": "3823f1573f6fb564a091a062594b95066dbd974c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "improve-ui",
+    "repo": "ibelick/ui-skills",
+    "path": "skills/improve-ui",
+    "commit": "3823f1573f6fb564a091a062594b95066dbd974c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "baseline-ui",
+    "repo": "ibelick/ui-skills",
+    "path": "skills/baseline-ui",
+    "commit": "3823f1573f6fb564a091a062594b95066dbd974c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "fixing-accessibility",
+    "repo": "ibelick/ui-skills",
+    "path": "skills/fixing-accessibility",
+    "commit": "3823f1573f6fb564a091a062594b95066dbd974c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "fixing-motion-performance",
+    "repo": "ibelick/ui-skills",
+    "path": "skills/fixing-motion-performance",
+    "commit": "3823f1573f6fb564a091a062594b95066dbd974c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "fixing-metadata",
+    "repo": "ibelick/ui-skills",
+    "path": "skills/fixing-metadata",
+    "commit": "3823f1573f6fb564a091a062594b95066dbd974c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "color-expert",
+    "repo": "meodai/skill.color-expert",
+    "path": ".",
+    "commit": "5bf7c7704d56bccc6aeea38c36bcf449abe56a6c",
+    "license": "LICENSE in skill",
+    "scripts": [
+      "scripts/stats.sh"
+    ],
+    "flags": [
+      "installs other skills (README.md)",
+      "mentions agent settings or hooks files (SECURITY.md)"
+    ]
+  },
+  {
+    "skill": "expo-native-ui",
+    "repo": "expo/skills",
+    "path": "plugins/expo/skills/expo-native-ui",
+    "commit": "7ddc1f5796996e5c7efe2fc3fa9168eb24e8dac1",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "expo-router",
+    "repo": "expo/skills",
+    "path": "plugins/expo/skills/expo-router",
+    "commit": "7ddc1f5796996e5c7efe2fc3fa9168eb24e8dac1",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "expo-data-fetching",
+    "repo": "expo/skills",
+    "path": "plugins/expo/skills/expo-data-fetching",
+    "commit": "7ddc1f5796996e5c7efe2fc3fa9168eb24e8dac1",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "expo-dev-client",
+    "repo": "expo/skills",
+    "path": "plugins/expo/skills/expo-dev-client",
+    "commit": "7ddc1f5796996e5c7efe2fc3fa9168eb24e8dac1",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "expo-upgrade",
+    "repo": "expo/skills",
+    "path": "plugins/expo/skills/expo-upgrade",
+    "commit": "7ddc1f5796996e5c7efe2fc3fa9168eb24e8dac1",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "expo-design-system",
+    "repo": "expo/skills",
+    "path": "plugins/expo/skills/expo-design-system",
+    "commit": "7ddc1f5796996e5c7efe2fc3fa9168eb24e8dac1",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "typescript-pro",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/typescript-pro",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "python-pro",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/python-pro",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "fastapi-expert",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/fastapi-expert",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "django-expert",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/django-expert",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "pandas-pro",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/pandas-pro",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "golang-pro",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/golang-pro",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "recursive delete outside the project (references/project-structure.md)"
+    ]
+  },
+  {
+    "skill": "rust-engineer",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/rust-engineer",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "java-architect",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/java-architect",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "spring-boot-engineer",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/spring-boot-engineer",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "csharp-developer",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/csharp-developer",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "mentions agent settings or hooks files (SKILL.md)",
+      "mentions agent settings or hooks files (references/aspnet-core.md)"
+    ]
+  },
+  {
+    "skill": "dotnet-core-expert",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/dotnet-core-expert",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "mentions agent settings or hooks files (references/authentication.md)",
+      "mentions agent settings or hooks files (references/cloud-native.md)"
+    ]
+  },
+  {
+    "skill": "php-pro",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/php-pro",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "laravel-specialist",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/laravel-specialist",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "rails-expert",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/rails-expert",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "flutter-expert",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/flutter-expert",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "nestjs-expert",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/nestjs-expert",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "graphql-architect",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/graphql-architect",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "websocket-engineer",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/websocket-engineer",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "terraform-engineer",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/terraform-engineer",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "cloud-architect",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/cloud-architect",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "sre-engineer",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/sre-engineer",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "monitoring-expert",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/monitoring-expert",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [
+      "global npm install (references/application-profiling.md)"
+    ]
+  },
+  {
+    "skill": "rag-architect",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/rag-architect",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "prompt-engineer",
+    "repo": "jeffallan/claude-skills",
+    "path": "skills/prompt-engineer",
+    "commit": "02b05028ba6c93f7aed45314b15c0dd5abead9d6",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "hallmark",
+    "repo": "Nutlope/hallmark",
+    "path": "skills/hallmark",
+    "commit": "4f6a46c6dc325d40ab268c93e25c7b96676ebccd",
+    "license": "LICENSE in skill",
+    "scripts": [
+      "scripts/capture.mjs",
+      "scripts/imagegen.mjs",
+      "scripts/install-hook.mjs",
+      "scripts/install.mjs",
+      "scripts/lint-hook.mjs",
+      "scripts/picture.mjs",
+      "scripts/refcheck.mjs",
+      "scripts/sloplint-render.mjs",
+      "scripts/sloplint.mjs",
+      "scripts/theme.mjs",
+      "scripts/theme.test.mjs"
+    ],
+    "flags": [
+      "global npm install (references/flow.md)",
+      "mentions agent settings or hooks files (scripts/install-hook.mjs)"
+    ]
+  },
+  {
+    "skill": "ui-ux-pro-max",
+    "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+    "path": ".claude/skills/ui-ux-pro-max",
+    "commit": "9a3f14f7423037ccb8feeb4fee7482291b9c820e",
+    "license": "repository LICENSE (copied)",
+    "scripts": [
+      "scripts/core.py",
+      "scripts/design_system.py",
+      "scripts/reasoning_contract.py",
+      "scripts/search.py",
+      "scripts/tests/test_catalog_refresh.py",
+      "scripts/tests/test_catalog_summary_line_endings.py",
+      "scripts/tests/test_core.py",
+      "scripts/tests/test_core_data_quality.py",
+      "scripts/tests/test_data_contracts.py",
+      "scripts/tests/test_design_system_mode.py",
+      "scripts/tests/test_design_system_stack.py",
+      "scripts/tests/test_native_desktop_stack_freshness.py",
+      "scripts/tests/test_relevance_evaluator.py",
+      "scripts/tests/test_skill_script_paths.py",
+      "scripts/tests/test_style_taxonomy.py",
+      "scripts/tests/test_text_layout_resilience.py",
+      "scripts/tests/test_web_stack_freshness.py",
+      "scripts/validate_data.py"
+    ],
+    "flags": []
+  },
+  {
+    "skill": "better-accessibility",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/better-accessibility",
+    "commit": "592aedc44d7d5b3e29740984252902f3e5402a1c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "better-colors",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/better-colors",
+    "commit": "592aedc44d7d5b3e29740984252902f3e5402a1c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "better-interface",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/better-interface",
+    "commit": "592aedc44d7d5b3e29740984252902f3e5402a1c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "better-layout",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/better-layout",
+    "commit": "592aedc44d7d5b3e29740984252902f3e5402a1c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "better-typography",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/better-typography",
+    "commit": "592aedc44d7d5b3e29740984252902f3e5402a1c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "better-ui",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/better-ui",
+    "commit": "592aedc44d7d5b3e29740984252902f3e5402a1c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "better-writing",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/better-writing",
+    "commit": "592aedc44d7d5b3e29740984252902f3e5402a1c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "interface-review",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/interface-review",
+    "commit": "592aedc44d7d5b3e29740984252902f3e5402a1c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "build-design",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/build-design",
+    "commit": "592aedc44d7d5b3e29740984252902f3e5402a1c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "explain-interface",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/explain-interface",
+    "commit": "592aedc44d7d5b3e29740984252902f3e5402a1c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "state-machine",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/state-machine",
+    "commit": "592aedc44d7d5b3e29740984252902f3e5402a1c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "break",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/break",
+    "commit": "592aedc44d7d5b3e29740984252902f3e5402a1c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "variant",
+    "repo": "jakubkrehel/skills",
+    "path": "skills/variant",
+    "commit": "592aedc44d7d5b3e29740984252902f3e5402a1c",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "frontend-design",
+    "repo": "anthropics/skills",
+    "path": "skills/frontend-design",
+    "commit": "ca45fc496a3436251f191354091d557da31c15b5",
+    "license": "LICENSE.txt in skill",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "webapp-testing",
+    "repo": "anthropics/skills",
+    "path": "skills/webapp-testing",
+    "commit": "ca45fc496a3436251f191354091d557da31c15b5",
+    "license": "LICENSE.txt in skill",
+    "scripts": [
+      "examples/console_logging.py",
+      "examples/element_discovery.py",
+      "examples/static_html_automation.py",
+      "scripts/with_server.py"
+    ],
+    "flags": []
+  },
+  {
+    "skill": "mcp-builder",
+    "repo": "anthropics/skills",
+    "path": "skills/mcp-builder",
+    "commit": "ca45fc496a3436251f191354091d557da31c15b5",
+    "license": "LICENSE.txt in skill",
+    "scripts": [
+      "scripts/connections.py",
+      "scripts/evaluation.py"
+    ],
+    "flags": []
+  },
+  {
+    "skill": "skill-creator",
+    "repo": "anthropics/skills",
+    "path": "skills/skill-creator",
+    "commit": "ca45fc496a3436251f191354091d557da31c15b5",
+    "license": "LICENSE.txt in skill",
+    "scripts": [
+      "eval-viewer/generate_review.py",
+      "scripts/__init__.py",
+      "scripts/aggregate_benchmark.py",
+      "scripts/generate_report.py",
+      "scripts/improve_description.py",
+      "scripts/package_skill.py",
+      "scripts/quick_validate.py",
+      "scripts/run_eval.py",
+      "scripts/run_loop.py",
+      "scripts/utils.py"
+    ],
+    "flags": []
+  },
+  {
+    "skill": "claude-api",
+    "repo": "anthropics/skills",
+    "path": "skills/claude-api",
+    "commit": "ca45fc496a3436251f191354091d557da31c15b5",
+    "license": "LICENSE.txt in skill",
+    "scripts": [
+      "shared/evals/report/build-report-lite.mjs",
+      "shared/evals/report/runner-scaffold.mjs",
+      "shared/preserved-thinking-migration/drop_block_probe.py",
+      "shared/preserved-thinking-migration/prefix_diff.py"
+    ],
+    "flags": [
+      "pipes a download into a shell (shared/managed-agents-onboarding-from-url.md)",
+      "recursive delete outside the project (shared/managed-agents-tools.md)",
+      "uses sudo (shared/anthropic-cli.md)",
+      "uses sudo (shared/managed-agents-self-hosted-sandboxes.md)",
+      "uses sudo (shared/model-migration.md)"
+    ]
+  },
+  {
+    "skill": "emil-design-eng",
+    "repo": "emilkowalski/skills",
+    "path": "skills/emil-design-eng",
+    "commit": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "animate",
+    "repo": "emilkowalski/skills",
+    "path": "skills/animate",
+    "commit": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "animate-expo",
+    "repo": "emilkowalski/skills",
+    "path": "skills/animate-expo",
+    "commit": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "animation-performance",
+    "repo": "emilkowalski/skills",
+    "path": "skills/animation-performance",
+    "commit": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "animation-vocabulary",
+    "repo": "emilkowalski/skills",
+    "path": "skills/animation-vocabulary",
+    "commit": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "review-animations",
+    "repo": "emilkowalski/skills",
+    "path": "skills/review-animations",
+    "commit": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "improve-animations",
+    "repo": "emilkowalski/skills",
+    "path": "skills/improve-animations",
+    "commit": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "find-animation-opportunities",
+    "repo": "emilkowalski/skills",
+    "path": "skills/find-animation-opportunities",
+    "commit": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "apple-design",
+    "repo": "emilkowalski/skills",
+    "path": "skills/apple-design",
+    "commit": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "mobile-native",
+    "repo": "emilkowalski/skills",
+    "path": "skills/mobile-native",
+    "commit": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "break-ui",
+    "repo": "emilkowalski/skills",
+    "path": "skills/break-ui",
+    "commit": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "pick-ui-library",
+    "repo": "emilkowalski/skills",
+    "path": "skills/pick-ui-library",
+    "commit": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "prototype",
+    "repo": "emilkowalski/skills",
+    "path": "skills/prototype",
+    "commit": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "ask-sonner",
+    "repo": "emilkowalski/skills",
+    "path": "skills/ask-sonner",
+    "commit": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": []
+  },
+  {
+    "skill": "write-swift",
+    "repo": "emilkowalski/skills",
+    "path": "skills/write-swift",
+    "commit": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
     "license": "repository LICENSE (copied)",
     "scripts": [],
     "flags": []

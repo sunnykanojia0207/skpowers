@@ -70,12 +70,16 @@ Paste these prompts in order. Do not start a phase until you have checked the re
 
 ```text
 Read AGENTS.md and docs/PROJECT_BRIEF.md. We are in Phase 0. Do not write code.
-Ask me up to five clarifying questions, then write docs/SPEC.md (users, features,
-non-goals, data model, API list) and docs/ARCHITECTURE.md (stack with reasons and
-tradeoffs, folder tree, threat list, test strategy). Stop and wait for my approval.
+My idea: <idea>. My users: <users>. Constraints: <constraints>.
+Ask me up to five clarifying questions, then complete docs/PROJECT_BRIEF.md (MVP,
+non-goals, user stories, acceptance criteria, edge cases), docs/UX_FLOWS.md,
+docs/ARCHITECTURE.md (stack with reasons and trade-offs, folder tree, failure
+behaviour), docs/DATABASE.md, docs/API.md, docs/SECURITY.md and docs/TESTING.md,
+and a DESIGN.md for any UI. Mark assumptions and open questions explicitly.
+Stop and wait for my approval.
 ```
 
-Read both documents carefully. This is where you decide what gets built; correcting it here costs minutes, later it costs days.
+Read the documents carefully. This is where you decide what gets built; correcting it here costs minutes, later it costs days. Start with the brief and only the documents your first features touch; the templates in `docs/` (listed in `docs/DOCS-INDEX.md`) show what each one should contain.
 
 ### Phase 1: Foundation
 
@@ -122,12 +126,38 @@ Do not deploy to production.
 
 Deploy to staging first. **You** approve production; `AGENTS.md` forbids the agent from deploying without that approval.
 
+### Anytime: fix a bug
+
+```text
+Observed: <what happens>. Expected: <what should happen>. Steps to reproduce: <steps>.
+Find the root cause in the affected flow, write a failing test that reproduces it,
+make a focused fix, confirm the test passes and adjacent behaviour still works.
+Don't rewrite unrelated code.
+```
+
+### Anytime: review before a release
+
+```text
+Review the changed files against docs/PROJECT_BRIEF.md, docs/ARCHITECTURE.md,
+docs/API.md and docs/SECURITY.md. Check permissions, validation, failure states and
+migrations. Report concrete findings with impact and file locations, separate
+verified issues from questions, and don't claim checks passed unless you ran them.
+```
+
+### Checklists
+
+**Before building:** the problem and users are clear; MVP and non-goals are written; critical flows include loading, empty, success and error states; architecture, database and API docs agree; security and ownership rules are explicit.
+
+**While building:** one feature at a time; give the agent file references and acceptance criteria; resolve conflicts instead of letting the agent pick; review migrations and destructive changes before they run; keep secrets out of prompts, screenshots and logs.
+
+**Before delivery:** tests, lint, type checks and build ran; critical journeys verified; permissions, invalid input and failures checked; changed files reviewed for unintended edits; docs match the behaviour; unrun checks and known limits written down.
+
 ## 5. Switching tools mid-project
 
 Everything an agent needs is in the repository: the spec, the architecture, the decisions log and the project commands. You can plan in one tool, build features in another and review in a third. Start the new tool with:
 
 ```text
-Read AGENTS.md, docs/SPEC.md, docs/ARCHITECTURE.md and docs/ARCHITECTURE_DECISIONS.md,
+Read AGENTS.md, docs/PROJECT_BRIEF.md, docs/ARCHITECTURE.md and docs/ARCHITECTURE_DECISIONS.md,
 check git log and git status, then continue with: <next task>.
 ```
 

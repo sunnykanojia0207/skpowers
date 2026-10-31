@@ -32,7 +32,7 @@
     },
     "anthropic-skills": {
       "repo": "anthropics/skills",
-      "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+      "commit": "ca45fc496a3436251f191354091d557da31c15b5",
       "skills": {
         "frontend-design": "skills/frontend-design",
         "webapp-testing": "skills/webapp-testing",
@@ -67,7 +67,8 @@
         "expo-router": "plugins/expo/skills/expo-router",
         "expo-data-fetching": "plugins/expo/skills/expo-data-fetching",
         "expo-dev-client": "plugins/expo/skills/expo-dev-client",
-        "expo-upgrade": "plugins/expo/skills/expo-upgrade"
+        "expo-upgrade": "plugins/expo/skills/expo-upgrade",
+        "expo-design-system": "plugins/expo/skills/expo-design-system"
       }
     },
     "callstack": {
@@ -164,7 +165,7 @@
     },
     "emil": {
       "repo": "emilkowalski/skills",
-      "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+      "commit": "a81dbca07f2217b7103e510c0f13f8d5b017afc9",
       "skills": {
         "emil-design-eng": "skills/emil-design-eng",
         "animate": "skills/animate",
@@ -208,7 +209,7 @@
     },
     "jakubkrehel": {
       "repo": "jakubkrehel/skills",
-      "commit": "019ab7c199154f4509b55f12d84a4f5b578dc606",
+      "commit": "592aedc44d7d5b3e29740984252902f3e5402a1c",
       "skills": {
         "better-accessibility": "skills/better-accessibility",
         "better-colors": "skills/better-colors",
@@ -435,8 +436,6 @@
         "php-pro": "skills/php-pro",
         "laravel-specialist": "skills/laravel-specialist",
         "rails-expert": "skills/rails-expert",
-        "vue-expert": "skills/vue-expert",
-        "angular-architect": "skills/angular-architect",
         "flutter-expert": "skills/flutter-expert",
         "nestjs-expert": "skills/nestjs-expert",
         "graphql-architect": "skills/graphql-architect",
@@ -543,14 +542,14 @@
     },
     "ui-ux-pro-max": {
       "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
-      "commit": "28b3b8dee8c976df4fa3e94aed4e092ad43fcb03",
+      "commit": "9a3f14f7423037ccb8feeb4fee7482291b9c820e",
       "skills": {
         "ui-ux-pro-max": ".claude/skills/ui-ux-pro-max"
       }
     },
     "hallmark": {
       "repo": "Nutlope/hallmark",
-      "commit": "7ec868225c6caa040558c321ee0fefa0e73f83a8",
+      "commit": "4f6a46c6dc325d40ab268c93e25c7b96676ebccd",
       "skills": {
         "hallmark": "skills/hallmark"
       }
@@ -561,6 +560,65 @@
       "skills": {
         "dimensional-drawing": "skills/dimensional-drawing",
         "dimensional-drawing-motion": "skills/dimensional-drawing-motion"
+      }
+    },
+    "hue": {
+      "repo": "dominikmartn/hue",
+      "commit": "a910e31cd24b45b9455c0c3502150413aa5a3b32",
+      "skills": {
+        "hue": "."
+      }
+    },
+    "interface-design": {
+      "repo": "Dammyjay93/interface-design",
+      "commit": "2f9be3206855bcb2d1d0af262c8bae25cba6658d",
+      "skills": {
+        "interface-design": ".claude/skills/interface-design"
+      }
+    },
+    "vuejs": {
+      "repo": "vuejs-ai/skills",
+      "commit": "198f0cd8f7f9c0a3d9b566ccc16de6677519ee78",
+      "skills": {
+        "vue-best-practices": "skills/vue-best-practices",
+        "vue-router-best-practices": "skills/vue-router-best-practices",
+        "vue-pinia-best-practices": "skills/vue-pinia-best-practices",
+        "vue-testing-best-practices": "skills/vue-testing-best-practices",
+        "vue-debug-guides": "skills/vue-debug-guides",
+        "create-adaptable-composable": "skills/create-adaptable-composable"
+      }
+    },
+    "angular": {
+      "repo": "angular/angular",
+      "commit": "74961c662420ea02a5872bfa1a0ee3284526b887",
+      "skills": {
+        "angular-developer": "skills/dev-skills/angular-developer"
+      }
+    },
+    "antd": {
+      "repo": "ant-design/antd-skill",
+      "commit": "e65d2d3da9a2a129885131f5aeffe2c9037f83cb",
+      "skills": {
+        "ant-design": "skills/ant-design"
+      }
+    },
+    "ibelick": {
+      "repo": "ibelick/ui-skills",
+      "commit": "3823f1573f6fb564a091a062594b95066dbd974c",
+      "skills": {
+        "create-design-md": "skills/create-design-md",
+        "improve-ui": "skills/improve-ui",
+        "baseline-ui": "skills/baseline-ui",
+        "fixing-accessibility": "skills/fixing-accessibility",
+        "fixing-motion-performance": "skills/fixing-motion-performance",
+        "fixing-metadata": "skills/fixing-metadata"
+      }
+    },
+    "color-expert": {
+      "repo": "meodai/skill.color-expert",
+      "commit": "5bf7c7704d56bccc6aeea38c36bcf449abe56a6c",
+      "skills": {
+        "color-expert": "."
       }
     }
   },
@@ -633,7 +691,8 @@
         "expo-data-fetching",
         "expo-dev-client",
         "expo-upgrade",
-        "animate-expo"
+        "animate-expo",
+        "expo-design-system"
       ]
     },
     "ios": {
@@ -970,15 +1029,20 @@
       ]
     },
     "vue": {
-      "description": "Vue 3 and Nuxt 3.",
+      "description": "Official Vue skills (vuejs-ai): best practices, router, Pinia, testing, debugging, composables.",
       "skills": [
-        "vue-expert"
+        "vue-best-practices",
+        "vue-router-best-practices",
+        "vue-pinia-best-practices",
+        "vue-testing-best-practices",
+        "vue-debug-guides",
+        "create-adaptable-composable"
       ]
     },
     "angular": {
-      "description": "Angular 17+ standalone architecture.",
+      "description": "Official Angular developer skill (angular/angular).",
       "skills": [
-        "angular-architect"
+        "angular-developer"
       ]
     },
     "flutter": {
@@ -1037,6 +1101,16 @@
         "git-workflow-and-versioning",
         "code-simplification",
         "documentation-and-adrs"
+      ]
+    },
+    "ui-fixes": {
+      "description": "ibelick's UI skills: improve UI, baseline UI rules, fix accessibility, motion performance and metadata.",
+      "skills": [
+        "improve-ui",
+        "baseline-ui",
+        "fixing-accessibility",
+        "fixing-motion-performance",
+        "fixing-metadata"
       ]
     }
   }

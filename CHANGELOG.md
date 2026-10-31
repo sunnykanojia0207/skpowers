@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added (2026-10-31)
+- **Project documentation system** adapted from "The Vibe Coding Blueprint": `docs/PROJECT_BRIEF.md` is now a full PRD (platform checkboxes kept), and `templates/docs/` adds ARCHITECTURE, ARCHITECTURE_DECISIONS, DATABASE, API, SECURITY, UX_FLOWS, CODE_STYLE and TESTING templates that `install_toolkit.py` copies into a project's `docs/` (index as `docs/DOCS-INDEX.md`). `AGENTS.md`: read the docs the change touches, don't invent what they don't contain, update them with behaviour changes, and ask when documents conflict. Getting started gains bug-fix and pre-release review prompts and before/during/after checklists.
+- **Design skills:** official Vue (`vuejs-ai/skills`, 6) and Angular (`angular-developer`) skills replace jeffallan's; `ant-design` (auto with `antd`), `expo-design-system`, ibelick's `create-design-md` and `ui-fixes` profile, `hue`, `interface-design`, `color-expert`. `vendor_skills.py` supports skills at a repository root (path `"."`). Upstream updates pulled for Hallmark (two themes), UI UX Pro Max, Jakub Krehel, Emil Kowalski and Anthropic (`mcp-builder` now targets MCP TypeScript SDK v2); Taste Skill already current. Impeccable, Stitch and the shadcn skill stay excluded.
+
 ### Changed
 - **Faster setup:** projects no longer get a copy of the 37 MB skills library. Clone the toolkit once to `~/.skpowers`; `install_toolkit.py` (target defaults to the current folder) copies only rules, config, toolkit skills and the sync script, records the library location in git-ignored `.agents/.toolkit-home`, and copies just the skills the project uses. Measured on a Next.js + Prisma project: 15.8 s / 43 MB / 3,093 files → 6.0 s / 4.8 MB / 977 files. `--update` refreshes toolkit-owned files without touching yours.
 - The sync finds the library in this repo, `$SKPOWERS_HOME`, the recorded install location or `~/.skpowers`; without one it leaves copied skills in place instead of removing them.

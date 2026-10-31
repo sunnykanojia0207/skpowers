@@ -64,7 +64,8 @@ def fetch(repo: str, ref: str, paths: list[str], workdir: Path) -> str:
     git("init", "-q", cwd=workdir)
     git("config", "core.autocrlf", "false", cwd=workdir)  # keep upstream line endings byte-for-byte
     git("remote", "add", "origin", f"https://github.com/{repo}.git", cwd=workdir)
-    patterns = [f"/{p.strip('/')}" + ("" if "." in p.rsplit("/", 1)[-1] else "/") for p in paths]
+    # "." means the skill is the repository root; otherwise a folder, or a single file when the name has a dot.
+    patterns = ["/*" if p in (".", "") else f"/{p.strip('/')}" + ("" if "." in p.rsplit("/", 1)[-1] else "/") for p in paths]
     patterns += [f"/{name}" for name in LICENSE_FILES]
     git("sparse-checkout", "set", "--no-cone", *patterns, cwd=workdir)
     git("fetch", "-q", "--depth", "1", "--filter=blob:none", "origin", ref, cwd=workdir)

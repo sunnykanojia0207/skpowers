@@ -348,6 +348,9 @@ class InstallToolkitTests(unittest.TestCase):
             self.assertTrue((project / ".mcp.json").is_file())
             self.assertTrue((project / ".agents/skills/expo-router/SKILL.md").is_file())  # auto-selected
             self.assertTrue((project / ".claude/skills/python-venv/SKILL.md").is_file())
+            for doc in ("ARCHITECTURE", "DATABASE", "API", "SECURITY", "UX_FLOWS", "CODE_STYLE", "TESTING", "DOCS-INDEX"):
+                self.assertTrue((project / "docs" / f"{doc}.md").is_file(), doc)
+            self.assertFalse((project / "templates/docs").exists())
             # The project syncs again on its own, finding the library through .agents/.toolkit-home.
             again = run(project / "scripts" / "sync_toolkit.py", "--check", cwd=project, library=False)
             self.assertEqual(again.returncode, 0, again.stdout + again.stderr)
