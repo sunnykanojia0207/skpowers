@@ -324,6 +324,13 @@ class SyncToolkitTests(unittest.TestCase):
         config = json.loads((self.root / "toolkit.config.json").read_text(encoding="utf-8"))
         self.assertEqual([s for s in config["skills"] if s in ("design-taste-frontend", "interface-design")], ["interface-design"])
         self.assertIn("No UI intent", run(self.sync, "--pick", "add stripe payments", cwd=self.root).stdout)
+        self.assertIn("No UI intent", run(self.sync, "--pick", "add a character limit to the bio", cwd=self.root).stdout)
+        for request, skill in (("make the onboarding mascot feel alive", "rossark-motion-skill"),
+                               ("an isometric exploded view of the sync engine", "anatomy"),
+                               ("show the button component variants side by side", "component-canvas")):
+            result = run(self.sync, "--pick", request, cwd=self.root)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertTrue((self.root / ".agents/skills" / skill / "SKILL.md").is_file(), skill)
 
     def test_auto_skills_off_uses_only_explicit_profiles(self) -> None:
         self.write("package.json", json.dumps({"dependencies": {"next": "16.0.0"}}))
@@ -343,6 +350,10 @@ class SyncToolkitTests(unittest.TestCase):
         for profile in catalog["profiles"].values():
             for skill in profile["skills"]:
                 self.assertTrue(any(skill in s["skills"] for s in catalog["sources"].values()), skill)
+        # `exclude` globs drop generated files but keep the sources that build them.
+        examples = TOOLKIT / "skills-library/anatomy/anatomy/examples"
+        self.assertTrue(list(examples.glob("*/build.mjs")))
+        self.assertFalse(list(examples.rglob("*.pdf")) + list(examples.rglob("*.html")))
 
 
 class InstallToolkitTests(unittest.TestCase):

@@ -382,7 +382,8 @@ def resolve_library_skills(root: Path, config: dict) -> tuple[dict[str, Path] | 
 # ---------------------------------------------------------------- picking skills from a task description
 
 # Design "style" skills each impose a full design workflow; a project uses one at a time.
-DESIGN_STYLES = ("design-taste-frontend", "tastemaker", "hallmark", "ui-ux-pro-max", "hue", "interface-design")
+DESIGN_STYLES = ("design-taste-frontend", "tastemaker", "hallmark", "ui-ux-pro-max", "hue", "interface-design",
+                 "bencium-innovative-ux-designer")
 
 
 STOPWORDS = set("""a an and are as at be build building by can create do for from get help how i in into is it
@@ -421,7 +422,9 @@ STACK_WORDS = {
     "fastapi-expert": {"fastapi"}, "django-expert": {"django"}, "pandas-pro": {"pandas", "dataframe"},
     "nestjs-expert": {"nest", "nestjs"}, "laravel-specialist": {"laravel"}, "rails-expert": {"rails"},
     "terraform-engineer": {"terraform"}, "turborepo": {"turborepo", "turbo", "monorepo"},
-    "fastify-best-practices": {"fastify"}, "mastra": {"mastra"}, "ai-sdk": {"ai", "vercel"},
+    "fastify-best-practices": {"fastify"}, "mastra": {"mastra"},
+    "rossark-motion-skill": {"mascot", "illustration", "illustrated", "alive", "lottie", "rive", "creature"},
+    "anatomy": {"isometric", "exploded", "cutaway", "explainer", "diagram", "figure"}, "ai-sdk": {"ai", "vercel"},
     "claude-api": {"claude", "anthropic"}, "magic-ui": {"magic", "magicui"}, "ask-sonner": {"sonner", "toast"},
     "migrate-ai-sdk-v6-to-v7": {"migrate", "upgrade"}, "testing-setup": {"android", "kotlin"},
     "java-architect": {"java", "spring", "jvm"}, "spring-boot-engineer": {"spring", "java"},
@@ -560,6 +563,8 @@ def edit_config_lists(root: Path, enable: list[str], disable: list[str]) -> list
 DESIGN_INTENTS = [
     ({"branding", "brand identity", "visual identity", "logo", "rebrand", "brand guidelines", "brand colors",
       "brand colours"}, ["hue"], "a brand-driven design system"),
+    ({"original", "one of a kind", "visual language", "art direction", "editorial", "publication"},
+     ["bencium-innovative-ux-designer"], "an original visual language"),
     ({"reference", "inspiration", "inspired", "moodboard", "look like"}, ["tastemaker"], "UI grounded in reference sites"),
     ({"dashboard", "admin", "settings page", "saas", "internal tool", "crm", "data table", "back office"},
      ["interface-design", "ux-design"], "an app or dashboard interface"),
@@ -570,7 +575,15 @@ DESIGN_INTENTS = [
     ({"generic", "slop", "premium", "award", "polished", "beautiful", "stunning", "modern look", "redesign"},
      ["design-taste-frontend", "anti-slop"], "a distinctive, non-generic look"),
     ({"animation", "animate", "motion", "transition", "micro-interaction", "smooth", "scroll effect"},
-     ["ui-polish"], "motion and interaction"),
+     ["ui-polish", "interaction-design"], "motion and interaction"),
+    ({"mascot", "animated character", "illustration", "come alive", "feel alive", "blink", "breathing", "lottie"},
+     ["rossark-motion-skill"], "living, illustrated motion"),
+    ({"isometric", "exploded view", "cutaway", "technical illustration", "how it works diagram", "explainer figure"},
+     ["anatomy"], "an interactive isometric explainer figure"),
+    ({"component canvas", "component explorer", "component playground", "storybook", "component variants"},
+     ["component-canvas"], "a canvas of existing components"),
+    ({"design canvas", "freeform canvas", "explore ideas", "compare designs", "compare variations", "iterate on designs"},
+     ["create-canvas"], "a canvas to explore and compare ideas"),
     ({"design.md", "design system", "design tokens", "tokens"}, ["create-design-md"], "a DESIGN.md design system"),
     ({"accessibility", "a11y", "contrast", "screen reader", "keyboard"}, ["ui-fixes"], "accessibility fixes"),
     ({"form", "onboarding", "checkout", "empty state", "error state", "loading state", "navigation", "search page"},

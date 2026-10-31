@@ -21,6 +21,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import fnmatch
 import json
 import re
 import shutil
@@ -63,6 +64,7 @@ def fetch(repo: str, ref: str, paths: list[str], workdir: Path) -> str:
     """Sparse, shallow fetch of `paths` plus root license files; returns the commit SHA."""
     git("init", "-q", cwd=workdir)
     git("config", "core.autocrlf", "false", cwd=workdir)  # keep upstream line endings byte-for-byte
+    git("config", "core.longpaths", "true", cwd=workdir)  # deep skill paths exceed 260 characters on Windows
     git("remote", "add", "origin", f"https://github.com/{repo}.git", cwd=workdir)
     # "." means the skill is the repository root; otherwise a folder, or a single file when the name has a dot.
     patterns = ["/*" if p in (".", "") else f"/{p.strip('/')}" + ("" if "." in p.rsplit("/", 1)[-1] else "/") for p in paths]
@@ -131,8 +133,16 @@ def vendor_source(name: str, source: dict, update: bool) -> list[dict]:
             dest = target_root / skill
             if dest.exists():
                 shutil.rmtree(dest)
-            excluded = set(source.get("exclude", []))
-            shutil.copytree(src, dest, ignore=lambda d, names: [n for n in names if n == ".git" or (Path(d) == src and n in excluded)])
+            # `exclude` holds paths relative to the skill folder; glob patterns drop generated files
+            # (e.g. "examples/*.pdf", where `*` also crosses folders).
+            excluded = source.get("exclude", [])
+
+            def ignore(folder: str, names: list[str], src: Path = src, excluded: list[str] = excluded) -> list[str]:
+                base = Path(folder).relative_to(src).as_posix()
+                rel = {n: n if base == "." else f"{base}/{n}" for n in names}
+                return [n for n in names if n == ".git" or any(fnmatch.fnmatchcase(rel[n], pat) for pat in excluded)]
+
+            shutil.copytree(src, dest, ignore=ignore)
             # Repository-level files (e.g. shared checklists) that a skill links to by the same
             # relative path are copied in unmodified, as upstream recommends for per-skill installs.
             skill_text = (dest / "SKILL.md").read_text(encoding="utf-8", errors="replace")

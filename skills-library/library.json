@@ -123,13 +123,14 @@
     },
     "wshobson": {
       "repo": "wshobson/agents",
-      "commit": "0874a27b17a22e2b7c2e2bcd725768e0803cad06",
+      "commit": "7e2fb559cf4b824b27f1fec49fe88f7511066d26",
       "skills": {
         "api-design-principles": "plugins/backend-development/skills/api-design-principles",
         "openapi-spec-generation": "plugins/documentation-generation/skills/openapi-spec-generation",
         "architecture-decision-records": "plugins/documentation-generation/skills/architecture-decision-records",
         "github-actions-templates": "plugins/cicd-automation/skills/github-actions-templates",
-        "k8s-manifest-generator": "plugins/kubernetes-operations/skills/k8s-manifest-generator"
+        "k8s-manifest-generator": "plugins/kubernetes-operations/skills/k8s-manifest-generator",
+        "interaction-design": "plugins/ui-design/skills/interaction-design"
       }
     },
     "sentry": {
@@ -515,7 +516,7 @@
     },
     "addyosmani": {
       "repo": "addyosmani/agent-skills",
-      "commit": "aeac41d4d005999432bb7312f7ff06383a91d59d",
+      "commit": "8bfcc1f9916f2eea55494d8c1fa7f4bde867dd9e",
       "skills": {
         "security-and-hardening": "skills/security-and-hardening",
         "observability-and-instrumentation": "skills/observability-and-instrumentation",
@@ -611,7 +612,9 @@
         "baseline-ui": "skills/baseline-ui",
         "fixing-accessibility": "skills/fixing-accessibility",
         "fixing-motion-performance": "skills/fixing-motion-performance",
-        "fixing-metadata": "skills/fixing-metadata"
+        "fixing-metadata": "skills/fixing-metadata",
+        "component-canvas": "skills/component-canvas",
+        "create-canvas": "skills/create-canvas"
       }
     },
     "color-expert": {
@@ -620,6 +623,44 @@
       "skills": {
         "color-expert": "."
       }
+    },
+    "shadcn-improve": {
+      "repo": "shadcn/improve",
+      "commit": "cac56e1ebd3c279aa9153616cfeac7b174ab90f9",
+      "skills": {
+        "improve": "skills/improve"
+      }
+    },
+    "bencium": {
+      "repo": "bencium/bencium-marketplace",
+      "commit": "5de46a39b4640fa419560cd0b67e4c4b50dac802",
+      "skills": {
+        "bencium-innovative-ux-designer": "bencium-innovative-ux-designer/skills/bencium-innovative-ux-designer"
+      }
+    },
+    "rossark-motion": {
+      "repo": "rossark0/rossark-motion-skill",
+      "commit": "9b20964e32f07f8ac7e2948cd175746fa4a7712f",
+      "skills": {
+        "rossark-motion-skill": "."
+      },
+      "exclude": [
+        "demo"
+      ]
+    },
+    "anatomy": {
+      "repo": "wheresryan22/anatomy",
+      "commit": "1482e8469b0a9e0d8cc18ea2740a01423d29ae80",
+      "skills": {
+        "anatomy": "."
+      },
+      "exclude": [
+        "tests",
+        "evals",
+        ".github",
+        "examples/*.pdf",
+        "examples/*.html"
+      ]
     }
   },
   "profiles": {

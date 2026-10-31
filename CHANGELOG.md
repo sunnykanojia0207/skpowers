@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Added (ui-skills.com, 2026-10-31)
+- Reviewed all 20 skills on [ui-skills.com](https://www.ui-skills.com/). Ten were already in the library. Seven are new (300 skills, 57 sources): `component-canvas`, `create-canvas` (ibelick), `improve` (shadcn: read-only codebase audit plans), `bencium-innovative-ux-designer` (a new design style), `interaction-design` (wshobson), `rossark-motion-skill` and `anatomy`. `--pick` maps requests to them (original/editorial look, mascots and illustrations, isometric figures, component and design canvases), and `interaction-design` joins the motion pick. Excluded: `ui-skills-root` (loads unpinned remote skills), `improve-react` (Modified MIT with an AI-use restriction), `design-lab` (no license), `gpt-taste` (removed upstream), raphaelsalaja's one-word skills; Impeccable stays excluded.
+- `vendor_skills.py`: `exclude` accepts glob paths (drops Anatomy's 24 MB of prebuilt example HTML/PDF, keeping their build scripts) and fetches with long paths enabled on Windows.
+- Upstream updates: addyosmani/agent-skills (`8bfcc1f`) and wshobson/agents (`7e2fb55`). ibelick, Emil Kowalski, Jakub Krehel, UI UX Pro Max, Interface Design and dimensional-drawing already current.
+
 ### Added (UI picking)
 - `sync_toolkit.py --pick "<request>"` enables design skills from what a UI request asks for (landing page, dashboard, branding, references, palette/fonts, generic look, motion, DESIGN.md, accessibility, forms) and keeps one design style per project; `--suggest` shows the UI pick first. `AGENTS.md` and `select-skills` tell agents to use it for UI requests. README "Using skills" section rewritten: how skills are picked (project, request, session), when to name one, example prompts and commands.
 
