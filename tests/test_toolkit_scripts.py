@@ -311,6 +311,20 @@ class SyncToolkitTests(unittest.TestCase):
         self.assertFalse((self.root / ".agents/skills/clerk-setup").exists())
         self.assertEqual(run(self.sync, "--enable", "no-such-thing", cwd=self.root).returncode, 2)
 
+    def test_pick_enables_ui_skills_and_keeps_one_design_style(self) -> None:
+        self.edit_config(lambda c: c.update(autoSkills=True, skillProfiles=["core"]))
+        first = run(self.sync, "--pick", "build a landing page that doesn't look generic", cwd=self.root)
+        self.assertEqual(first.returncode, 0, first.stderr)
+        for skill in ("design-taste-frontend", "landing-page-design", "audit-ai-design-slop"):
+            self.assertTrue((self.root / ".agents/skills" / skill / "SKILL.md").is_file(), skill)
+        second = run(self.sync, "--pick", "now design the admin dashboard", cwd=self.root)
+        self.assertIn("disabled design-taste-frontend", second.stdout)
+        self.assertTrue((self.root / ".agents/skills/interface-design/SKILL.md").is_file())
+        self.assertFalse((self.root / ".agents/skills/design-taste-frontend").exists())
+        config = json.loads((self.root / "toolkit.config.json").read_text(encoding="utf-8"))
+        self.assertEqual([s for s in config["skills"] if s in ("design-taste-frontend", "interface-design")], ["interface-design"])
+        self.assertIn("No UI intent", run(self.sync, "--pick", "add stripe payments", cwd=self.root).stdout)
+
     def test_auto_skills_off_uses_only_explicit_profiles(self) -> None:
         self.write("package.json", json.dumps({"dependencies": {"next": "16.0.0"}}))
         self.edit_config(lambda c: c.update(autoSkills=False, skillProfiles=["ios"]))

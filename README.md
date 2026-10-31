@@ -53,49 +53,81 @@ python ~/.skpowers/scripts/install_toolkit.py
 
 It takes a few seconds: it copies the rules, config and toolkit skills, reads the project to pick the right skill profiles, copies only those skills for every tool, and writes each tool's MCP config. Existing files (your `AGENTS.md`, configs) are never overwritten; they are listed so you can merge. Commit the result so teammates and CI get the same skills without the toolkit.
 
-**While you work, skills follow the request too.** Agents run `--suggest` for each new request and enable what fits; you can do the same:
+**While you work, skills follow the request too.** Agents run `--pick` for UI requests and `--suggest` for everything else, and enable what fits; you can do the same:
 
 ```bash
+python scripts/sync_toolkit.py --pick "build a landing page that doesn't look generic"
 python scripts/sync_toolkit.py --suggest "add stripe payments and email login"
 python scripts/sync_toolkit.py --enable clerk          # or --disable
 ```
 
+See [Using skills](#using-skills) for how agents pick and use skills.
+
 **Update later:** `git -C ~/.skpowers pull`, then in the project `python ~/.skpowers/scripts/install_toolkit.py --update` (refreshes the sync script and toolkit skills, never your files) and `python scripts/sync_toolkit.py`.
 
-## Skills
+## Using skills
 
-**Toolkit skills** (always on): `production-engineering`, `architecture-planning`, `release-verification`, `marketplace-skill-review`, `ai-application-engineering`, `select-skills`, which tells every agent to re-run the selection when requirements change, and `python-venv`, which makes every Python command run in the project's `.venv` (never the system Python).
+You don't have to memorise skill names. Skills reach your agent in three automatic ways, and you can always name one to be sure.
 
-**Library profiles** are chosen automatically (`"autoSkills": true`). `core` (the Superpowers workflow) and `docs` are always on; the rest switch on when the project needs them:
-
-For a Next.js app with Prisma (Postgres), Stripe and the OpenAI SDK:
+### 1. From the project (on install and every sync)
+The sync reads your dependencies, project files and the platform boxes in `docs/PROJECT_BRIEF.md`, and enables the matching profiles. A Next.js app gets `web`, `nextjs`, `testing` and `interface-craft`; an Expo app gets `react-native`; Prisma adds `prisma`; an OpenAI or Anthropic SDK adds `ai-apps`. `core` (the Superpowers workflow), `docs` and the toolkit's own skills are always on.
 
 ```bash
-python scripts/sync_toolkit.py --explain
-```
-```text
-Skill profiles enabled:
-  core             toolkit.config.json skillProfiles; baseline workflow
-  docs             toolkit.config.json skillProfiles; baseline
-  web              dependency next, react-dom
-  testing          web UI
-  postgres         Prisma datasource postgresql
-  prisma           @prisma/client
-  nextjs           dependency next
-  typescript       typescript
-  ai-apps          dependency openai
-  interface-craft  the project has a user interface
-Individual skills enabled:
-  vibe-security    handles stripe
-Suggested, not enabled automatically (add to skillProfiles to accept):
-  security         handles stripe -- security-review and gha-security-review pre-approve Bash in Claude Code
+python scripts/sync_toolkit.py --explain    # what is enabled and why
 ```
 
-Profiles whose skills pre-approve shell commands (`security`, `ripwire`) are only suggested. Design, research and production-engineering profiles (`addy-engineering`, `ux-design`, `ux-research`, `ui-polish`, `anti-slop`, `cloud`, `authoring`) are added by name. The full list, what triggers each profile, cautions and the "keep the best" decisions: **[docs/SKILLS-CATALOG.md](docs/SKILLS-CATALOG.md)**. Commits and licenses: [skills-library/THIRD_PARTY_NOTICES.md](skills-library/THIRD_PARTY_NOTICES.md).
+### 2. From your request (the agent does this for you)
+For each new request, agents follow `AGENTS.md` and the `select-skills` skill:
 
-**Alternative workflows** that replace `core`: GitHub Spec Kit, GSD Core, pstack (see the catalog).
+- **UI and design requests:** `python scripts/sync_toolkit.py --pick "<request>"` reads what kind of UI you want and enables the right design skills, keeping one design style per project (a new style switches the old one off):
 
-Update the library with `python scripts/vendor_skills.py --update`, review `git diff skills-library/`, then sync.
+  | Your request mentions | Skills picked |
+  |---|---|
+  | landing page, homepage, hero, marketing site, portfolio | `design-taste-frontend` + `landing-page-design` |
+  | dashboard, admin, settings page, SaaS screens | `interface-design` + `ux-design` |
+  | branding, brand identity, logo, rebrand | `hue` |
+  | references, inspiration, "make it look like…" | `tastemaker` |
+  | colour palette, fonts, style guide | `ui-ux-pro-max` + `color-expert` |
+  | generic, premium, polished, redesign | `design-taste-frontend` + `anti-slop` |
+  | animation, transitions, smooth, scroll effects | `ui-polish` |
+  | DESIGN.md, design system, tokens | `create-design-md` |
+  | accessibility, contrast, keyboard, screen reader | `ui-fixes` |
+  | forms, onboarding, checkout, empty/error/loading states | `ux-design` |
+
+- **Everything else:** `python scripts/sync_toolkit.py --suggest "<request>"` lists the enabled skills that already match (use those), then the best library matches; the agent enables what clearly fits with `--enable <name>` and tells you. Stack-specific skills only appear when you name the stack. Profiles that pre-approve shell commands (`security`, `ripwire`) and all MCP servers need your yes.
+
+### 3. Inside each session (automatic)
+Every tool reads each installed skill's name and description at session start. When your request matches a description, the agent opens that skill and follows it; Superpowers' `using-superpowers` makes it check before every reply. **You don't need to mention skills.**
+
+### Naming a skill (optional, to be certain)
+- In any tool: "use the `interface-design` skill to build the settings page".
+- In Claude Code: type `/interface-design`.
+- Nine skills only run when named: `review-animations`, `pick-ui-library`, `prototype`, `interface-review`, `explain-interface`, `state-machine`, `break`, `variant`, `improve-codebase-architecture`.
+
+### Prompts that pick the right skills
+| Say | What happens |
+|---|---|
+| "Build a landing page for our product, it shouldn't look generic" | `design-taste-frontend`, `landing-page-design`, `anti-slop`; Vercel React rules if it is React |
+| "Design the admin dashboard with filters and empty states" | `interface-design`, `ux-design` |
+| "Add Clerk sign-in to the Next.js app" | `clerk` profile (and `vibe-security` once `@clerk/*` is installed) |
+| "Write E2E tests for checkout" | the enabled `playwright-best-practices` / `webapp-testing` |
+| "The app is slow" | the enabled `performance` and Next.js cache skills, then `addy-engineering` |
+| "Build a RAG chatbot over our docs" | `ai-apps` (evals, RAG), plus `claude-api` or `ai-sdk` for your SDK |
+
+### Commands
+```bash
+python scripts/sync_toolkit.py --explain                 # what's enabled and why
+python scripts/sync_toolkit.py --pick "<UI request>"     # enable design skills for a UI request
+python scripts/sync_toolkit.py --suggest "<request>"     # best matches for any request
+python scripts/sync_toolkit.py --enable <name> [...]     # turn on profiles/skills (also --disable)
+python scripts/sync_toolkit.py                           # apply after editing toolkit.config.json
+```
+
+To force a profile on, list it under `skillProfiles` in `toolkit.config.json`; `"autoSkills": false` turns off detection from the project.
+
+**What's in the library:** 293 vetted skills in 45 profiles, plus 7 toolkit skills (`production-engineering`, `architecture-planning`, `release-verification`, `marketplace-skill-review`, `ai-application-engineering`, `select-skills`, `python-venv`). Every profile, what switches it on, cautions and the "keep the best" decisions: **[docs/SKILLS-CATALOG.md](docs/SKILLS-CATALOG.md)**. Commits and licenses: [skills-library/THIRD_PARTY_NOTICES.md](skills-library/THIRD_PARTY_NOTICES.md).
+
+**Alternative workflows** that replace `core`: GitHub Spec Kit, GSD Core, pstack, Addy Osmani's workflow (see the catalog). Update the library with `python scripts/vendor_skills.py --update`, review `git diff skills-library/`, then sync.
 
 ## MCP servers
 

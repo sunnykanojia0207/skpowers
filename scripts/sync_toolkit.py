@@ -381,6 +381,10 @@ def resolve_library_skills(root: Path, config: dict) -> tuple[dict[str, Path] | 
 
 # ---------------------------------------------------------------- picking skills from a task description
 
+# Design "style" skills each impose a full design workflow; a project uses one at a time.
+DESIGN_STYLES = ("design-taste-frontend", "tastemaker", "hallmark", "ui-ux-pro-max", "hue", "interface-design")
+
+
 STOPWORDS = set("""a an and are as at be build building by can create do for from get help how i in into is it
 its make me my need new of on or our please should so some that the then this to up use using want we
 what when with without would you your add app apps project code write implement feature""".split())
@@ -495,6 +499,11 @@ def suggest(root: Path, config: dict, task: str, limit: int = 5) -> str:
     relevant_active = [s for s in sorted(active, key=lambda n: score(n, descriptions.get(n, "")), reverse=True)
                        if score(s, descriptions.get(s, "")) >= floor][:limit]
     lines = []
+    ui_picks, ui_reasons = pick_ui(task)
+    ui_new = [s for s in ui_picks if s not in active and s not in selection["profiles"]]
+    if ui_new:
+        lines.append(f"UI pick for this request: {', '.join(ui_new)} ({'; '.join(ui_reasons)})")
+        lines.append(f'  Enable with: python scripts/sync_toolkit.py --pick "{task}"')
     if relevant_active:
         lines.append(f"Already enabled and relevant (use these): {', '.join(relevant_active)}")
     if not best_profiles and not best_skills:
@@ -526,6 +535,11 @@ def edit_config_lists(root: Path, enable: list[str], disable: list[str]) -> list
         target = profiles if name in catalog["profiles"] else skills if name in all_skills else None
         if target is None:
             raise SyncError(f"{name!r} is neither a profile nor a skill in the library (try --suggest)")
+        if name in DESIGN_STYLES:
+            # One design style per project: two style skills give agents conflicting instructions.
+            for other in [s for s in skills if s in DESIGN_STYLES and s != name]:
+                skills.remove(other)
+                changes.append(f"disabled {other} (one design style per project)")
         if name not in target:
             target.append(name)
             changes.append(f"enabled {name}")
@@ -537,6 +551,52 @@ def edit_config_lists(root: Path, enable: list[str], disable: list[str]) -> list
     if changes:
         path.write_text(json.dumps(raw, indent=2) + "\n", encoding="utf-8", newline="\n")
     return changes
+
+
+# ---------------------------------------------------------------- picking the UI skills from a request
+
+# (trigger words or phrases, skills/profiles to enable, what kind of UI it is), most specific first.
+# The first matching intent that names a design style decides the style; other matches add helpers.
+DESIGN_INTENTS = [
+    ({"branding", "brand identity", "visual identity", "logo", "rebrand", "brand guidelines", "brand colors",
+      "brand colours"}, ["hue"], "a brand-driven design system"),
+    ({"reference", "inspiration", "inspired", "moodboard", "look like"}, ["tastemaker"], "UI grounded in reference sites"),
+    ({"dashboard", "admin", "settings page", "saas", "internal tool", "crm", "data table", "back office"},
+     ["interface-design", "ux-design"], "an app or dashboard interface"),
+    ({"landing", "homepage", "home page", "hero", "marketing site", "portfolio", "one-pager", "launch page", "website"},
+     ["design-taste-frontend", "landing-page-design"], "a public web page"),
+    ({"palette", "colour", "color", "font", "typography", "style guide"}, ["ui-ux-pro-max", "color-expert"],
+     "palettes, fonts and visual style"),
+    ({"generic", "slop", "premium", "award", "polished", "beautiful", "stunning", "modern look", "redesign"},
+     ["design-taste-frontend", "anti-slop"], "a distinctive, non-generic look"),
+    ({"animation", "animate", "motion", "transition", "micro-interaction", "smooth", "scroll effect"},
+     ["ui-polish"], "motion and interaction"),
+    ({"design.md", "design system", "design tokens", "tokens"}, ["create-design-md"], "a DESIGN.md design system"),
+    ({"accessibility", "a11y", "contrast", "screen reader", "keyboard"}, ["ui-fixes"], "accessibility fixes"),
+    ({"form", "onboarding", "checkout", "empty state", "error state", "loading state", "navigation", "search page"},
+     ["ux-design"], "product UX patterns"),
+]
+
+
+def pick_ui(task: str) -> tuple[list[str], list[str]]:
+    """Return (skills/profiles to enable, reasons) for a UI request, with at most one design style."""
+    text = " " + re.sub(r"[^a-z0-9.]+", " ", task.lower()) + " "
+    picks: list[str] = []
+    reasons: list[str] = []
+    style_chosen = False
+    for triggers, targets, label in DESIGN_INTENTS:
+        hit = next((t for t in sorted(triggers, key=len, reverse=True) if f" {t} " in text or f" {t}s " in text), None)
+        if not hit:
+            continue
+        for target in targets:
+            if target in DESIGN_STYLES:
+                if style_chosen:
+                    continue
+                style_chosen = True
+            if target not in picks:
+                picks.append(target)
+        reasons.append(f"'{hit}' -> {label}")
+    return picks, reasons
 
 
 def explain(selection: dict) -> str:
@@ -773,6 +833,7 @@ def main(argv: list[str]) -> int:
     parser.add_argument("--enable", nargs="+", metavar="NAME", default=[], help="turn on profiles or skills, then sync")
     parser.add_argument("--disable", nargs="+", metavar="NAME", default=[], help="turn off profiles or skills, then sync")
     parser.add_argument("--quiet", action="store_true", help="print only the summary, not every changed path")
+    parser.add_argument("--pick", metavar="REQUEST", help="enable the UI/design skills that fit a request, then sync")
     args = parser.parse_args(argv)
 
     if args.explain or args.suggest:
@@ -786,6 +847,18 @@ def main(argv: list[str]) -> int:
         if enabled is None and not args.suggest:
             print(NO_LIBRARY_NOTE)
         return 0
+    if args.pick:
+        picks, reasons = pick_ui(args.pick)
+        if not picks:
+            print("No UI intent found in that request; showing general suggestions instead.")
+            try:
+                print(suggest(ROOT, load_config(ROOT), args.pick))
+            except SyncError as exc:
+                print(f"sync_toolkit: {exc}", file=sys.stderr)
+                return 2
+            return 0
+        print(f"UI request: {'; '.join(reasons)}")
+        args.enable = [*args.enable, *picks]
     if args.enable or args.disable:
         try:
             for change in edit_config_lists(ROOT, args.enable, args.disable):

@@ -9,6 +9,12 @@ Skills come from two automatic sources: the **project** (dependencies, platform 
 
 ## For each new request
 
+0. **UI or design request?** (a page, screen, dashboard, landing page, brand, colours, fonts, animation, accessibility, forms…) Run:
+   ```bash
+   python scripts/sync_toolkit.py --pick "<the user's request, in their words>"
+   ```
+   It enables the design skills that fit that kind of UI and keeps one design style per project (switching off a previous style and saying so). Tell the user what was picked, then continue with step 3. For anything else, or if `--pick` finds no UI intent, go to step 1.
+
 1. **Ask the toolkit what fits the request.**
    ```bash
    python scripts/sync_toolkit.py --suggest "<the user's request, in their words>"

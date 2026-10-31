@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Added (UI picking)
+- `sync_toolkit.py --pick "<request>"` enables design skills from what a UI request asks for (landing page, dashboard, branding, references, palette/fonts, generic look, motion, DESIGN.md, accessibility, forms) and keeps one design style per project; `--suggest` shows the UI pick first. `AGENTS.md` and `select-skills` tell agents to use it for UI requests. README "Using skills" section rewritten: how skills are picked (project, request, session), when to name one, example prompts and commands.
+
 ### Added (2026-10-31)
 - **Project documentation system** adapted from "The Vibe Coding Blueprint": `docs/PROJECT_BRIEF.md` is now a full PRD (platform checkboxes kept), and `templates/docs/` adds ARCHITECTURE, ARCHITECTURE_DECISIONS, DATABASE, API, SECURITY, UX_FLOWS, CODE_STYLE and TESTING templates that `install_toolkit.py` copies into a project's `docs/` (index as `docs/DOCS-INDEX.md`). `AGENTS.md`: read the docs the change touches, don't invent what they don't contain, update them with behaviour changes, and ask when documents conflict. Getting started gains bug-fix and pre-release review prompts and before/during/after checklists.
 - **Design skills:** official Vue (`vuejs-ai/skills`, 6) and Angular (`angular-developer`) skills replace jeffallan's; `ant-design` (auto with `antd`), `expo-design-system`, ibelick's `create-design-md` and `ui-fixes` profile, `hue`, `interface-design`, `color-expert`. `vendor_skills.py` supports skills at a repository root (path `"."`). Upstream updates pulled for Hallmark (two themes), UI UX Pro Max, Jakub Krehel, Emil Kowalski and Anthropic (`mcp-builder` now targets MCP TypeScript SDK v2); Taste Skill already current. Impeccable, Stitch and the shadcn skill stay excluded.
