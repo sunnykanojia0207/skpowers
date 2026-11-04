@@ -34,6 +34,10 @@ Skills come from two automatic sources: the **project** (dependencies, platform 
 1. If the user described requirements, reflect them in `docs/PROJECT_BRIEF.md` (tick `- [x] Web`, `iOS`, `Android`, `Public API`, `Admin portal`, `AI/LLM features`).
 2. Run `python scripts/sync_toolkit.py --explain` to preview, then `python scripts/sync_toolkit.py` to apply. Profiles that match the stack are added; ones that stopped matching are removed. Hand-written skills are never touched.
 
+## Agents
+
+Subagents follow the same choices: each profile brings its agents (for example `go` brings `go-reviewer` and `go-build-resolver`; `core` brings `planner`, `code-reviewer`, `security-reviewer` and others), and the sync writes them for every tool. `--explain` lists them. `--enable <agent>` adds one, `--disable <agent>` removes it even when a profile brings it in; tell the user in one line.
+
 ## Notes
 
 - MCP servers are never enabled automatically. If one would help (for example `supabase`, `next-devtools`, `magicui`, `github`), name it and ask; enabling means `"enabled": true` in `toolkit.config.json` and a sync.

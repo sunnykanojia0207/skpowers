@@ -8,7 +8,8 @@ Sources (edit these):
   skills-library/      vendored third-party skills (update with vendor_skills.py)
 
 Outputs (never edit by hand): enabled library skills copied into .agents/skills/,
-per-tool MCP config files, and the Claude Code skill mirror. Existing MCP files
+per-tool MCP config files, the Claude Code skill mirror, and each enabled library
+agent written in every tool's own subagent format (marked skpowers-generated). Existing MCP files
 are merged: only server names defined in toolkit.config.json are replaced, so
 servers you added yourself are kept.
 
@@ -92,7 +93,8 @@ def scan_project(root: Path, max_depth: int = 4) -> dict:
                     if isinstance(pkg.get(key), dict):
                         deps.update(pkg[key])
             elif name in {"pyproject.toml", "pipfile", "components.json", "schema.prisma", "build.gradle",
-                          "build.gradle.kts", "pom.xml", "gemfile", "pubspec.yaml"} or name.startswith("requirements") \
+                          "build.gradle.kts", "pom.xml", "gemfile", "pubspec.yaml", "go.mod", "cargo.toml"} \
+                    or name.startswith("requirements") \
                     or name.startswith(("docker-compose", "compose.")):
                 try:
                     texts[rel] = entry.read_text(encoding="utf-8", errors="replace").lower()
@@ -200,6 +202,23 @@ def detect_requirements(root: Path) -> tuple[dict[str, list[str]], dict[str, lis
     jvm = files_matching(r"(^|/)pom\.xml$") + [p for p, t in texts.items() if "gradle" in p and "com.android" not in t]
     if jvm and not native_rn and "android" not in profiles:
         add(profiles, "java", f"file {jvm[0]}")
+    # build.gradle.kts alone is just Gradle's default DSL; Kotlin code or the Kotlin plugin is the signal.
+    kotlin = files_matching(r"\.kt$") + [p for p, t in texts.items() if ("kotlin(" in t or "org.jetbrains.kotlin" in t)
+                                         and ("gradle" in p or p.endswith("pom.xml"))]
+    if kotlin and not native_rn and "android" not in profiles:
+        add(profiles, "kotlin", f"{kotlin[0]}")
+    quarkus = [p for p, t in texts.items() if "io.quarkus" in t]
+    if quarkus:
+        add(profiles, "quarkus", f"Quarkus in {quarkus[0]}")
+    # Flutter and React Native generate CMake/C++ platform runners; those aren't C++ projects.
+    flutter_app = any("flutter" in t for p, t in texts.items() if p.endswith("pubspec.yaml"))
+    cpp = [f for f in files_matching(r"(^|/)CMakeLists\.txt$|\.(cpp|cc|cxx|hpp)$")
+           if not re.match(r"(android|ios|linux|macos|windows)/", f)]
+    if cpp and not flutter_app and not native_rn:
+        add(profiles, "cpp", f"file {cpp[0]}")
+    perl = files_matching(r"(^|/)(cpanfile|Makefile\.PL|Build\.PL)$")
+    if perl:
+        add(profiles, "perl", f"file {perl[0]}")
     if any("rails" in t for p, t in texts.items() if p.lower().endswith("gemfile")):
         add(profiles, "ruby", "Rails in Gemfile")
     if any("flutter" in t for p, t in texts.items() if p.endswith("pubspec.yaml")):
@@ -212,9 +231,17 @@ def detect_requirements(root: Path) -> tuple[dict[str, list[str]], dict[str, lis
                        ("@apollo/server", "graphql-architect"), ("socket.io", "websocket-engineer"),
                        ("ws", "websocket-engineer"), ("laravel/framework", "laravel-specialist"), ("ai", "ai-sdk"),
                        ("antd", "ant-design"), ("@anthropic-ai/sdk", "claude-api"), ("anthropic", "claude-api"),
-                       ("@anthropic-ai/claude-agent-sdk", "claude-api"), ("claude-agent-sdk", "claude-api")):
-        if has(dep):
+                       ("@anthropic-ai/claude-agent-sdk", "claude-api"), ("claude-agent-sdk", "claude-api"),
+                       ("django", "django-security"), ("django", "django-tdd"), ("django", "django-verification"),
+                       ("celery", "django-celery"), ("laravel/framework", "laravel-security"),
+                       ("laravel/framework", "laravel-tdd"), ("nuxt", "nuxt4-patterns"), ("vite", "vite-patterns"),
+                       ("@types/bun", "bun-runtime"), ("bun-types", "bun-runtime"), ("i18next", "i18n-sync"),
+                       ("next-intl", "i18n-sync"), ("vue-i18n", "i18n-sync")):
+        if has(dep) and not (skill == "django-celery" and not has("django")):
             add(skills, skill, f"dependency {dep}")
+    bun = files_matching(r"(^|/)bun\.lockb?$")
+    if bun:
+        add(skills, "bun-runtime", f"file {bun[0]}")
     if files_matching(r"\.tf$"):
         add(skills, "terraform-engineer", "Terraform files")
 
@@ -241,6 +268,20 @@ def detect_requirements(root: Path) -> tuple[dict[str, list[str]], dict[str, lis
                          r"|\.tf$|(^|/)(k8s|helm|charts)/")
     if ops:
         add(profiles, "devops", f"file {ops[0]}")
+
+    stores = has("mysql2", "mysql", "pymysql", "mysqlclient", "redis", "ioredis", "@upstash/redis", "@clickhouse/client",
+                  "clickhouse-connect", "clickhouse-driver")
+    if 'provider = "mysql"' in all_text or re.search(r"image:\s*[\"']?(mysql|mariadb|redis|clickhouse)", all_text):
+        stores.append("database in Prisma datasource or compose file")
+    module_text = " ".join(t for p, t in texts.items() if p.lower().endswith(("go.mod", "cargo.toml")))
+    if re.search(r"go-redis|go-sql-driver/mysql|clickhouse-go|^\s*(redis|mysql|mysql_async|clickhouse)\s*=", module_text,
+                 re.MULTILINE):
+        stores.append("database driver in go.mod or Cargo.toml")
+    if stores:
+        add(profiles, "data-stores", f"{stores[0]}")
+    ml = has("torch", "pytorch-lightning", "lightning", "torchvision")
+    if ml:
+        add(profiles, "ml", "dependency " + ", ".join(ml))
 
     ai = has("openai", "@anthropic-ai/sdk", "anthropic", "ai", "@ai-sdk/openai", "@ai-sdk/anthropic", "langchain",
              "@langchain/core", "llamaindex", "llama-index", "@google/genai", "google-genai", "@modelcontextprotocol/sdk",
@@ -290,12 +331,15 @@ def load_config(root: Path) -> dict:
     if unknown:
         raise SyncError(f"{CONFIG_FILE}: unknown tools {unknown}; known: {sorted(KNOWN_TOOLS)}")
 
-    for key in ("skillProfiles", "skills"):
+    for key in ("skillProfiles", "skills", "agents", "disabledAgents"):
         value = config.setdefault(key, [])
         if not isinstance(value, list) or not all(isinstance(v, str) for v in value):
             raise SyncError(f"{CONFIG_FILE}: '{key}' must be a list of strings")
     if not isinstance(config.setdefault("autoSkills", False), bool):
         raise SyncError(f"{CONFIG_FILE}: 'autoSkills' must be true or false")
+    # Agents follow the enabled profiles unless turned off; "agents" adds more, "disabledAgents" removes some.
+    if not isinstance(config.setdefault("autoAgents", True), bool):
+        raise SyncError(f"{CONFIG_FILE}: 'autoAgents' must be true or false")
 
     servers = config.get("mcpServers")
     if not isinstance(servers, dict):
@@ -377,6 +421,175 @@ def resolve_library_skills(root: Path, config: dict) -> tuple[dict[str, Path] | 
             raise SyncError(f"{name!r} is not vendored yet; run: python scripts/vendor_skills.py")
         enabled[name] = locations[name]
     return enabled, selection
+
+
+# ---------------------------------------------------------------- agents (subagents)
+
+# Vendored agents are Claude Code subagent files; each tool gets its own format, generated here.
+AGENT_MARKER = "skpowers-generated"
+AGENT_DIRS = {  # tool -> (directory, filename suffix)
+    "claude-code": (".claude/agents", ".md"),
+    "cursor": (".cursor/agents", ".md"),
+    "opencode": (".opencode/agents", ".md"),
+    "codex": (".codex/agents", ".toml"),
+    "copilot": (".github/agents", ".agent.md"),
+    "gemini-cli": (".gemini/agents", ".md"),
+    "antigravity": (".agents/agents", ".md"),
+}
+COPILOT_TOOLS = {"Read": "read", "Grep": "search", "Glob": "search", "Edit": "edit", "Write": "edit",
+                 "MultiEdit": "edit", "Bash": "execute", "WebSearch": "web", "WebFetch": "web"}
+
+
+def parse_agent(path: Path) -> dict:
+    """Read a Claude Code subagent file: simple `key: value` frontmatter and a Markdown body."""
+    text = path.read_text(encoding="utf-8").replace("\r\n", "\n")
+    if not text.startswith("---\n") or "\n---" not in text[4:]:
+        raise SyncError(f"{path}: agent file needs YAML frontmatter")
+    end = text.find("\n---", 4)
+    meta = {}
+    for line in text[4:end].splitlines():
+        key, sep, value = line.partition(":")
+        if sep and re.fullmatch(r"[A-Za-z_-]+", key):
+            value = value.strip()
+            if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+                value = value[1:-1].replace('\\"', '"')
+            meta[key] = value
+    body_start = text.find("\n", end + 4)
+    body = (text[body_start + 1:].strip("\n") if body_start != -1 else "") + "\n"
+    if not meta.get("name") or not meta.get("description"):
+        raise SyncError(f"{path}: agent needs a name and a description")
+    tools = [t.strip() for t in meta.get("tools", "").split(",") if t.strip()]
+    # No tools list means full access, as in Claude Code.
+    write = not tools or bool({"Edit", "Write", "MultiEdit"} & set(tools))
+    shell = not tools or "Bash" in tools
+    # Upstream "MUST BE USED for every change" triggers would run a reviewer after each edit; keep the rest.
+    description = re.sub(r"\s*MUST BE USED[^.]*\.", "", meta["description"]).strip()
+    mcp = any(tool.startswith("mcp__") for tool in tools)
+    return {"name": meta["name"], "description": description, "tools": tools, "write": write,
+            "shell": shell, "mcp": mcp, "body": body}
+
+
+def yaml_str(value: str) -> str:
+    return json.dumps(value, ensure_ascii=False)  # a JSON string is a valid YAML double-quoted scalar
+
+
+def render_agent(tool: str, agent: dict, origin: str) -> str:
+    """Return the agent file for one tool. Models are left to each tool's default (inherit)."""
+    mark = f"# {AGENT_MARKER}: from {origin} by scripts/sync_toolkit.py; change agents in toolkit.config.json"
+    name, desc, body = agent["name"], agent["description"], agent["body"]
+    read_only_note = "" if agent["write"] else "You are read-only: never create, edit or delete files.\n\n"
+    if tool == "codex":
+        lines = [mark, f"name = {toml_value(name)}", f"description = {toml_value(desc)}",
+                 f"developer_instructions = {toml_value(read_only_note + body)}"]
+        if not agent["shell"]:
+            lines += ["", "[features]", "shell_tool = false"]
+        return "\n".join(lines) + "\n"
+    head = [mark]
+    if tool == "claude-code":
+        head += [f"name: {name}", f"description: {yaml_str(desc)}"]
+        if agent["tools"]:
+            head.append(f"tools: {', '.join(agent['tools'])}")
+    elif tool == "cursor":
+        head += [f"name: {name}", f"description: {yaml_str(desc)}"]
+        if not agent["write"]:
+            head.append("readonly: true")
+    elif tool == "opencode":
+        head += [f"description: {yaml_str(desc)}", "mode: subagent", "permission:",
+                 f"  edit: {'allow' if agent['write'] else 'deny'}", f"  bash: {'ask' if agent['shell'] else 'deny'}"]
+    elif tool == "copilot":
+        aliases = sorted({COPILOT_TOOLS[t] for t in agent["tools"] if t in COPILOT_TOOLS})
+        head += [f"name: {name}", f"description: {yaml_str(desc)}"]
+        # Copilot names MCP tools differently, so MCP agents keep all tools; never write an empty list (no tools).
+        if aliases and not agent["mcp"]:
+            head.append(f"tools: {json.dumps(aliases)}")
+    elif tool == "gemini-cli":
+        head += [f"name: {name}", f"description: {yaml_str(desc)}"]
+        if not agent["write"]:  # Gemini's edit tool names are not documented, so writers inherit all tools
+            names = ["read_file", "grep_search"] + (["run_shell_command"] if agent["shell"] else []) \
+                + (["mcp_*"] if agent["mcp"] else [])
+            head.append(f"tools: {json.dumps(names)}")
+    elif tool == "antigravity":
+        names = ["view_file", "grep_search"] + (["run_command"] if agent["shell"] else []) \
+            + (["replace_file_content"] if agent["write"] else [])
+        head += [f"name: {name}", f"description: {yaml_str(desc)}", f"tools: {json.dumps(names)}"]
+    body = read_only_note + body if tool in ("gemini-cli", "antigravity", "copilot") else body
+    return "---\n" + "\n".join(head) + "\n---\n\n" + body
+
+
+AgentMap = dict[str, tuple[Path, str]]
+
+
+def resolve_agents(root: Path, config: dict, selection: dict, skills: dict[str, Path] | None
+                   ) -> tuple[AgentMap | None, set[str]]:
+    """Map each enabled agent to (vendored file, upstream repo), plus every agent name the library knows.
+
+    The mapping is None when no library is available, so generated agents are left alone."""
+    if skills is None:
+        return None, set()
+    library = find_library(root)
+    if library is None:
+        return None, set()
+    catalog = load_catalog(library)
+    locations: AgentMap = {}
+    for source_name, source in catalog["sources"].items():
+        for agent in source.get("agents", {}):
+            if agent in locations:
+                raise SyncError(f"library.json: agent {agent!r} is defined by two sources")
+            locations[agent] = (library / source_name / "agents" / f"{agent}.md", source["repo"])
+    names: list[str] = []
+    if config["autoAgents"]:
+        for profile in selection["profiles"]:
+            names += catalog["profiles"].get(profile, {}).get("agents", [])
+        for skill in skills:
+            names += catalog.get("skillAgents", {}).get(skill, [])
+    names += config["agents"]
+    enabled = {}
+    for name in names:
+        if name in config["disabledAgents"]:
+            continue
+        if name not in locations:
+            raise SyncError(f"{CONFIG_FILE}: agent {name!r} is not in skills-library/library.json")
+        if not locations[name][0].is_file():
+            raise SyncError(f"agent {name!r} is not vendored yet; run: python scripts/vendor_skills.py")
+        enabled[name] = locations[name]
+    return enabled, set(locations)
+
+
+def is_generated_agent(path: Path) -> bool:
+    """True only for a readable file whose first or second line is the generator's marker comment."""
+    try:
+        head = path.read_text(encoding="utf-8").replace("\r\n", "\n").split("\n", 2)[:2]
+    except (OSError, UnicodeDecodeError):
+        return False  # unreadable or not a file: treat as the user's
+    return any(line.startswith(f"# {AGENT_MARKER}:") for line in head)
+
+
+def plan_agents(root: Path, tools: set[str], agents: AgentMap | None, known: set[str]
+                ) -> tuple[dict[Path, str], list[Path], list[Path]]:
+    """Agent files to write per tool, generated agent files to remove (disabled agents or tools),
+    and your own agent files that were kept instead of a library agent with the same name."""
+    files: dict[Path, str] = {}
+    kept: list[Path] = []
+    removals: list[Path] = []
+    if agents is None:  # without a library, leave generated agents alone
+        return files, removals, kept
+    parsed = {name: (parse_agent(path), repo) for name, (path, repo) in agents.items()}
+    for tool in sorted(tools & AGENT_DIRS.keys()):
+        directory, suffix = AGENT_DIRS[tool]
+        for name, (agent, repo) in parsed.items():
+            target = root / directory / f"{name}{suffix}"
+            if target.exists() and not is_generated_agent(target):
+                kept.append(target)  # a hand-written agent with this name wins
+                continue
+            files[target] = render_agent(tool, agent, repo)
+    # Remove only files named after a library agent that still carry the marker, never copies you renamed.
+    for directory, suffix in AGENT_DIRS.values():
+        folder = root / directory
+        for name in sorted(known):
+            path = folder / f"{name}{suffix}"
+            if path not in files and path.is_file() and is_generated_agent(path):
+                removals.append(path)
+    return files, removals, kept
 
 
 # ---------------------------------------------------------------- picking skills from a task description
@@ -524,20 +737,29 @@ def suggest(root: Path, config: dict, task: str, limit: int = 5) -> str:
 
 
 def edit_config_lists(root: Path, enable: list[str], disable: list[str]) -> list[str]:
-    """Add or remove profile/skill names in toolkit.config.json; returns a summary of the changes."""
+    """Add or remove profile, skill or agent names in toolkit.config.json; returns a summary of the changes."""
     library = find_library(root)
     if library is None:
         raise SyncError("no skills library found; clone the toolkit to ~/.skpowers or set SKPOWERS_HOME")
     catalog = load_catalog(library)
     all_skills = {s for source in catalog["sources"].values() for s in source["skills"]}
+    all_agents = {a for source in catalog["sources"].values() for a in source.get("agents", {})}
     path = root / CONFIG_FILE
     raw = json.loads(path.read_text(encoding="utf-8"))
     profiles, skills = raw.setdefault("skillProfiles", []), raw.setdefault("skills", [])
     changes = []
     for name in enable:
+        if name in all_agents and name not in catalog["profiles"] and name not in all_skills:
+            agents, disabled = raw.setdefault("agents", []), raw.setdefault("disabledAgents", [])
+            if name in disabled:
+                disabled.remove(name)
+            if name not in agents:
+                agents.append(name)
+            changes.append(f"enabled agent {name}")
+            continue
         target = profiles if name in catalog["profiles"] else skills if name in all_skills else None
         if target is None:
-            raise SyncError(f"{name!r} is neither a profile nor a skill in the library (try --suggest)")
+            raise SyncError(f"{name!r} is not a profile, skill or agent in the library (try --suggest)")
         if name in DESIGN_STYLES:
             # One design style per project: two style skills give agents conflicting instructions.
             for other in [s for s in skills if s in DESIGN_STYLES and s != name]:
@@ -551,6 +773,13 @@ def edit_config_lists(root: Path, enable: list[str], disable: list[str]) -> list
             if name in target:
                 target.remove(name)
                 changes.append(f"disabled {name}")
+        if name in all_agents and name not in catalog["profiles"] and name not in all_skills:
+            if name in raw.get("agents", []):
+                raw["agents"].remove(name)
+            # A profile may still bring the agent in, so record it as disabled.
+            if name not in raw.setdefault("disabledAgents", []):
+                raw["disabledAgents"].append(name)
+            changes.append(f"disabled agent {name}")
     if changes:
         path.write_text(json.dumps(raw, indent=2) + "\n", encoding="utf-8", newline="\n")
     return changes
@@ -854,6 +1083,9 @@ def main(argv: list[str]) -> int:
             config = load_config(ROOT)
             enabled, selection = resolve_library_skills(ROOT, config)
             print(suggest(ROOT, config, args.suggest) if args.suggest else explain(selection))
+            agents = None if args.suggest else resolve_agents(ROOT, config, selection, enabled)[0]
+            if agents:
+                print(f"Agents ({len(agents)}, generated for each tool): {', '.join(agents)}")
         except SyncError as exc:
             print(f"sync_toolkit: {exc}", file=sys.stderr)
             return 2
@@ -892,6 +1124,9 @@ def main(argv: list[str]) -> int:
         if "codex" in tools:
             files[ROOT / ".codex" / "config.toml"] = render_codex(ROOT / ".codex" / "config.toml", servers)
         library_skills, selection = resolve_library_skills(ROOT, config)
+        agents, known_agents = resolve_agents(ROOT, config, selection, library_skills)
+        agent_files, agent_removals, kept_agents = plan_agents(ROOT, tools, agents, known_agents)
+        files.update(agent_files)
         # Without a library, keep the skills already copied into the project instead of removing them.
         library_actions = [] if library_skills is None else plan_copies(library_skills, ROOT / ".agents" / "skills")
         if not args.check:
@@ -905,11 +1140,13 @@ def main(argv: list[str]) -> int:
         return [f"{t.relative_to(ROOT).as_posix()}/ ({action})" for action, t, _ in actions]
 
     stale_files = [path for path, text in files.items() if read_text(path) != text]
-    stale = [p.relative_to(ROOT).as_posix() for p in stale_files] + describe(library_actions) + describe(mirror_actions)
+    stale = [p.relative_to(ROOT).as_posix() for p in stale_files] + describe(library_actions) + describe(mirror_actions) \
+        + [f"{p.relative_to(ROOT).as_posix()} (remove)" for p in agent_removals]
     if library_skills is None:
         print(NO_LIBRARY_NOTE)
     skill_count = "library skills unchanged" if library_skills is None else f"{len(library_skills)} library skills"
-    summary = f"{len(files)} config files, {skill_count}, tools: {', '.join(sorted(tools))}"
+    agent_count = "agents unchanged" if agents is None else f"{len(agents)} agents"
+    summary = f"{len(files) - len(agent_files)} config files, {skill_count}, {agent_count}, tools: {', '.join(sorted(tools))}"
 
     if args.check:
         if stale:
@@ -923,6 +1160,8 @@ def main(argv: list[str]) -> int:
     for path in stale_files:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(files[path], encoding="utf-8", newline="\n")
+    for path in agent_removals:
+        path.unlink()
     apply_copies(mirror_actions)
 
     if args.quiet:
@@ -933,6 +1172,8 @@ def main(argv: list[str]) -> int:
             print(f"- {item}")
     print(f"Skill profiles: {', '.join(selection['profiles']) or 'none'}"
           + (" (auto-selected; run with --explain for reasons)" if config["autoSkills"] else ""))
+    for path in kept_agents:
+        print(f"Kept your own agent {path.relative_to(ROOT).as_posix()} (a library agent has the same name).")
     if selection["suggested"]:
         print(f"Suggested, needs your approval: {', '.join(selection['suggested'])} (see --explain)")
     if "codex" in tools:

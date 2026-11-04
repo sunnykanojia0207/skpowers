@@ -661,6 +661,126 @@
         "examples/*.pdf",
         "examples/*.html"
       ]
+    },
+    "ecc": {
+      "repo": "affaan-m/ECC",
+      "commit": "b38be6a7f6350964d59328b52f0624e1d1d552d1",
+      "skills": {
+        "kotlin-patterns": "skills/kotlin-patterns",
+        "kotlin-testing": "skills/kotlin-testing",
+        "kotlin-ktor-patterns": "skills/kotlin-ktor-patterns",
+        "kotlin-exposed-patterns": "skills/kotlin-exposed-patterns",
+        "kotlin-coroutines-flows": "skills/kotlin-coroutines-flows",
+        "compose-multiplatform-patterns": "skills/compose-multiplatform-patterns",
+        "android-clean-architecture": "skills/android-clean-architecture",
+        "springboot-security": "skills/springboot-security",
+        "springboot-tdd": "skills/springboot-tdd",
+        "springboot-verification": "skills/springboot-verification",
+        "jpa-patterns": "skills/jpa-patterns",
+        "java-coding-standards": "skills/java-coding-standards",
+        "quarkus-patterns": "skills/quarkus-patterns",
+        "quarkus-security": "skills/quarkus-security",
+        "quarkus-tdd": "skills/quarkus-tdd",
+        "cpp-coding-standards": "skills/cpp-coding-standards",
+        "cpp-testing": "skills/cpp-testing",
+        "swift-concurrency-6-2": "skills/swift-concurrency-6-2",
+        "swift-actor-persistence": "skills/swift-actor-persistence",
+        "swift-protocol-di-testing": "skills/swift-protocol-di-testing",
+        "liquid-glass-design": "skills/liquid-glass-design",
+        "foundation-models-on-device": "skills/foundation-models-on-device",
+        "csharp-testing": "skills/csharp-testing",
+        "golang-testing": "skills/golang-testing",
+        "rust-testing": "skills/rust-testing",
+        "python-testing": "skills/python-testing",
+        "django-security": "skills/django-security",
+        "django-tdd": "skills/django-tdd",
+        "django-verification": "skills/django-verification",
+        "django-celery": "skills/django-celery",
+        "laravel-security": "skills/laravel-security",
+        "laravel-tdd": "skills/laravel-tdd",
+        "nuxt4-patterns": "skills/nuxt4-patterns",
+        "react-testing": "skills/react-testing",
+        "vite-patterns": "skills/vite-patterns",
+        "bun-runtime": "skills/bun-runtime",
+        "mysql-patterns": "skills/mysql-patterns",
+        "redis-patterns": "skills/redis-patterns",
+        "clickhouse-io": "skills/clickhouse-io",
+        "database-migrations": "skills/database-migrations",
+        "kubernetes-patterns": "skills/kubernetes-patterns",
+        "deployment-patterns": "skills/deployment-patterns",
+        "cost-aware-llm-pipeline": "skills/cost-aware-llm-pipeline",
+        "prompt-caching-strategy": "skills/prompt-caching-strategy",
+        "regex-vs-llm-structured-text": "skills/regex-vs-llm-structured-text",
+        "ai-regression-testing": "skills/ai-regression-testing",
+        "hexagonal-architecture": "skills/hexagonal-architecture",
+        "contract-first": "skills/contract-first",
+        "change-impact": "skills/change-impact",
+        "codebase-onboarding": "skills/codebase-onboarding",
+        "code-tour": "skills/code-tour",
+        "production-audit": "skills/production-audit",
+        "error-handling": "skills/error-handling",
+        "conventional-commit-review": "skills/conventional-commit-review",
+        "api-connector-builder": "skills/api-connector-builder",
+        "i18n-sync": "skills/i18n-sync",
+        "windows-desktop-e2e": "skills/windows-desktop-e2e",
+        "perl-patterns": "skills/perl-patterns",
+        "perl-security": "skills/perl-security",
+        "perl-testing": "skills/perl-testing",
+        "dart-flutter-patterns": "skills/dart-flutter-patterns",
+        "flutter-dart-code-review": "skills/flutter-dart-code-review",
+        "pytorch-patterns": "skills/pytorch-patterns",
+        "mle-workflow": "skills/mle-workflow"
+      },
+      "agents": {
+        "planner": "agents/planner.md",
+        "architect": "agents/architect.md",
+        "code-reviewer": "agents/code-reviewer.md",
+        "security-reviewer": "agents/security-reviewer.md",
+        "tdd-guide": "agents/tdd-guide.md",
+        "build-error-resolver": "agents/build-error-resolver.md",
+        "silent-failure-hunter": "agents/silent-failure-hunter.md",
+        "docs-lookup": "agents/docs-lookup.md",
+        "code-explorer": "agents/code-explorer.md",
+        "code-architect": "agents/code-architect.md",
+        "code-simplifier": "agents/code-simplifier.md",
+        "refactor-cleaner": "agents/refactor-cleaner.md",
+        "pr-test-analyzer": "agents/pr-test-analyzer.md",
+        "type-design-analyzer": "agents/type-design-analyzer.md",
+        "comment-analyzer": "agents/comment-analyzer.md",
+        "commit-reviewer": "agents/commit-reviewer.md",
+        "performance-optimizer": "agents/performance-optimizer.md",
+        "a11y-architect": "agents/a11y-architect.md",
+        "e2e-runner": "agents/e2e-runner.md",
+        "typescript-reviewer": "agents/typescript-reviewer.md",
+        "react-reviewer": "agents/react-reviewer.md",
+        "react-build-resolver": "agents/react-build-resolver.md",
+        "vue-reviewer": "agents/vue-reviewer.md",
+        "python-reviewer": "agents/python-reviewer.md",
+        "django-reviewer": "agents/django-reviewer.md",
+        "django-build-resolver": "agents/django-build-resolver.md",
+        "fastapi-reviewer": "agents/fastapi-reviewer.md",
+        "go-reviewer": "agents/go-reviewer.md",
+        "go-build-resolver": "agents/go-build-resolver.md",
+        "rust-reviewer": "agents/rust-reviewer.md",
+        "rust-build-resolver": "agents/rust-build-resolver.md",
+        "java-reviewer": "agents/java-reviewer.md",
+        "java-build-resolver": "agents/java-build-resolver.md",
+        "kotlin-reviewer": "agents/kotlin-reviewer.md",
+        "kotlin-build-resolver": "agents/kotlin-build-resolver.md",
+        "swift-reviewer": "agents/swift-reviewer.md",
+        "swift-build-resolver": "agents/swift-build-resolver.md",
+        "csharp-reviewer": "agents/csharp-reviewer.md",
+        "php-reviewer": "agents/php-reviewer.md",
+        "ruby-reviewer": "agents/ruby-reviewer.md",
+        "flutter-reviewer": "agents/flutter-reviewer.md",
+        "dart-build-resolver": "agents/dart-build-resolver.md",
+        "cpp-reviewer": "agents/cpp-reviewer.md",
+        "cpp-build-resolver": "agents/cpp-build-resolver.md",
+        "database-reviewer": "agents/database-reviewer.md",
+        "rag-pipeline-reviewer": "agents/rag-pipeline-reviewer.md",
+        "mle-reviewer": "agents/mle-reviewer.md",
+        "pytorch-build-resolver": "agents/pytorch-build-resolver.md"
+      }
     }
   },
   "profiles": {
@@ -680,6 +800,16 @@
         "using-git-worktrees",
         "finishing-a-development-branch",
         "using-superpowers"
+      ],
+      "agents": [
+        "planner",
+        "architect",
+        "code-reviewer",
+        "security-reviewer",
+        "tdd-guide",
+        "build-error-resolver",
+        "silent-failure-hunter",
+        "docs-lookup"
       ]
     },
     "security": {
@@ -711,6 +841,10 @@
         "best-practices",
         "web-quality-audit",
         "vercel-react-view-transitions"
+      ],
+      "agents": [
+        "react-reviewer",
+        "react-build-resolver"
       ]
     },
     "testing": {
@@ -718,7 +852,12 @@
       "skills": [
         "playwright-best-practices",
         "webapp-testing",
-        "property-based-testing"
+        "property-based-testing",
+        "react-testing"
+      ],
+      "agents": [
+        "e2e-runner",
+        "pr-test-analyzer"
       ]
     },
     "react-native": {
@@ -740,7 +879,16 @@
       "description": "Native iOS with SwiftUI and modern Swift.",
       "skills": [
         "swiftui-pro",
-        "write-swift"
+        "write-swift",
+        "swift-concurrency-6-2",
+        "swift-actor-persistence",
+        "swift-protocol-di-testing",
+        "liquid-glass-design",
+        "foundation-models-on-device"
+      ],
+      "agents": [
+        "swift-reviewer",
+        "swift-build-resolver"
       ]
     },
     "android": {
@@ -752,13 +900,23 @@
         "edge-to-edge",
         "testing-setup",
         "android-intent-security",
-        "android-permissions-security"
+        "android-permissions-security",
+        "kotlin-coroutines-flows",
+        "compose-multiplatform-patterns",
+        "android-clean-architecture"
+      ],
+      "agents": [
+        "kotlin-reviewer",
+        "kotlin-build-resolver"
       ]
     },
     "postgres": {
       "description": "Postgres schema, query and index best practices.",
       "skills": [
         "supabase-postgres-best-practices"
+      ],
+      "agents": [
+        "database-reviewer"
       ]
     },
     "supabase": {
@@ -792,7 +950,9 @@
         "docker-compose-patterns",
         "docker-destructive-guardrails",
         "github-actions-templates",
-        "k8s-manifest-generator"
+        "k8s-manifest-generator",
+        "kubernetes-patterns",
+        "deployment-patterns"
       ]
     },
     "ai-apps": {
@@ -806,7 +966,14 @@
         "validate-evaluator",
         "mcp-builder",
         "rag-architect",
-        "prompt-engineer"
+        "prompt-engineer",
+        "cost-aware-llm-pipeline",
+        "prompt-caching-strategy",
+        "regex-vs-llm-structured-text",
+        "ai-regression-testing"
+      ],
+      "agents": [
+        "rag-pipeline-reviewer"
       ]
     },
     "authoring": {
@@ -855,6 +1022,9 @@
         "state-machine",
         "break",
         "variant"
+      ],
+      "agents": [
+        "a11y-architect"
       ]
     },
     "ux-design": {
@@ -1005,7 +1175,9 @@
       "skills": [
         "improve-codebase-architecture",
         "domain-modeling",
-        "codebase-design"
+        "codebase-design",
+        "hexagonal-architecture",
+        "contract-first"
       ]
     },
     "nextjs": {
@@ -1023,50 +1195,86 @@
       "description": "Advanced TypeScript types and patterns.",
       "skills": [
         "typescript-pro"
+      ],
+      "agents": [
+        "typescript-reviewer"
       ]
     },
     "python": {
       "description": "Modern typed, async Python.",
       "skills": [
-        "python-pro"
+        "python-pro",
+        "python-testing"
+      ],
+      "agents": [
+        "python-reviewer"
       ]
     },
     "go": {
       "description": "Idiomatic Go, concurrency and services.",
       "skills": [
-        "golang-pro"
+        "golang-pro",
+        "golang-testing"
+      ],
+      "agents": [
+        "go-reviewer",
+        "go-build-resolver"
       ]
     },
     "rust": {
       "description": "Idiomatic, memory-safe Rust.",
       "skills": [
-        "rust-engineer"
+        "rust-engineer",
+        "rust-testing"
+      ],
+      "agents": [
+        "rust-reviewer",
+        "rust-build-resolver"
       ]
     },
     "java": {
       "description": "Java and Spring Boot 3.",
       "skills": [
         "java-architect",
-        "spring-boot-engineer"
+        "spring-boot-engineer",
+        "springboot-security",
+        "springboot-tdd",
+        "springboot-verification",
+        "jpa-patterns",
+        "java-coding-standards"
+      ],
+      "agents": [
+        "java-reviewer",
+        "java-build-resolver"
       ]
     },
     "dotnet": {
       "description": "C# and .NET 8+, ASP.NET Core.",
       "skills": [
         "csharp-developer",
-        "dotnet-core-expert"
+        "dotnet-core-expert",
+        "csharp-testing"
+      ],
+      "agents": [
+        "csharp-reviewer"
       ]
     },
     "php": {
       "description": "Modern PHP 8.3+.",
       "skills": [
         "php-pro"
+      ],
+      "agents": [
+        "php-reviewer"
       ]
     },
     "ruby": {
       "description": "Ruby on Rails 7+.",
       "skills": [
         "rails-expert"
+      ],
+      "agents": [
+        "ruby-reviewer"
       ]
     },
     "vue": {
@@ -1078,6 +1286,9 @@
         "vue-testing-best-practices",
         "vue-debug-guides",
         "create-adaptable-composable"
+      ],
+      "agents": [
+        "vue-reviewer"
       ]
     },
     "angular": {
@@ -1089,7 +1300,13 @@
     "flutter": {
       "description": "Flutter 3 and Dart.",
       "skills": [
-        "flutter-expert"
+        "flutter-expert",
+        "dart-flutter-patterns",
+        "flutter-dart-code-review"
+      ],
+      "agents": [
+        "flutter-reviewer",
+        "dart-build-resolver"
       ]
     },
     "cloud": {
@@ -1153,6 +1370,109 @@
         "fixing-motion-performance",
         "fixing-metadata"
       ]
+    },
+    "kotlin": {
+      "description": "Kotlin (ECC): idioms, Kotest/MockK testing, Ktor servers, Exposed ORM, coroutines and Compose Multiplatform.",
+      "skills": [
+        "kotlin-patterns",
+        "kotlin-testing",
+        "kotlin-ktor-patterns",
+        "kotlin-exposed-patterns",
+        "kotlin-coroutines-flows",
+        "compose-multiplatform-patterns"
+      ],
+      "agents": [
+        "kotlin-reviewer",
+        "kotlin-build-resolver"
+      ]
+    },
+    "quarkus": {
+      "description": "Quarkus 3.x (ECC): architecture, security (JWT/OIDC, RBAC) and test-driven development.",
+      "skills": [
+        "quarkus-patterns",
+        "quarkus-security",
+        "quarkus-tdd"
+      ],
+      "agents": [
+        "java-reviewer",
+        "java-build-resolver"
+      ]
+    },
+    "cpp": {
+      "description": "C++ (ECC): Core Guidelines coding standards and GoogleTest/CTest testing.",
+      "skills": [
+        "cpp-coding-standards",
+        "cpp-testing"
+      ],
+      "agents": [
+        "cpp-reviewer",
+        "cpp-build-resolver"
+      ]
+    },
+    "perl": {
+      "description": "Modern Perl 5.36+ (ECC): idioms, security (taint mode, safe DBI) and testing.",
+      "skills": [
+        "perl-patterns",
+        "perl-security",
+        "perl-testing"
+      ]
+    },
+    "ml": {
+      "description": "Machine-learning engineering (ECC): PyTorch patterns and a production ML workflow.",
+      "skills": [
+        "pytorch-patterns",
+        "mle-workflow"
+      ],
+      "agents": [
+        "mle-reviewer",
+        "pytorch-build-resolver"
+      ]
+    },
+    "data-stores": {
+      "description": "Databases beyond Postgres (ECC): safe migrations, MySQL/MariaDB, Redis, ClickHouse.",
+      "skills": [
+        "database-migrations",
+        "mysql-patterns",
+        "redis-patterns",
+        "clickhouse-io"
+      ],
+      "agents": [
+        "database-reviewer"
+      ]
+    },
+    "ecc-engineering": {
+      "description": "Everything Claude Code engineering skills and agents: change impact, onboarding and code tours, production audit, error handling, commit review, API connectors; explorer, architect, simplifier, refactor, type/comment/performance analysis.",
+      "skills": [
+        "change-impact",
+        "codebase-onboarding",
+        "code-tour",
+        "production-audit",
+        "error-handling",
+        "conventional-commit-review",
+        "api-connector-builder"
+      ],
+      "agents": [
+        "code-explorer",
+        "code-architect",
+        "code-simplifier",
+        "refactor-cleaner",
+        "type-design-analyzer",
+        "comment-analyzer",
+        "commit-reviewer",
+        "performance-optimizer"
+      ]
     }
+  },
+  "skillAgents": {
+    "django-expert": [
+      "django-reviewer",
+      "django-build-resolver"
+    ],
+    "fastapi-expert": [
+      "fastapi-reviewer"
+    ],
+    "laravel-specialist": [
+      "php-reviewer"
+    ]
   }
 }

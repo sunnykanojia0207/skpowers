@@ -332,6 +332,82 @@ class SyncToolkitTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertTrue((self.root / ".agents/skills" / skill / "SKILL.md").is_file(), skill)
 
+    def test_agents_are_generated_for_every_tool_and_follow_the_stack(self) -> None:
+        all_tools = ["claude-code", "codex", "cursor", "opencode", "gemini-cli", "antigravity", "copilot"]
+        self.edit_config(lambda c: c.update(tools=all_tools, autoSkills=True, skillProfiles=["core"]))
+        self.write("go.mod", "module example.com/app\n\ngo 1.24\n")
+        own = self.root / ".claude/agents/planner.md"
+        own.parent.mkdir(parents=True, exist_ok=True)
+        own.write_text("---\nname: planner\ndescription: my own planner\n---\nMine.\n", encoding="utf-8")
+        result = run(self.sync, cwd=self.root)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("Kept your own agent .claude/agents/planner.md", result.stdout)
+        self.assertEqual(own.read_text(encoding="utf-8"), "---\nname: planner\ndescription: my own planner\n---\nMine.\n")
+        outputs = [".claude/agents/{}.md", ".cursor/agents/{}.md", ".opencode/agents/{}.md", ".codex/agents/{}.toml",
+                   ".github/agents/{}.agent.md", ".gemini/agents/{}.md", ".agents/agents/{}.md"]
+        for pattern in outputs:
+            for agent in ("code-reviewer", "go-reviewer", "go-build-resolver"):
+                self.assertTrue((self.root / pattern.format(agent)).is_file(), pattern.format(agent))
+        # Read-only agents stay read-only in each tool's own terms; upstream "MUST BE USED" triggers are dropped.
+        architect = tomllib.loads((self.root / ".codex/agents/architect.toml").read_text(encoding="utf-8"))
+        self.assertEqual(architect["name"], "architect")
+        self.assertFalse(architect["features"]["shell_tool"])
+        self.assertIn("read-only", architect["developer_instructions"])
+        self.assertIn("edit: deny", (self.root / ".opencode/agents/architect.md").read_text(encoding="utf-8"))
+        self.assertIn("readonly: true", (self.root / ".cursor/agents/architect.md").read_text(encoding="utf-8"))
+        self.assertIn('tools: ["read", "search"]', (self.root / ".github/agents/architect.agent.md").read_text(encoding="utf-8"))
+        reviewer = (self.root / ".claude/agents/code-reviewer.md").read_text(encoding="utf-8")
+        self.assertIn("tools: Read, Grep, Glob, Bash", reviewer)
+        self.assertNotIn("MUST BE USED", reviewer.split("\n---", 1)[0])
+        self.assertNotIn("model:", reviewer.split("\n---", 1)[0])
+        self.assertIn("Toolkit outputs are up to date", run(self.sync, "--check", cwd=self.root).stdout)
+
+        # A renamed copy of a generated agent and an unreadable file are yours: kept, and no crash.
+        copy = self.root / ".claude/agents/my-reviewer.md"
+        copy.write_text(reviewer, encoding="utf-8")
+        (self.root / ".claude/agents/notes.md").write_bytes(b"\xff\xfe not utf-8")
+        run(self.sync, "--disable", "code-reviewer", cwd=self.root)
+        (self.root / "go.mod").unlink()
+        result = run(self.sync, cwd=self.root)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue(copy.is_file())
+        self.assertTrue((self.root / ".claude/agents/notes.md").is_file())
+        for pattern in outputs:
+            self.assertFalse((self.root / pattern.format("code-reviewer")).exists(), pattern)
+            self.assertFalse((self.root / pattern.format("go-reviewer")).exists(), pattern)
+        self.assertTrue((self.root / ".codex/agents/architect.toml").is_file())
+        self.assertTrue(own.is_file())
+        config = json.loads((self.root / "toolkit.config.json").read_text(encoding="utf-8"))
+        self.assertEqual(config["disabledAgents"], ["code-reviewer"])
+
+    def test_detects_ecc_stacks(self) -> None:
+        self.edit_config(lambda c: c.update(autoSkills=True, skillProfiles=["core"]))
+        self.write("requirements.txt", "django==5.2\ncelery==5.5\nredis==6.0\ntorch==2.8\n")
+        self.write("build.gradle.kts", 'plugins { kotlin("jvm") version "2.2.0" }\n')
+        self.write("native/CMakeLists.txt", "project(native CXX)\n")
+        explained = run(self.sync, "--explain", cwd=self.root).stdout
+        for name in ("kotlin", "cpp", "data-stores", "ml", "django-security", "django-celery"):
+            self.assertIn(name, explained)
+        for agent in ("kotlin-reviewer", "cpp-reviewer", "django-reviewer", "mle-reviewer", "database-reviewer"):
+            self.assertIn(agent, explained.rsplit("Agents", 1)[1])
+        for name in ("requirements.txt", "build.gradle.kts", "native/CMakeLists.txt"):
+            (self.root / name).unlink()
+        self.write("Cargo.toml", '[package]\nname = "app"\n\n[dependencies]\nredis = "0.27"\n')
+        explained = run(self.sync, "--explain", cwd=self.root).stdout
+        self.assertIn("database driver in go.mod or Cargo.toml", explained)
+        self.assertIn("rust-reviewer", explained)
+
+    def test_platform_runners_and_gradle_dsl_are_not_cpp_or_kotlin(self) -> None:
+        self.edit_config(lambda c: c.update(autoSkills=True, skillProfiles=["core"]))
+        self.write("pubspec.yaml", "name: app\ndependencies:\n  flutter:\n    sdk: flutter\n")
+        self.write("linux/CMakeLists.txt", "project(runner)\n")
+        self.write("windows/runner/main.cpp", "int main() {}\n")
+        self.write("server/build.gradle.kts", "plugins { java; application }\n")
+        explained = run(self.sync, "--explain", cwd=self.root).stdout
+        self.assertIn("flutter", explained)
+        self.assertNotIn("cpp", explained)
+        self.assertNotIn("kotlin", explained)
+
     def test_auto_skills_off_uses_only_explicit_profiles(self) -> None:
         self.write("package.json", json.dumps({"dependencies": {"next": "16.0.0"}}))
         self.edit_config(lambda c: c.update(autoSkills=False, skillProfiles=["ios"]))
@@ -350,6 +426,10 @@ class SyncToolkitTests(unittest.TestCase):
         for profile in catalog["profiles"].values():
             for skill in profile["skills"]:
                 self.assertTrue(any(skill in s["skills"] for s in catalog["sources"].values()), skill)
+        for source_name, source in catalog["sources"].items():
+            for agent in source.get("agents", {}):
+                self.assertTrue((TOOLKIT / "skills-library" / source_name / "agents" / f"{agent}.md").is_file(), agent)
+                self.assertIn(f"`{agent}`", notices.split("## Agents", 1)[1])
         # `exclude` globs drop generated files but keep the sources that build them.
         examples = TOOLKIT / "skills-library/anatomy/anatomy/examples"
         self.assertTrue(list(examples.glob("*/build.mjs")))

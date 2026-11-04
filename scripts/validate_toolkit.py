@@ -48,14 +48,25 @@ if not errors:
 
 # Every vendored skill, and nothing else, must be listed in the third-party notices.
 catalog = json.loads((ROOT / "skills-library" / "library.json").read_text(encoding="utf-8"))
-catalog_skills = {skill for source in catalog["sources"].values() for skill in source["skills"]}
 notice_text = (ROOT / "skills-library" / "THIRD_PARTY_NOTICES.md").read_text(encoding="utf-8")
-noticed = set(re.findall(r"^\| `([^`]+)` \|", notice_text, re.MULTILINE))
-if noticed != catalog_skills:
-    errors.append(f"THIRD_PARTY_NOTICES.md out of sync with library.json: missing {sorted(catalog_skills - noticed)}, "
-                  f"extra {sorted(noticed - catalog_skills)}; run scripts/vendor_skills.py")
-else:
-    checks.append(f"third-party notices cover all {len(catalog_skills)} vendored skills")
+skill_part, _, agent_part = notice_text.partition("\n## Agents\n")
+for kind, part, listed in (
+    ("skills", skill_part, {s for source in catalog["sources"].values() for s in source["skills"]}),
+    ("agents", agent_part, {a for source in catalog["sources"].values() for a in source.get("agents", {})}),
+):
+    noticed = set(re.findall(r"^\| `([^`]+)` \|", part, re.MULTILINE))
+    if noticed != listed:
+        errors.append(f"THIRD_PARTY_NOTICES.md {kind} out of sync with library.json: missing {sorted(listed - noticed)}, "
+                      f"extra {sorted(noticed - listed)}; run scripts/vendor_skills.py")
+    else:
+        checks.append(f"third-party notices cover all {len(listed)} vendored {kind}")
+
+# Every agent a profile or skill brings in must exist in the library.
+known_agents = {a for source in catalog["sources"].values() for a in source.get("agents", {})}
+referenced = {a for p in catalog["profiles"].values() for a in p.get("agents", [])} \
+    | {a for agents in catalog.get("skillAgents", {}).values() for a in agents}
+if referenced - known_agents:
+    errors.append(f"library.json references unknown agents: {sorted(referenced - known_agents)}")
 
 # Generated per-tool configs must match toolkit.config.json and .agents/skills.
 sync = subprocess.run(

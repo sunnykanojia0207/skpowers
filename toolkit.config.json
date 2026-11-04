@@ -1,6 +1,7 @@
 {
   "tools": ["claude-code", "codex", "cursor", "opencode", "gemini-cli", "antigravity", "copilot"],
   "autoSkills": true,
+  "autoAgents": true,
   "skillProfiles": ["core", "docs"],
   "skills": [],
   "mcpServers": {

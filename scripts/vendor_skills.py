@@ -6,8 +6,13 @@ skill folders and the license), at its pinned commit, or at the latest commit
 with --update. Every skill must carry a license; unlicensed skills are refused.
 Nothing from the downloaded repositories is executed.
 
+A source may also list subagent definitions under "agents" (single Markdown files in
+Claude Code's format); they are copied unmodified to skills-library/<source>/agents/ and
+sync_toolkit.py renders them into each tool's own agent format.
+
 Writes:
   skills-library/<source>/<skill>/        the vendored skill (with its license)
+  skills-library/<source>/agents/         vendored agent definitions (with the license)
   skills-library/library.json             pinned commit per source
   skills-library/THIRD_PARTY_NOTICES.md   source, commit, license and review flags
 
@@ -121,7 +126,10 @@ def vendor_source(name: str, source: dict, update: bool) -> list[dict]:
     with tempfile.TemporaryDirectory(prefix="vendor-") as tmp:
         workdir = Path(tmp)
         shared = source.get("sharedFiles", [])
-        commit = fetch(source["repo"], ref, list(source["skills"].values()) + shared, workdir)
+        agents = source.get("agents", {})
+        if "agents" in source["skills"]:
+            raise VendorError(f"{source['repo']}: a skill cannot be named 'agents'")
+        commit = fetch(source["repo"], ref, list(source["skills"].values()) + list(agents.values()) + shared, workdir)
         target_root = LIBRARY / name
         rows = []
         for skill, rel in source["skills"].items():
@@ -158,11 +166,42 @@ def vendor_source(name: str, source: dict, update: bool) -> list[dict]:
             scripts, flags = review(dest)
             rows.append({"skill": skill, "repo": source["repo"], "path": rel, "commit": commit,
                          "license": license_note, "scripts": scripts, "flags": flags})
+        rows += vendor_agents(source, agents, workdir, target_root / "agents", commit)
         for stale in target_root.iterdir():
-            if stale.is_dir() and stale.name not in source["skills"]:
+            if stale.is_dir() and stale.name not in source["skills"] and not (stale.name == "agents" and agents):
                 shutil.rmtree(stale)
         source["commit"] = commit
         return rows
+
+
+def vendor_agents(source: dict, agents: dict[str, str], workdir: Path, dest: Path, commit: str) -> list[dict]:
+    """Copy agent definitions (one Markdown file each) unmodified, with the repository license."""
+    if dest.exists():
+        shutil.rmtree(dest)
+    if not agents:
+        return []
+    dest.mkdir(parents=True)
+    license_file = next((workdir / n for n in LICENSE_FILES if (workdir / n).is_file()), None)
+    if license_file is None:
+        raise VendorError(f"{source['repo']}: agents need a repository license file")
+    shutil.copy2(license_file, dest / "LICENSE")
+    rows = []
+    for agent, rel in agents.items():
+        src = workdir / rel
+        if not src.is_file():
+            raise VendorError(f"{source['repo']}: agent file {rel} not found at {commit[:12]}")
+        if frontmatter_name(src) != agent:
+            raise VendorError(f"{source['repo']}: {rel} is not named {agent!r}")
+        shutil.copy2(src, dest / f"{agent}.md")
+        text = src.read_text(encoding="utf-8")
+        flags = sorted({f"{label} ({src.name})" for pattern, label in RISKS if pattern.search(text)})
+        rows.append({"skill": agent, "kind": "agent", "repo": source["repo"], "path": rel, "commit": commit,
+                     "license": "repository LICENSE (copied)", "scripts": [], "flags": flags})
+    return rows
+
+
+def row_key(row: dict) -> str:
+    return f"agent:{row['skill']}" if row.get("kind") == "agent" else row["skill"]
 
 
 def write_notices(rows: list[dict]) -> None:
@@ -176,11 +215,20 @@ def write_notices(rows: list[dict]) -> None:
         "| Skill | Source | Commit | License | Scripts | Review flags |",
         "|---|---|---|---|---|---|",
     ]
-    for r in sorted(rows, key=lambda r: r["skill"]):
-        url = f"https://github.com/{r['repo']}/tree/{r['commit']}/{r['path']}"
-        scripts = "<br>".join(r["scripts"][:6]) + (" …" if len(r["scripts"]) > 6 else "") or "none"
-        flags = "<br>".join(r["flags"]) or "none"
-        lines.append(f"| `{r['skill']}` | [{r['repo']}]({url}) | `{r['commit'][:12]}` | {r['license']} | {scripts} | {flags} |")
+    def table(selected: list[dict]) -> None:
+        for r in sorted(selected, key=lambda r: r["skill"]):
+            url = f"https://github.com/{r['repo']}/{'blob' if r.get('kind') == 'agent' else 'tree'}/{r['commit']}/{r['path']}"
+            scripts = "<br>".join(r["scripts"][:6]) + (" …" if len(r["scripts"]) > 6 else "") or "none"
+            flags = "<br>".join(r["flags"]) or "none"
+            lines.append(f"| `{r['skill']}` | [{r['repo']}]({url}) | `{r['commit'][:12]}` | {r['license']} | {scripts} | {flags} |")
+
+    table([r for r in rows if r.get("kind") != "agent"])
+    agent_rows = [r for r in rows if r.get("kind") == "agent"]
+    if agent_rows:
+        lines += ["", "## Agents", "",
+                  "Subagent definitions, copied unmodified. `sync_toolkit.py` renders them into each tool's format.", "",
+                  "| Agent | Source | Commit | License | Scripts | Review flags |", "|---|---|---|---|---|---|"]
+        table(agent_rows)
     NOTICES.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
 
 
@@ -200,19 +248,18 @@ def main(argv: list[str]) -> int:
     state = LIBRARY / ".notices.json"
     rows = {}
     if args.source and state.exists():
-        rows = {r["skill"]: r for r in json.loads(state.read_text(encoding="utf-8"))}
+        rows = {row_key(r): r for r in json.loads(state.read_text(encoding="utf-8"))}
     failures = []
-    all_skills = {skill for source in sources.values() for skill in source["skills"]}
     for name, source in sources.items():
         if args.source and name != args.source:
             continue
         print(f"- {name} ({source['repo']})", flush=True)
         # Forget this source's previous rows so skills removed from the catalog leave the notices.
-        rows = {skill: row for skill, row in rows.items() if row["skill"] not in source["skills"]
-                and not (row["repo"] == source["repo"] and row["skill"] not in all_skills)}
+        rows = {key: row for key, row in rows.items() if row.get("source", row["repo"]) not in (name, source["repo"])}
         try:
             for row in vendor_source(name, source, args.update):
-                rows[row["skill"]] = row
+                row["source"] = name
+                rows[row_key(row)] = row
                 for flag in row["flags"]:
                     print(f"    review: {row['skill']}: {flag}")
         except VendorError as exc:
@@ -227,7 +274,8 @@ def main(argv: list[str]) -> int:
     CATALOG.write_text(json.dumps(catalog, indent=2) + "\n", encoding="utf-8", newline="\n")
     state.write_text(json.dumps(list(rows.values()), indent=2) + "\n", encoding="utf-8", newline="\n")
     write_notices(list(rows.values()))
-    print(f"Vendored {len(rows)} skills. Review `git diff skills-library/`, then run scripts/sync_toolkit.py.")
+    agent_count = sum(1 for r in rows.values() if r.get("kind") == "agent")
+    print(f"Vendored {len(rows) - agent_count} skills and {agent_count} agents. Review `git diff skills-library/`, then run scripts/sync_toolkit.py.")
     return 1 if failures else 0
 
 
