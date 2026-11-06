@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Added (2026-11-06)
+- `unslop` ([heydamir/unslop](https://github.com/heydamir/unslop), CC-BY-4.0): turns an AI-looking, vibecoded screen into a designed one, pass by pass. Joins the `anti-slop` profile, and `--pick` now also reacts to "unslop", "vibecoded" and "looks AI-generated". 367 skills, 61 sources.
+
 ### Added (Synapse Kit review, 2026-11-06)
 - Reviewed [Synapse Kit](https://synapse-kit.vercel.app), a directory of 7,330 motion, video and 3D repositories. New: `diagram-design` (architecture, sequence, ER, state and flow diagrams for the project docs; `--pick` maps diagram requests to it), LottieFiles' official `motion-design` (auto with Lottie dependencies; the `lottie` trigger moved to it from `rossark-motion-skill`), and the `figma` MCP server (Framelink, MIT, pinned `figma-developer-mcp@0.13.2`, off by default, needs a free `FIGMA_API_KEY`, telemetry disabled). 366 skills, 60 sources, 23 MCP servers. Not vendored: fireworks-tech-graph, scroll-craft, oil-motion, logo-design, lieflat-charts and the video applications (reasons in the catalog).
 

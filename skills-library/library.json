@@ -795,6 +795,13 @@
       "skills": {
         "motion-design": "skills/motion-design"
       }
+    },
+    "unslop": {
+      "repo": "heydamir/unslop",
+      "commit": "a6f121eee5f29c2f74976b75456feae8b66afb3a",
+      "skills": {
+        "unslop": "skills/unslop"
+      }
     }
   },
   "profiles": {
@@ -1085,12 +1092,13 @@
       ]
     },
     "anti-slop": {
-      "description": "Meng To's skills for preventing and auditing generic AI-generated design, design-first UI prompting, and product-grade motion systems.",
+      "description": "Meng To's skills for preventing and auditing generic AI-generated design, design-first UI prompting, and product-grade motion systems; Damir Sokolovsky's unslop fixes an existing AI-looking screen pass by pass.",
       "skills": [
         "audit-ai-design-slop",
         "no-ai-design-slop",
         "design-first-ui-prompting",
-        "animation-systems"
+        "animation-systems",
+        "unslop"
       ]
     },
     "firebase": {

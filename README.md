@@ -1,10 +1,10 @@
 # Universal Vibe-Coding Engineering Toolkit
 
-**One engineering setup for every AI coding tool.** Rules, 366 vetted skills, 48 subagents and 23 MCP servers that behave the same in **Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Antigravity and GitHub Copilot**. The right skills and agents are **picked automatically from your project**, and a script generates each tool's own configuration. Everything is free and openly licensed.
+**One engineering setup for every AI coding tool.** Rules, 367 vetted skills, 48 subagents and 23 MCP servers that behave the same in **Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Antigravity and GitHub Copilot**. The right skills and agents are **picked automatically from your project**, and a script generates each tool's own configuration. Everything is free and openly licensed.
 
 - **Superpowers workflow built in:** brainstorm → plan → test-first → debug → review → verify, on by default for every tool.
 - **Automatic skill selection:** the sync reads your dependencies, platform folders, CI files and project brief, and enables only the matching profiles (Next.js → `web`, `nextjs`, `testing`, `interface-craft`; Expo → `react-native`; `go.mod` → `go`; Prisma → `prisma`; OpenAI SDK → `ai-apps`; …). `--explain` shows why.
-- **366 vetted skills in 52 profiles from 60 upstream sources:** web, Next.js, Firebase, Cloudflare, Convex, Clerk, Neon, GSAP, React Native/Expo, native iOS and Android, Flutter, TypeScript, Python, Go, Rust, Java, Kotlin, Quarkus, C++, .NET, PHP, Ruby, Perl, Vue, Angular, Postgres, MySQL, Redis, ClickHouse, Supabase, Prisma, API, DevOps, cloud, security, testing, AI apps, UI polish, interface craft, UX design and research, anti-AI-slop design, design memory, code intelligence. Each is pinned to an upstream commit, licensed and reviewed by hand; where two covered the same need, the best was kept.
+- **367 vetted skills in 52 profiles from 61 upstream sources:** web, Next.js, Firebase, Cloudflare, Convex, Clerk, Neon, GSAP, React Native/Expo, native iOS and Android, Flutter, TypeScript, Python, Go, Rust, Java, Kotlin, Quarkus, C++, .NET, PHP, Ruby, Perl, Vue, Angular, Postgres, MySQL, Redis, ClickHouse, Supabase, Prisma, API, DevOps, cloud, security, testing, AI apps, UI polish, interface craft, UX design and research, anti-AI-slop design, design memory, code intelligence. Each is pinned to an upstream commit, licensed and reviewed by hand; where two covered the same need, the best was kept.
 - **48 subagents, written in each tool's own format:** planner, architect, code and security reviewers, TDD guide, build-error resolver and silent-failure hunter for every project, plus a reviewer and build fixer for your language (TypeScript, React, Vue, Python, Django, FastAPI, Go, Rust, Java, Kotlin, Swift, C#, PHP, Ruby, Flutter, C++), from [Everything Claude Code](https://github.com/affaan-m/ECC). Generated for Claude Code, Codex, Cursor, OpenCode, Copilot, Gemini CLI and Antigravity, read-only where upstream is read-only.
 - **23 MCP servers, written in each tool's own format:** documentation, browser, GitHub, databases, errors, issues and observability. Free ones are marked, and anything that can write is off by default.
 - **Safety by default:** human approval for production, no secrets in config, read-only MCP modes, and CI that checks generated files stay in sync.
@@ -89,7 +89,7 @@ For each new request, agents follow `AGENTS.md` and the `select-skills` skill:
   | branding, brand identity, logo, rebrand | `hue` |
   | references, inspiration, "make it look like…" | `tastemaker` |
   | colour palette, fonts, style guide | `ui-ux-pro-max` + `color-expert` |
-  | generic, premium, polished, redesign | `design-taste-frontend` + `anti-slop` |
+  | generic, premium, polished, redesign, "looks AI-generated", unslop | `design-taste-frontend` + `anti-slop` (includes `unslop`) |
   | original look, art direction, editorial, publication | `bencium-innovative-ux-designer` |
   | animation, transitions, smooth, scroll effects | `ui-polish` + `interaction-design` |
   | mascot, illustration, "make it feel alive" | `rossark-motion-skill` |
@@ -133,7 +133,7 @@ python scripts/sync_toolkit.py                           # apply after editing t
 
 To force a profile on, list it under `skillProfiles` in `toolkit.config.json`; `"autoSkills": false` turns off detection from the project.
 
-**What's in the library:** 366 vetted skills in 52 profiles and 48 agents, plus 7 toolkit skills (`production-engineering`, `architecture-planning`, `release-verification`, `marketplace-skill-review`, `ai-application-engineering`, `select-skills`, `python-venv`). Every profile, what switches it on, cautions and the "keep the best" decisions: **[docs/SKILLS-CATALOG.md](docs/SKILLS-CATALOG.md)**. Commits and licenses: [skills-library/THIRD_PARTY_NOTICES.md](skills-library/THIRD_PARTY_NOTICES.md).
+**What's in the library:** 367 vetted skills in 52 profiles and 48 agents, plus 7 toolkit skills (`production-engineering`, `architecture-planning`, `release-verification`, `marketplace-skill-review`, `ai-application-engineering`, `select-skills`, `python-venv`). Every profile, what switches it on, cautions and the "keep the best" decisions: **[docs/SKILLS-CATALOG.md](docs/SKILLS-CATALOG.md)**. Commits and licenses: [skills-library/THIRD_PARTY_NOTICES.md](skills-library/THIRD_PARTY_NOTICES.md).
 
 **Alternative workflows** that replace `core`: GitHub Spec Kit, GSD Core, pstack, Addy Osmani's workflow (see the catalog). Update the library with `python scripts/vendor_skills.py --update`, review `git diff skills-library/`, then sync.
 
@@ -199,7 +199,7 @@ AGENTS.md                  rules for every tool
 CLAUDE.md, GEMINI.md       adapters that import AGENTS.md
 toolkit.config.json        tools, skill profiles, MCP servers
 .agents/skills/            toolkit skills (+ generated library skills)
-skills-library/            366 vendored skills, 48 agents, library.json, THIRD_PARTY_NOTICES.md
+skills-library/            367 vendored skills, 48 agents, library.json, THIRD_PARTY_NOTICES.md
 scripts/
   sync_toolkit.py          generate per-tool config; --check for CI
   vendor_skills.py         fetch/update library skills at pinned commits

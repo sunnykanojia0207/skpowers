@@ -4270,5 +4270,18 @@
     "scripts": [],
     "flags": [],
     "source": "lottiefiles"
+  },
+  {
+    "skill": "unslop",
+    "repo": "heydamir/unslop",
+    "path": "skills/unslop",
+    "commit": "a6f121eee5f29c2f74976b75456feae8b66afb3a",
+    "license": "repository LICENSE (copied)",
+    "scripts": [
+      "scripts/snapshot.mjs",
+      "scripts/story.mjs"
+    ],
+    "flags": [],
+    "source": "unslop"
   }
 ]

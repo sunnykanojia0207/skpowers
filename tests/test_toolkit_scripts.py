@@ -315,7 +315,7 @@ class SyncToolkitTests(unittest.TestCase):
         self.edit_config(lambda c: c.update(autoSkills=True, skillProfiles=["core"]))
         first = run(self.sync, "--pick", "build a landing page that doesn't look generic", cwd=self.root)
         self.assertEqual(first.returncode, 0, first.stderr)
-        for skill in ("design-taste-frontend", "landing-page-design", "audit-ai-design-slop"):
+        for skill in ("design-taste-frontend", "landing-page-design", "audit-ai-design-slop", "unslop"):
             self.assertTrue((self.root / ".agents/skills" / skill / "SKILL.md").is_file(), skill)
         second = run(self.sync, "--pick", "now design the admin dashboard", cwd=self.root)
         self.assertIn("disabled design-taste-frontend", second.stdout)
