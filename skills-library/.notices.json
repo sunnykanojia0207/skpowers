@@ -4241,5 +4241,34 @@
     "scripts": [],
     "flags": [],
     "source": "ecc"
+  },
+  {
+    "skill": "diagram-design",
+    "repo": "cathrynlavery/diagram-design",
+    "path": "skills/diagram-design",
+    "commit": "f24d98b05e2d7a5e68c2dedfe46e5b7173f50118",
+    "license": "repository LICENSE (copied)",
+    "scripts": [
+      "scripts/drawio_extract.py",
+      "scripts/excalidraw_extract.py",
+      "scripts/export_png.py",
+      "scripts/export_svg.py",
+      "scripts/mermaid_extract.py",
+      "scripts/self_check.py"
+    ],
+    "flags": [
+      "mentions agent settings or hooks files (references/onboarding.md)"
+    ],
+    "source": "diagram-design"
+  },
+  {
+    "skill": "motion-design",
+    "repo": "LottieFiles/motion-design-skill",
+    "path": "skills/motion-design",
+    "commit": "f9a8a041b85185ee4881b3471d3415e939aac772",
+    "license": "repository LICENSE (copied)",
+    "scripts": [],
+    "flags": [],
+    "source": "lottiefiles"
   }
 ]

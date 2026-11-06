@@ -105,6 +105,15 @@
       "command": "npx",
       "args": ["-y", "@magicuidesign/mcp@2.0.0"]
     },
+    "figma": {
+      "description": "Free: read Figma frames (layout, styles, components) as compact context for building UI, and download their images into the project. Framelink (GLips/Figma-Context-MCP, MIT). Needs FIGMA_API_KEY, a personal access token with read-only file scope; telemetry turned off.",
+      "enabled": false,
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "figma-developer-mcp@0.13.2", "--stdio", "--no-telemetry"],
+      "envPassthrough": ["FIGMA_API_KEY"],
+      "env": {"DO_NOT_TRACK": "1"}
+    },
     "21st": {
       "description": "21st.dev component catalog and UI generation. Needs a free API key in API_KEY_21ST; search is free, component retrieval and generation are paid; prompts are sent to 21st.dev.",
       "enabled": false,

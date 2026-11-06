@@ -327,7 +327,9 @@ class SyncToolkitTests(unittest.TestCase):
         self.assertIn("No UI intent", run(self.sync, "--pick", "add a character limit to the bio", cwd=self.root).stdout)
         for request, skill in (("make the onboarding mascot feel alive", "rossark-motion-skill"),
                                ("an isometric exploded view of the sync engine", "anatomy"),
-                               ("show the button component variants side by side", "component-canvas")):
+                               ("show the button component variants side by side", "component-canvas"),
+                               ("draw the architecture diagram for docs/ARCHITECTURE.md", "diagram-design"),
+                               ("add a lottie success animation", "motion-design")):
             result = run(self.sync, "--pick", request, cwd=self.root)
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertTrue((self.root / ".agents/skills" / skill / "SKILL.md").is_file(), skill)
